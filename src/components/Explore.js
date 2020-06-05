@@ -29,13 +29,13 @@ class Explore extends React.Component {
     return (
         <div>
             <div className="page-header">
-            <h1>Explore Routes
-            <button className="ui button" style={{float: "right" }}>+</button>
-            </h1>
-            
+                <h1>Explore Routes
+                <button className="ui button" style={{float: "right" }}>+</button>
+                </h1>
             </div>
+
             <div className="routes-container"> 
-            <RoutesContainer routes={this.state.routes} />
+                <RoutesContainer routes={this.state.routes} />
             </div>
         </div>
     )

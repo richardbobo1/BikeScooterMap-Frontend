@@ -92,5 +92,8 @@
   padding-top: 250px;
   padding-bottom: 100px;
   background-image: url("https://www.fitness-events.com/wp-content/uploads/2019/09/train.jpg");
-
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: darken;
 }

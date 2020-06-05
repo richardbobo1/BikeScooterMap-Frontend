@@ -14,6 +14,7 @@ class NavBar extends React.Component {
       <Header.Content>DC Ridr</Header.Content>
     </Header>
          <div className="ui secondary pointing menu">
+
             <Link to="/" exact className="item" >Home</Link> 
             <Link to="/explore" exact className="item">Explore Routes</Link> 
             <Link to="/favorites" exact className="item">MyFavRoutes</Link> 

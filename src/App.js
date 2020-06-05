@@ -22,6 +22,7 @@ import Map from './components/Map';
 
 
 
+
 class App extends Component {
 
 
@@ -37,6 +38,7 @@ class App extends Component {
               <Route exact path="/"><Home /></Route>
               <Route exact path="/explore"><Explore /></Route>     
               <Route exact path="/favorites"><Favorites /></Route>   
+              <Route exact path="/map"><Map /></Route>   
               <Route exact path="/login"><Login /></Route>   
 
 

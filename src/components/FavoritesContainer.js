@@ -1,15 +1,15 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react'
-import Route from './Route'
+import FavRoute from './FavRoute'
  
 class FavoritesContainer extends React.Component {
   render() {
     return (
   
 
-    <Card.Group className="ui link cards" itemsPerRow ={4} > 
+    <Card.Group className="ui stackable link cards" itemsPerRow ={4} > 
     {
-        this.props.routes.map(route => <Route route={route} key={route.id} />)
+        this.props.favorites.map(favorite => <FavRoute route={favorite.route} key={favorite.route.id} />)
     }
 
     </Card.Group>
