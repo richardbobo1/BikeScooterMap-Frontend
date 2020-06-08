@@ -1,9 +1,12 @@
 import React from 'react'
 import 'semantic-ui-css/semantic.min.css'
 import {Link} from 'react-router-dom'
-
+import { Icon } from 'semantic-ui-react'
 
 export default class Route extends React.Component{
+
+
+
     render(){
         return (
             
@@ -33,15 +36,12 @@ export default class Route extends React.Component{
                  <div class="ui three buttons">
                     <div class="ui basic green button">Favorite</div>
                     <div class="ui basic red button">Decline</div>
-                    <div class="ui basic red button">Decline</div>
                 </div>
             </div>
 
                 <div class="ui bottom attached button">
-                    <Link to={`/route/${this.props.route.id}`} > 
-                        {/* <button property-id={this.props.property.id} > */}
-                        <i className="plane icon"></i> VIEW ROUTE
-                        {/* </button> */}
+                    <Link to={`/bikeroutes/${this.props.route.id}`} > 
+                        <Icon name='bicycle' />VIEW ROUTE
                     </Link>
                 </div>
            

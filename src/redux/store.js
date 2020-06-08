@@ -8,16 +8,22 @@ const initialState = {
 }
 
 const reducer = (currentState=initialState, action) => {
-  let newState
+  let newState;
+  
   switch(action.type){
 
-    case "INCREMENT":
+    case "ADD_FAVORITE":
       newState = {favorites: currentState.favorites.push() + action.payload}
       return newState
 
-    case "DECREMENT":
+    case "REMOVE_FAVORITE":
       newState = {count: currentState.count - action.payload}
       return newState
+
+    case "ADD_ROUTE":
+    newState = {count: currentState.count - action.payload}
+    return newState
+
 
     default:
       return currentState

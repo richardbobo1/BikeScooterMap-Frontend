@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 import RoutesContainer from './RoutesContainer'
+import NewRouteForm from './NewRouteForm'
+import { Grid, Search, Button, Modal } from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css'
+
+
  
 class Explore extends React.Component {
 
     constructor(){
         super();
         this.state = {
-            routes: []
+            routes: [],
+            show: false
           }
     }
+
+
+    //modal will be the new route form 
+    showModal = () => {
+        this.setState({ show: true });
+    };
+
+    hideModal = () => {
+        this.setState({ show: false });
+    };
 
     
       componentDidMount(){
@@ -28,11 +45,24 @@ class Explore extends React.Component {
   render() {
     return (
         <div>
-            <div className="page-header">
-                <h1>Explore Routes
-                <button className="ui button" style={{float: "right" }}>+</button>
-                </h1>
-            </div>
+        <div className="page-header">
+        <Grid>
+            <Grid.Column width={6}>
+                <h1>Explore Routes</h1>
+            </Grid.Column>
+            <Grid.Column width={4}>
+                    <Search    />
+            </Grid.Column>
+            <Grid.Column width={6}>
+                <Modal show={this.state.show} handleClose={this.hideModal}>
+                    <NewRouteForm />
+                </Modal>
+               <NewRouteForm onClick={this.showModal} style={{float: "right" }} />
+                
+            </Grid.Column>
+        </Grid> 
+        </div>
+
 
             <div className="routes-container"> 
                 <RoutesContainer routes={this.state.routes} />

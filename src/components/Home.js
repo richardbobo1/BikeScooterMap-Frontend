@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from "react-slick";
+import { Link } from 'react-router-dom';
 
 import "semantic-ui-css/semantic.min.css";
 
@@ -59,7 +60,8 @@ class Home extends React.Component {
                   elit. Morbi leo risus, porta ac consectetur ac, vestibulum at
                   eros. Praesent commodo cursus magna.
                 </p>
-                <Button basic>View details &raquo;</Button>
+                <Link to="/explore" exact className="item"><Button primary >View details &raquo;</Button></Link> 
+               
               </Grid.Column>
               <Grid.Column>
                 {/* <Image
@@ -78,7 +80,8 @@ class Home extends React.Component {
                   elit. Morbi leo risus, porta ac consectetur ac, vestibulum at
                   eros. Praesent commodo cursus magna.
                 </p>
-                <Button basic>Find a bike &raquo;</Button>
+                
+                <Link to="/map" exact className="item"><Button primary > Find A Bike &raquo;</Button></Link>
               </Grid.Column>
               <Grid.Column>
                 {/* <Image
@@ -98,7 +101,8 @@ class Home extends React.Component {
                   elit. Morbi leo risus, porta ac consectetur ac, vestibulum at
                   eros. Praesent commodo cursus magna.
                 </p>
-                <Button basic>View my routes &raquo;</Button>
+
+                <Link to="/favorites" exact className="item"><Button primary >View my routes &raquo;</Button></Link> 
               </Grid.Column>
             </Grid>
           </Segment>

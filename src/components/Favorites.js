@@ -25,7 +25,7 @@ class Favorites extends React.Component {
 
   render() {
     return (
-        <div>
+        <div className="page">
             <div className="page-header"> 
                 <h1>My Favorite Routes</h1>
             </div>
