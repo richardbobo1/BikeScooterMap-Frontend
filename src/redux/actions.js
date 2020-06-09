@@ -1,16 +1,10 @@
-//constants
-export const ADD_ARTICLE = "ADD_ARTICLE";
+// function add(addText){
+//   return { type: "ADD_ONE" }
+// }
 
-//reducer
-export default function reducer(state = {}, action = {}) {
-    switch (action.type) {
-      // do reducer stuff
-      default: return state;
-    }
-  }
+// function favorite(routeId){
+//   return { type: "ADD_FAVORITE", payload: routeId }
+// }
 
 
-//action creators
-export function addFavorite(payload) {
-  return { type: ADD_FAVORITE, payload };
-}
+// export {addOne, addFavorite}

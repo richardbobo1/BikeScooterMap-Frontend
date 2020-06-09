@@ -7,13 +7,18 @@ class Favorites extends React.Component {
         super();
         this.state = {
             favorites: [],
-            userId: 7 
+            userId: 1 
           }
     }
 
     
       componentDidMount(){
-        fetch(`http://localhost:3000/favorite_routes/${this.state.userId}`)
+        fetch(`http://localhost:3000/favorite_routes/${this.state.userId}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${localStorage.token}`
+          }
+        })
         .then(resp => resp.json())
         .then(data => { 
             

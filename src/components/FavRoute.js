@@ -6,13 +6,37 @@ import { Icon, Card, Image, Button } from 'semantic-ui-react'
 
 export default class FavRoute extends React.Component{
 
+  constructor(){
+    super();
+    this.state = {
+      favorite: true,
+      completed: ""
+    }
+  }
+
+    componentDidMount(){
+      
+
+      console.log(this.props.favorite) 
+      this.setState({
+        completed: this.props.favorite.completed
+      })
+   
+    }
+
 
    onHeartClick = () => {
         alert("clicked heart")
+        this.setState ({
+          favorite: !this.state.favorite
+        })
     }
 
-    onCheckMarkClick = () => {
+    onCheckMarkClick = (event) => {
         alert("clicked Check Mark")
+        this.setState ({
+          completed: !this.state.completed
+        })
     }
 
     render(){
@@ -22,8 +46,6 @@ export default class FavRoute extends React.Component{
           
              <img src={this.props.route.google_map} className="card-image" wrapped ui={false} />
 
-
-            {/* <Image src={this.props.route.google_map}  wrapped ui={false} /> */}
         
             <Card.Content>
 
@@ -34,16 +56,15 @@ export default class FavRoute extends React.Component{
                 <span className='meta'>{this.props.route.difficulty}, {this.props.route.surface}</span>
               </Card.Meta>
               <Card.Description>
-              {this.props.route.description}
+              {this.props.route.short_description}
               </Card.Description>
             </Card.Content>
             <Card.Content extra>
             
-              <a><Icon name='heart' onClick={this.onHeartClick} className="heart" /></a>
+              <a><Icon name={this.state.favorite ? 'heart': 'heart outline'} onClick={this.onHeartClick} className="heart" /></a>
  
-              <a><Icon name='checkmark' onClick={this.onCheckMarkClick} alt="Mark Complete" className="checkmark" /></a>
+              <a><Icon name={this.state.completed ? 'check circle': 'check circle outline'} onClick={this.onCheckMarkClick} alt="Mark Complete" className="checkmark" /></a>
  
-              
             </Card.Content>
 
           </Card>

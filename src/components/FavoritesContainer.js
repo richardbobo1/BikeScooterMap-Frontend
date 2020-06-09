@@ -9,7 +9,7 @@ class FavoritesContainer extends React.Component {
 
     <Card.Group className="ui stackable link cards" itemsPerRow ={4} > 
     {
-        this.props.favorites.map(favorite => <FavRoute route={favorite.route} key={favorite.route.id} />)
+        this.props.favorites.map(favorite => <FavRoute route={favorite.route} favorite={favorite} key={favorite.route.id} />)
     }
 
     </Card.Group>

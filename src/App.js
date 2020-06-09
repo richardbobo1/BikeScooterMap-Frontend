@@ -5,7 +5,8 @@ import {
   Routes,
   Route, 
   Switch, 
-  NavLink 
+  NavLink, 
+  Redirect
 } from 'react-router-dom';
 
 
@@ -27,18 +28,85 @@ import ScrollToTop from './components/ScrollToTop'
 
 class App extends Component {
 
+  constructor(){
+    super();
+    this.state = {
+        bikeRoutes: [],
+        favoriteRoutes: [],
+        currentUser: null,
+        loggedIn: false ,
+        userId: 1
 
+      }
+}
 
     componentDidMount(){
-      fetch("http://localhost:3000/routes")
+
+      // if(localStorage.getItem("token") && localStorage.getItem("token") !== "null"){
+      //   fetch("http://localhost:3000/decode_token", {
+      //     headers: {
+      //       "Authenticate": localStorage.token
+      //     }
+      //   })
+      //   .then(res => res.json())
+      //   .then(userData => {
+      //     this.updateCurrentUser(userData)
+      //     this.changeLog()
+      //     //if error, don't update the state
+      //   })
+      // }else{
+      //   console.log("No token found, user is not authenticated")
+      // }
+
+
+      fetch("http://localhost:3000/routes", {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`
+        }
+      })
       .then(resp => resp.json())
       .then(data => { 
   
         localStorage.bikeRoutes = JSON.stringify(data)
+
+      
         this.setState({ bikeRoutes: data})
       })
+
+
+      ///get favorite routes once loggedIn
+
+        fetch(`http://localhost:3000/favorite_routes/${this.state.userId}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${localStorage.token}`
+          }
+        })
+        .then(resp => resp.json())
+        .then(data => { 
+          
+          let favArray = []
+          data.map( fav => {
+            favArray.push(fav)
+          })
+
+
+          this.setState({ favoriteRoutes: favArray })
+          console.log("favorite routes:", this.state.favoriteRoutes) 
+        })
+
     }
   
+
+    updateCurrentUser = (user) => {
+      console.log(user)
+      this.setState({currentUser: user})
+    }
+
+    changeLog = () => {
+      this.setState({loggedIn: !this.state.loggedIn})
+     }
 
 
 
@@ -47,16 +115,16 @@ class App extends Component {
 
         <Router>
           <div className="app">
-          <NavBar />
+          <NavBar updateCurrentUser={this.updateCurrentUser} changeLog={this.changeLog}  />
           <div className="inner-app">
           <ScrollToTop />
             <Switch>
               
               <Route exact path="/"><Home /></Route>
-              <Route exact path="/explore"><Explore /></Route>     
+              <Route exact path="/explore"><Explore favorites={this.state.favoriteRoutes} /></Route>     
               <Route exact path="/favorites"><Favorites /></Route>   
               <Route exact path="/map"><MapContainer /></Route>   
-              <Route exact path="/login"><Login /></Route>   
+              <Route exact path="/login" ><Login currentUser={this.state.currentUser} updateCurrentUser={this.updateCurrentUser} changeLog={this.changeLog} loggedIn={this.state.loggedIn} /></Route>   
               <Route exact path="/bikeroutes/:id" render= {(routerProps) => { 
                   let id = routerProps.match.params.id
            

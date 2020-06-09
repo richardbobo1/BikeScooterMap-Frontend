@@ -29,7 +29,12 @@ class Explore extends React.Component {
 
     
       componentDidMount(){
-        fetch("http://localhost:3000/routes")
+        fetch("http://localhost:3000/routes", {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${localStorage.token}`
+            }
+          })
         .then(resp => resp.json())
         .then(data => { 
     
@@ -65,7 +70,7 @@ class Explore extends React.Component {
 
 
             <div className="routes-container"> 
-                <RoutesContainer routes={this.state.routes} />
+                <RoutesContainer favorites={this.props.favoriteRoutes} routes={this.state.routes} />
             </div>
         </div>
     )
