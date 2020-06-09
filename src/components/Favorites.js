@@ -7,7 +7,7 @@ class Favorites extends React.Component {
         super();
         this.state = {
             favorites: [],
-            userId: 1 
+            userId: 7 
           }
     }
 
@@ -27,7 +27,7 @@ class Favorites extends React.Component {
     return (
         <div className="page">
             <div className="page-header"> 
-                <h1>My Favorite Routes</h1>
+                <h1>My Favorite Biking Routes</h1>
             </div>
 
             <div className="routes-container"> 

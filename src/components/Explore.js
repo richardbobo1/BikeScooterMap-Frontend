@@ -44,24 +44,24 @@ class Explore extends React.Component {
 
   render() {
     return (
-        <div>
-        <div className="page-header">
-        <Grid>
-            <Grid.Column width={6}>
-                <h1>Explore Routes</h1>
-            </Grid.Column>
-            <Grid.Column width={4}>
-                    <Search    />
-            </Grid.Column>
-            <Grid.Column width={6}>
-                <Modal show={this.state.show} handleClose={this.hideModal}>
-                    <NewRouteForm />
-                </Modal>
-               <NewRouteForm onClick={this.showModal} style={{float: "right" }} />
-                
-            </Grid.Column>
-        </Grid> 
-        </div>
+        <div className="page">
+            <div className="page-header">
+                <Grid>
+                    <Grid.Column width={6}>
+                        <h1>Explore Routes</h1>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                            <Search    />
+                    </Grid.Column>
+                    <Grid.Column width={6}>
+                        <Modal show={this.state.show} handleClose={this.hideModal}>
+                            <NewRouteForm />
+                        </Modal>
+                    <NewRouteForm onClick={this.showModal} style={{float: "right" }} />
+                        
+                    </Grid.Column>
+                </Grid> 
+            </div>
 
 
             <div className="routes-container"> 

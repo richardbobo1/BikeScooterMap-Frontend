@@ -33,12 +33,13 @@ class Home extends React.Component {
                 <Header inverted as="h1">
                 Ready to ride. 
                 </Header>
-                <p>
+                <p className="welcome-paragraph">
                 Cover is a one-page template for building simple and beautiful
                 home pages. Download, edit the text, and add your own fullscreen
                 background photo to make it your own.
                 </p>
-                <Button size="huge">Let's go.</Button>
+               
+                <Link to="/explore" exact className="item"><Button color="teal" >Let's go.</Button></Link> 
             </Container>
             </div>
        
@@ -57,10 +58,9 @@ class Home extends React.Component {
                 <p>
                   Donec sed odio dui. Etiam porta sem malesuada magna mollis
                   euismod. Nullam id dolor id nibh ultricies vehicula ut id
-                  elit. Morbi leo risus, porta ac consectetur ac, vestibulum at
-                  eros. Praesent commodo cursus magna.
+                  elit. 
                 </p>
-                <Link to="/explore" exact className="item"><Button primary >View details &raquo;</Button></Link> 
+                <Link to="/explore" exact className="item"><Button primary >Explore &raquo;</Button></Link> 
                
               </Grid.Column>
               <Grid.Column>
@@ -76,9 +76,7 @@ class Home extends React.Component {
                   If you want to use Capital Bike Share, JUMP, or Hellbiz, use our map to find a bikeshare bike nearby in Washington, DC. 
 
                   ......Donec sed odio dui. Etiam porta sem malesuada magna mollis
-                  euismod. Nullam id dolor id nibh ultricies vehicula ut id
-                  elit. Morbi leo risus, porta ac consectetur ac, vestibulum at
-                  eros. Praesent commodo cursus magna.
+                  euismod. Nullam id dolor id.
                 </p>
                 
                 <Link to="/map" exact className="item"><Button primary > Find A Bike &raquo;</Button></Link>
@@ -97,9 +95,7 @@ class Home extends React.Component {
                     them as favorites or compled......
 
                   Donec sed odio dui. Etiam porta sem malesuada magna mollis
-                  euismod. Nullam id dolor id nibh ultricies vehicula ut id
-                  elit. Morbi leo risus, porta ac consectetur ac, vestibulum at
-                  eros. Praesent commodo cursus magna.
+                  euismod. 
                 </p>
 
                 <Link to="/favorites" exact className="item"><Button primary >View my routes &raquo;</Button></Link> 

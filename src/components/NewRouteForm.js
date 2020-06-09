@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Header, Image, Modal, Form, Dropdown } from 'semantic-ui-react'
+import { Icon, Button, Header, Image, Modal, Form, Dropdown } from 'semantic-ui-react'
 
 const options = [
     { key: 'e', text: 'Easy', value: 'easy' },
@@ -64,10 +64,16 @@ class NewRouteForm extends React.Component {
           <input type="text" placeholder="Scenerary Image" />
     </Form.Field>
 
-
+    <Modal.Actions >
+      <Button basic color='black' >
+        <Icon name='remove' /> Cancel
+      </Button>
+      <Button color='green' >
+        <Icon name='checkmark' /> Save
+      </Button>
+    </Modal.Actions>
  
-        <br />
-      <div className="ui submit button">Submit</div>
+
       </Form>
 
           </Modal.Description>
