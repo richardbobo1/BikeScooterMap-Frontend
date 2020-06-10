@@ -13,22 +13,15 @@ class Favorites extends React.Component {
 
     
       componentDidMount(){
-        fetch(`http://localhost:3000/favorite_routes/${this.state.userId}`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${localStorage.token}`
-          }
-        })
-        .then(resp => resp.json())
-        .then(data => { 
-            
-            this.setState({ favorites: data})
-        })
+
       }
     
 
 
   render() {
+ 
+
+
     return (
         <div className="page">
             <div className="page-header"> 
@@ -36,7 +29,15 @@ class Favorites extends React.Component {
             </div>
 
             <div className="routes-container"> 
-                <FavoritesContainer favorites={this.state.favorites} />
+                <FavoritesContainer routes={this.props.favorites} favorites={this.props.favorites} completedRoutes={this.props.completedRoutes}  removeFavorite={this.props.removeFavorite}  addFavorite={this.props.addFavorite} />
+            </div>
+
+            <div className="page-header"> 
+                <h1>My Completed Routes</h1>
+            </div>
+
+            <div className="routes-container"> 
+                <FavoritesContainer routes={this.props.completedRoutes} favorites={this.props.favorites } completedRoutes={this.props.completedRoutes}  removeFavorite={this.props.removeFavorite}  addFavorite={this.props.addFavorite} />
             </div>
 
         </div>

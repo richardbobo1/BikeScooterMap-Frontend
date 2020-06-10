@@ -83,7 +83,7 @@
 }
 
 img.card-image {
-  height: 200px;
+  height: 150px;
   zoom: 1;
   position: center;
   vertical-align: middle;
@@ -163,6 +163,20 @@ img.card-image {
 .ui.card {
   background-size: contain;
 
+}
+.difficulty-div {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  text-align: center;
+  background-color: rgb(45, 192, 143);
+}
+
+span.card-miles {
+
+}
+
+span.card-surface {
+  float: right;
 }
 
 p.welcome-paragraph {

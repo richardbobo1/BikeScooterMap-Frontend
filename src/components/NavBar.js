@@ -63,6 +63,7 @@ class NavBar extends React.Component {
             <Link to="/map" exact className="item">Map</Link> 
         
             <div className="right menu">
+            <Link to="/profile" exact className="item">Profile</Link> 
               <Link to="/login" exact className="ui item" onClick={(event) =>  {this.logged(event)}} >{this.props.loggedIn === false ? "Log In" : "Log Out"}</Link> 
             </div>
         </div>

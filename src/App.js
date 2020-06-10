@@ -34,6 +34,7 @@ class App extends Component {
         bikeRoutes: [],
         displayedRoutes: [],
         favoriteRoutes: [],
+        completeRoutes: [],
         currentUser: null,
         loggedIn: false ,
         userId: 1
@@ -67,34 +68,79 @@ class App extends Component {
       .then(data => { 
   
         localStorage.bikeRoutes = JSON.stringify(data)
-
-      
         this.setState({ bikeRoutes: data})
       })
+
+
+      fetch(`http://localhost:3000/users/${this.state.userId}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`
+        }
+      })
+      .then(resp => resp.json())
+      .then(data => { 
+          this.setState({ 
+            currentUser: data 
+          })
+        console.log("current User:", this.state.currentUser) 
+
+      })
+      
+
+
+      fetch(`http://localhost:3000/favorite_routes/${this.state.userId}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`
+        }
+      })
+      .then(resp => resp.json())
+      .then(data => { 
+          this.setState({ 
+            favoriteRoutes: data
+          })
+        console.log("favorite routes:", this.state.favoriteRoutes) 
+      })
+      
+
+
+
+      fetch(`http://localhost:3000/complete_routes/${this.state.userId}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`
+        }
+      })
+      .then(resp => resp.json())
+      .then(data => { 
+          this.setState({ 
+            completeRoutes: data
+          })
+        console.log("completed routes:", this.state.completeRoutes) 
+      })
+      }
+
+
 
 
 
       ///get favorite routes once loggedIn
 
-        fetch(`http://localhost:3000/favorite_routes/${this.state.userId}`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${localStorage.token}`
-          }
-        })
-        .then(resp => resp.json())
-        .then(data => { 
-          
-          let favArray = []
-          data.map( fav => {
-            favArray.push(fav)
-          })
+    //     fetch(`http://localhost:3000/favorite_routes/${this.state.userId}`, {
+    //       method: 'GET',
+    //       headers: {
+    //         Authorization: `Bearer ${localStorage.token}`
+    //       }
+    //     })
+    //     .then(resp => resp.json())
+    //     .then(data => { 
 
-          this.setState({ favoriteRoutes: favArray })
-          console.log("favorite routes:", this.state.favoriteRoutes) 
-        })
+    //       this.setState({ favoriteRoutes: data })
+    //       console.log("favorite routes:", this.state.favoriteRoutes) 
+    //     })
 
-    }
+    // }
   
 
     updateCurrentUser = (user) => {
@@ -105,6 +151,36 @@ class App extends Component {
     changeLog = () => {
       this.setState({loggedIn: !this.state.loggedIn})
      }
+
+
+
+
+     removeFavorite = (faveId) => {
+      let newArray = this.state.favoriteRoutes.filter(faveRoute => faveRoute.id !== faveId) 
+            this.setState({
+                 favoriteRoutes: newArray
+           })
+     }
+
+     addFavorite =(favoriteObj) => {
+
+      let newArray = [...this.state.favoriteRoutes, favoriteObj] 
+      this.setState({
+           favoriteRoutes: newArray
+     })
+     }
+
+
+     markCompleted = () => {
+
+     }
+
+     markIncomplete = () => {
+
+     }
+
+
+
 
 
 
@@ -120,7 +196,7 @@ class App extends Component {
               
               <Route exact path="/"><Home /></Route>
               <Route exact path="/explore"><Explore favorites={this.state.favoriteRoutes} userId={this.state.userId} /></Route>     
-              <Route exact path="/favorites"><Favorites /></Route>   
+              <Route exact path="/favorites"><Favorites favorites={this.state.favoriteRoutes } completedRoutes={this.state.completeRoutes} removeFavorite={this.removeFavorite}  addFavorite={this.addFavorite} /></Route>   
               <Route exact path="/map"><MapContainer /></Route>   
               <Route exact path="/login" ><Login currentUser={this.state.currentUser} updateCurrentUser={this.updateCurrentUser} changeLog={this.changeLog} loggedIn={this.state.loggedIn} /></Route>   
               <Route exact path="/bikeroutes/:id" render= {(routerProps) => { 

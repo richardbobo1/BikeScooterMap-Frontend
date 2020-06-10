@@ -107,9 +107,9 @@ class Explore extends React.Component {
                         <h1>Explore Routes</h1>
                     </Grid.Column>
                     <Grid.Column width={4}>
-                            <div class="ui icon input">
+                            <div className="ui icon input">
                             <input type="text" placeholder="Search..." name="searchBar" onChange={(event) => this.handleChange(event) } />
-                            <i class="search icon"></i>
+                            <i className="search icon"></i>
                             </div>
 
                     </Grid.Column>
@@ -124,6 +124,8 @@ class Explore extends React.Component {
             <Grid>
                     <Grid.Column width={3}>
                         <ExploreFilterForm handleRouteSearchFilter={this.handleRouteSearchFilter} handleResetFilters={this.handleResetFilters} /> 
+
+    
                     </Grid.Column>
                     <Grid.Column width={12}>
                         <div className="routes-container"> 

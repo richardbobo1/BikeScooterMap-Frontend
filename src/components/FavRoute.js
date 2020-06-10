@@ -9,28 +9,100 @@ export default class FavRoute extends React.Component{
   constructor(){
     super();
     this.state = {
-      favorite: true,
-      completed: ""
+      favorite: false,
+      completed: false
     }
   }
 
     componentDidMount(){
       
-
-      console.log(this.props.favorite) 
+      // check if favorite/completed route is in the faves or completed list 
+      // update state to true of false 
+      
       this.setState({
-        completed: this.props.favorite.completed
+        favorites: this.props.favorites,
+        completeRoutes: this.props.completeRoutes,
+        userId: this.props.favorite.user_id 
       })
+      
+      // check if route is in the favorites array, if so, set favorite to true so it can render the heart on the card
+      if (this.props.favorites.filter(x => x.route.id === this.props.route.id).length > 0){
+        this.setState({
+          favorite: true 
+        })
+      }
+
+
+      // check if route is in the comepleted array, if so, set favorite to true so it can render a checkmark on the card
+
+      if (this.props.completedRoutes.filter(x => x.route.id === this.props.route.id).length > 0){
+        this.setState({
+          completed: true 
+        })
+      }
+
    
     }
 
 
-   onHeartClick = () => {
-        alert("clicked heart")
-        this.setState ({
-          favorite: !this.state.favorite
+   onHeartClick = (event) => {
+        event.preventDefault()
+
+        console.log("clicked heart", this.props.favorite.id)
+
+        //if heart is currently true 
+        if(this.state.favorite){
+          //then i want to Fetch delete from database
+          fetch(`http://localhost:3000/favorite_routes/${this.props.favorite.id}`, {
+            method: "DELETE",
+            headers: {'Content-Type': 'application/json'},
         })
+        .then(res => res.json() )
+        .then( res => {
+            let newArray = this.state.favorites.filter(favoriteObj => favoriteObj.id !== this.props.favorite.id) 
+            this.setState({
+                 favorites: newArray,
+                 favorite: false
+           })
+
+           //use callback function to removie from favorites on App state 
+           this.props.removeFavorite(this.props.favorite.id)
+        })
+      } else {
+
+          let newFavoriteObj = {
+            user_id: this.state.userId,
+            route_id: event.target.id,
+            favorite: true 
+          }
+
+          fetch('http://localhost:3000/favorite_routes', {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(newFavoriteObj)
+            }).then(res => res.json())
+            .then( data => {
+                console.log("created new favorite")  
+                let newArray = this.state.favorites.push(newFavoriteObj)
+
+                 //and change state soheart changes
+                this.setState({
+                     favorites: newArray,
+                     favorite: true 
+               })
+
+               this.props.addFavorite(data)
+        
+            }
+            )
+
+      }
+    
+        //and then use a callback function to or add to favorites aray 
+
     }
+
+
 
     onCheckMarkClick = (event) => {
         alert("clicked Check Mark")
@@ -61,10 +133,10 @@ export default class FavRoute extends React.Component{
             </Card.Content>
             <Card.Content extra>
             
-              <a><Icon name={this.state.favorite ? 'heart': 'heart outline'} onClick={this.onHeartClick} className="heart" /></a>
+              <a><Icon name={this.state.favorite ? 'red heart': 'red heart outline'} red onClick={(event) => this.onHeartClick(event)} id={this.props.route.id} className="heart" /></a>
  
-              <a><Icon name={this.state.completed ? 'check circle': 'check circle outline'} onClick={this.onCheckMarkClick} alt="Mark Complete" className="checkmark" /></a>
- 
+              <a><Icon name={this.state.completed ? 'blue check circle': 'check circle outline'}  onClick={(event) => this.onCheckMarkClick(event)} alt="Mark Complete" className="checkmark" /></a>
+
             </Card.Content>
 
           </Card>

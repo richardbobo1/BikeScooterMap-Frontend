@@ -94,7 +94,9 @@ export default class Route extends React.Component{
 
         
             <Card fluid> 
-          
+             <div className="difficulty-div">
+                <h4>{this.props.route.difficulty}</h4>
+              </div>
              <img src={this.props.route.google_map} className="card-image" wrapped ui={false} />
 
         
@@ -105,19 +107,19 @@ export default class Route extends React.Component{
             
               <Card.Meta>
                 <span className='meta'>
-                    {this.props.route.difficulty}, 
-                    {this.props.route.surface}
+                    <span className="card-miles">{this.props.route.length} miles</span> 
+                    <span className="card-surface">{this.props.route.surface}</span> 
                 </span>
               </Card.Meta>
               <Card.Description>
-              {this.props.route.short_description}
+              {/* {this.props.route.short_description} */}
               </Card.Description>
             </Card.Content>
             <Card.Content extra>
             
               <a><Icon name={this.state.favorite ? 'red heart': 'red heart outline'} red onClick={(event) => this.onHeartClick(event)} id={this.props.route.id} className="heart" /></a>
  
-              <a><Icon name={this.state.completed ? 'green check circle': 'check circle outline'}  onClick={(event) => this.onCheckMarkClick(event)} alt="Mark Complete" className="checkmark" /></a>
+              <a><Icon name={this.state.completed ? 'blue check circle': 'check circle outline'}  onClick={(event) => this.onCheckMarkClick(event)} alt="Mark Complete" className="checkmark" /></a>
  
             </Card.Content>
 
