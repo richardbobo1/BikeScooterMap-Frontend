@@ -4,6 +4,7 @@ import RoutesContainer from './RoutesContainer'
 import NewRouteForm from './NewRouteForm'
 import { Grid, Search, Button, Modal } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
+import ExploreFilterForm from './ExploreFilterForm'
 
 
  
@@ -13,7 +14,9 @@ class Explore extends React.Component {
         super();
         this.state = {
             routes: [],
-            show: false
+            displayedRoutes: [],
+            show: false,
+            searchBar: ''
           }
     }
 
@@ -29,6 +32,7 @@ class Explore extends React.Component {
 
     
       componentDidMount(){
+  
         fetch("http://localhost:3000/routes", {
             method: 'GET',
             headers: {
@@ -40,14 +44,61 @@ class Explore extends React.Component {
     
             console.log("this is running") 
             console.log(data)
-            this.setState({ routes: data})
+            this.setState({ 
+                routes: data,
+                displayedRoutes: data 
+            })
         })
       }
     
+      appendNewRoute = (bikeRouteObj) => {
+          this.setState({
+              routes: [bikeRouteObj, ...this.state.routes ]
+          })
+      }
+
+      handleRouteSearchFilter = (difficulty, surface ) =>{
+          let newArray = this.state.routes 
+          const filteredArray = newArray.filter( bikeRoute => {
+            return bikeRoute.difficulty === difficulty && bikeRoute.surface === surface 
+          });
+          this.setState({
+              displayedRoutes: filteredArray
+          })
+      }
+
+      handleResetFilters = (event) => {
+          this.setState({
+              displayedRoutes: this.state.routes 
+          })
+      }
+
+
+      handleChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+        this.handleKeyWordSearch(e.target.value) 
+
+        console.log(e.target.value)
+
+      };
+
+      handleKeyWordSearch = (e) => {
+        let newArray = this.state.routes 
+        const filteredArray = newArray.filter( bikeRoute => {
+           
+          return bikeRoute.name.toLowerCase().includes(e.toLowerCase())
+        });
+        this.setState({
+            displayedRoutes: filteredArray
+        })
+      }
+
 
 
 
   render() {
+   
+
     return (
         <div className="page">
             <div className="page-header">
@@ -56,22 +107,31 @@ class Explore extends React.Component {
                         <h1>Explore Routes</h1>
                     </Grid.Column>
                     <Grid.Column width={4}>
-                            <Search    />
+                            <div class="ui icon input">
+                            <input type="text" placeholder="Search..." name="searchBar" onChange={(event) => this.handleChange(event) } />
+                            <i class="search icon"></i>
+                            </div>
+
                     </Grid.Column>
                     <Grid.Column width={6}>
-                        <Modal show={this.state.show} handleClose={this.hideModal}>
-                            <NewRouteForm />
-                        </Modal>
-                    <NewRouteForm onClick={this.showModal} style={{float: "right" }} />
+ 
+                    <NewRouteForm onShowModal={this.showModal} onClose={this.hideModal} style={{float: "right" }} appendNewRoute={this.appendNewRoute} />
                         
                     </Grid.Column>
                 </Grid> 
             </div>
 
+            <Grid>
+                    <Grid.Column width={3}>
+                        <ExploreFilterForm handleRouteSearchFilter={this.handleRouteSearchFilter} handleResetFilters={this.handleResetFilters} /> 
+                    </Grid.Column>
+                    <Grid.Column width={12}>
+                        <div className="routes-container"> 
+                            <RoutesContainer favorites={this.props.favorites} routes={this.state.displayedRoutes} userId={this.props.userId} />
+                        </div>
+                    </Grid.Column>
+            </Grid> 
 
-            <div className="routes-container"> 
-                <RoutesContainer favorites={this.props.favoriteRoutes} routes={this.state.routes} />
-            </div>
         </div>
     )
   }

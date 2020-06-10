@@ -10,41 +10,85 @@ export default class Route extends React.Component{
   constructor(){
     super();
     this.state = {
+      favoriteRoutes: [], 
       favorite: false,
-      completed: ""
+      completed: false 
     }
   }
 
 
     componentDidMount(){
-    
-      //check if route is in favorites array 
-      console.log("Fave", this.props.favorites) 
-   
 
-      // this.props.favorites.map( favorite => {
-      //   if (favorite.id === this.props.route.id ){
-      //     this.setState({
-      //       favorite: true,
-      //       completed: this.props.route.completed 
-      //     })
-      //   }
-      // })
+      //check if route is in favorites array 
+      this.setState({
+        favoriteRoutes: this.props.favorites 
+      })
+      this.checkForFavorites() 
+
         
     }
 
-
-    onHeartClick = () => {
-        alert("clicked heart")
+    checkForFavorites = () => {
+      this.props.favorites.map( favorite => {
+        if (favorite.route_id === this.props.route.id ){
+               this.setState({
+            favorite: true,
+            completed: favorite.completed 
+          })
+        } 
+      })
     }
 
+    onHeartClick = (event) => {
+
+      if(this.state.favorite){
+        this.deleteFavorite(event)
+      } else { this.createFavorite(event) }
+
+        this.setState ({
+          favorite: !this.state.favorite
+        })
+     
+
+    }
+
+    createFavorite = (event) => {
+      console.log("Creating favorite", event.target.id  )
+
+      //set up new favorite object
+      let faveObj = {
+        user_id: this.props.userId, 
+        route_id: parseInt(event.target.id),
+        completed: this.state.completed 
+      }
+
+
+      //add to favorites array, using callback function on App 
+
+
+      //do fetch call to persist favorite to database 
+
+      //
+
+
+    }
+
+    deleteFavorite = (event) => {
+      console.log("deleteing favorite", event.id  )
+    }
+
+
     onCheckMarkClick = () => {
-        alert("clicked Check Mark")
+         this.setState ({
+          completed: !this.state.completed
+        })
     }
 
  
 
     render(){
+      
+
         return (
             
 
@@ -71,9 +115,9 @@ export default class Route extends React.Component{
             </Card.Content>
             <Card.Content extra>
             
-              <a><Icon name='heart' onClick={this.onHeartClick} className="heart" /></a>
+              <a><Icon name={this.state.favorite ? 'red heart': 'red heart outline'} red onClick={(event) => this.onHeartClick(event)} id={this.props.route.id} className="heart" /></a>
  
-              <a><Icon name='checkmark' onClick={this.onCheckMarkClick} alt="Mark Complete" className="checkmark" /></a>
+              <a><Icon name={this.state.completed ? 'green check circle': 'check circle outline'}  onClick={(event) => this.onCheckMarkClick(event)} alt="Mark Complete" className="checkmark" /></a>
  
             </Card.Content>
 

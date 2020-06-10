@@ -32,6 +32,7 @@ class App extends Component {
     super();
     this.state = {
         bikeRoutes: [],
+        displayedRoutes: [],
         favoriteRoutes: [],
         currentUser: null,
         loggedIn: false ,
@@ -42,21 +43,18 @@ class App extends Component {
 
     componentDidMount(){
 
-      // if(localStorage.getItem("token") && localStorage.getItem("token") !== "null"){
-      //   fetch("http://localhost:3000/decode_token", {
-      //     headers: {
-      //       "Authenticate": localStorage.token
-      //     }
-      //   })
-      //   .then(res => res.json())
-      //   .then(userData => {
-      //     this.updateCurrentUser(userData)
-      //     this.changeLog()
-      //     //if error, don't update the state
-      //   })
-      // }else{
-      //   console.log("No token found, user is not authenticated")
-      // }
+
+
+      fetch("http://localhost:3000/routes")
+      .then(resp => resp.json())
+      .then(data => { 
+  
+        localStorage.bikeRoutes = JSON.stringify(data)
+
+      
+        this.setState({ bikeRoutes: data})
+      })
+
 
 
       fetch("http://localhost:3000/routes", {
@@ -75,6 +73,7 @@ class App extends Component {
       })
 
 
+
       ///get favorite routes once loggedIn
 
         fetch(`http://localhost:3000/favorite_routes/${this.state.userId}`, {
@@ -90,7 +89,6 @@ class App extends Component {
           data.map( fav => {
             favArray.push(fav)
           })
-
 
           this.setState({ favoriteRoutes: favArray })
           console.log("favorite routes:", this.state.favoriteRoutes) 
@@ -121,7 +119,7 @@ class App extends Component {
             <Switch>
               
               <Route exact path="/"><Home /></Route>
-              <Route exact path="/explore"><Explore favorites={this.state.favoriteRoutes} /></Route>     
+              <Route exact path="/explore"><Explore favorites={this.state.favoriteRoutes} userId={this.state.userId} /></Route>     
               <Route exact path="/favorites"><Favorites /></Route>   
               <Route exact path="/map"><MapContainer /></Route>   
               <Route exact path="/login" ><Login currentUser={this.state.currentUser} updateCurrentUser={this.updateCurrentUser} changeLog={this.changeLog} loggedIn={this.state.loggedIn} /></Route>   

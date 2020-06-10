@@ -4,12 +4,13 @@ import Route from './Route'
  
 class RoutesContainer extends React.Component {
   render() {
+   
     return (
   
 
     <Card.Group className="ui stackable link cards" itemsPerRow ={4} > 
     {
-        this.props.routes.map(route => <Route favorites={this.props.favorites} route={route} key={route.id} />)
+        this.props.routes.map(route => <Route favorites={this.props.favorites} route={route} key={route.id} userId={this.props.userId} />)
     }
 
     </Card.Group>
