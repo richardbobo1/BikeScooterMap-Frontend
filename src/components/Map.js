@@ -1,6 +1,7 @@
 import React from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import MapFilterForm from './MapFilterForm';
+import { Grid, Search, Button, Modal } from 'semantic-ui-react'
 
  
 class MapContainer extends React.Component {
@@ -23,9 +24,8 @@ class MapContainer extends React.Component {
         fetch("https://gbfs.capitalbikeshare.com/gbfs/en/station_information.json")
         .then(resp => resp.json())
         .then(data => { 
-    
-            console.log("capbike share:", data) 
-            this.setState({ capbikes: data})
+            console.log("capbike share:", data.data.stations) 
+            this.setState({ capbikes: data.data.stations})
         })
 
         //fetch hellbiz bikes
@@ -63,37 +63,55 @@ class MapContainer extends React.Component {
     //   }
 
 
+    mapThroughCapBikes = () => {
+
+    }
 
 
 
 
   render() {
+
     return (
         <div className="page">
             <div className="page-header">
                 <h1>Find a Bike</h1>
             </div>
-            <div className="map-form">
-                <MapFilterForm />
-            </div>
-        <div className="map">
-        <Map google={this.props.google} zoom={14}
-                            initialCenter={{
-                                lat: 38.9072,
-                                lng: -77.0369
-                              }}>
-            
-            <Marker 
-                    onClick={this.onMarkerClick}
-                    name={'Current location'}  />
+  
+       
 
-            <InfoWindow onClose={this.onInfoWindowClose}>
-                {/* <div>
-                <h1>{this.state.selectedPlace.name}</h1>
-                </div> */}
-            </InfoWindow>
-            </Map>
-        </div>
+
+        <Grid>
+                    <Grid.Column width={3}>
+                        <div className="map-form">
+                            <MapFilterForm />
+                        </div>
+    
+                    </Grid.Column>
+                    <Grid.Column width={12}>
+                        <div className="map">
+                            <Map google={this.props.google} zoom={14}
+                                initialCenter={{
+                                    lat: 38.9072,
+                                    lng: -77.0369
+                                }}>
+                
+                            <Marker 
+                                onClick={this.onMarkerClick}
+                                name={'Current location'}  />
+
+       
+
+                            <InfoWindow onClose={this.onInfoWindowClose}>
+                                {/* <div>
+                                <h1>{this.state.selectedPlace.name}</h1>
+                                </div> */}
+                            </InfoWindow>
+                            </Map>
+                        </div>
+                    </Grid.Column>
+            </Grid> 
+
 
 
        

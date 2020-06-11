@@ -1,7 +1,7 @@
 import React from 'react'
 import 'semantic-ui-css/semantic.min.css'
 import RouteComments from './RouteComments'
-import {Icon, Button } from 'semantic-ui-react'
+import {Icon, Button, Container, Header, Grid } from 'semantic-ui-react'
 
 
 export default class RouteDetails extends React.Component {
@@ -10,6 +10,38 @@ export default class RouteDetails extends React.Component {
     render(){
         return (
             <div>
+
+
+            <div className="route-details-header" >
+            <Container className="content">
+                <Header inverted as="h1">
+                {this.props.bikeRoute.name}
+                </Header>
+                <p className="welcome-paragraph">
+                {this.props.bikeRoute.short_description}
+                </p>
+               
+            </Container>
+            </div>
+
+            <div className="page">
+            <div className="page-header">
+                <Grid>
+                    <Grid.Column width={6}>
+                        <h1>About This Bike Route</h1>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                
+
+                    </Grid.Column>
+                    <Grid.Column width={6}>
+                    <p>something </p>
+                    </Grid.Column>
+                </Grid> 
+            </div>
+
+
+
             <p>bike route details </p>
             <h3>{this.props.bikeRoute.name}</h3>
             <p>{this.props.bikeRoute.length} miles</p>
@@ -38,6 +70,8 @@ export default class RouteDetails extends React.Component {
             <br />
                 <div className="reviews">
                     <RouteComments />
+                </div>
+
                 </div>
 
             </div>

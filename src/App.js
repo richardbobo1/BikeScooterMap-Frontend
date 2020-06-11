@@ -20,6 +20,7 @@ import NavBar from './components/NavBar';
 import MapContainer from './components/Map';
 import RouteDetails from './components/RouteDetails'
 import ScrollToTop from './components/ScrollToTop'
+import DashboardPage from './components/DashboardPage'
 
 
 
@@ -171,11 +172,18 @@ class App extends Component {
      }
 
 
-     markCompleted = () => {
-
+     markCompleted = (completedObj) => {
+       let newArray = [...this.state.completeRoutes, completedObj]
+      this.setState({
+        completeRoutes: newArray 
+      })
      }
 
-     markIncomplete = () => {
+     markIncomplete = (completedObjId) => {
+      let newArray = this.state.completeRoutes.filter(compRoute => compRoute.id !== completedObjId) 
+      this.setState({
+           completeRoutes: newArray
+     })
 
      }
 
@@ -186,7 +194,10 @@ class App extends Component {
 
   render() {
     return (
-
+      <div className="page-container">
+      
+       
+        <div id="content-wrap">
         <Router>
           <div className="app">
           <NavBar updateCurrentUser={this.updateCurrentUser} changeLog={this.changeLog}  />
@@ -196,8 +207,11 @@ class App extends Component {
               
               <Route exact path="/"><Home /></Route>
               <Route exact path="/explore"><Explore favorites={this.state.favoriteRoutes} userId={this.state.userId} /></Route>     
-              <Route exact path="/favorites"><Favorites favorites={this.state.favoriteRoutes } completedRoutes={this.state.completeRoutes} removeFavorite={this.removeFavorite}  addFavorite={this.addFavorite} /></Route>   
+              <Route exact path="/favorites"><Favorites favorites={this.state.favoriteRoutes } completedRoutes={this.state.completeRoutes} 
+                                                    removeFavorite={this.removeFavorite}  addFavorite={this.addFavorite}
+                                                    markCompleted={this.markCompleted} markIncomplete={this.markIncomplete} /></Route>   
               <Route exact path="/map"><MapContainer /></Route>   
+              <Route exact path="/dashboard"><DashboardPage userId={this.state.userId} /></Route>   
               <Route exact path="/login" ><Login currentUser={this.state.currentUser} updateCurrentUser={this.updateCurrentUser} changeLog={this.changeLog} loggedIn={this.state.loggedIn} /></Route>   
               <Route exact path="/bikeroutes/:id" render= {(routerProps) => { 
                   let id = routerProps.match.params.id
@@ -213,10 +227,14 @@ class App extends Component {
                     {/* <Route render={() => <div>404 Not Found</div>}/>          */}
             </Switch>
             </div>
-
+            </div> 
+            </Router>
+            </div>
                 <Footer />
-          </div>
-        </Router>
+          
+     
+     
+        </div>
     );
   }
 

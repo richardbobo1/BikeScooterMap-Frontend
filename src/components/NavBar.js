@@ -36,20 +36,28 @@ class NavBar extends React.Component {
     return (
     <div className="navbar">
 
-{/* 
+
     <Menu fixed='top' inverted>
       <Container>
-        <Menu.Item as='a' to="/" exact header>
+        <Menu.Item as='a' href="/" exact header>
       
         <Icon name='bicycle' />
           DC Ridr
        
         </Menu.Item>
+        <Menu.Item as='a' href="/" exact>Home</Menu.Item>
+        <Menu.Item as='a' href="/explore" exact>Explore</Menu.Item>
+        <Menu.Item as='a' href="/favorites" exact>My Trails</Menu.Item>
+        <Menu.Item as='a' href="/map" exact>Map</Menu.Item>
+        <div className="right menu">
+          <Menu.Item as='a' href="/dashboard" exact>Dashboard</Menu.Item>
+          <Menu.Item as='a' href="/login" exact>Login</Menu.Item>
+        </div>
         </Container>
-    </Menu> */}
+    </Menu>
 
   
-  <div className="header-logo">
+  {/* <div className="header-logo">
     <Header as='h2' color="blue" fixed className="header-logo">
       <Icon name='bicycle' />
       <Header.Content>DC Ridr</Header.Content>
@@ -63,10 +71,10 @@ class NavBar extends React.Component {
             <Link to="/map" exact className="item">Map</Link> 
         
             <div className="right menu">
-            <Link to="/profile" exact className="item">Profile</Link> 
+            <Link to="/dashboard" exact className="item">Dashboard</Link> 
               <Link to="/login" exact className="ui item" onClick={(event) =>  {this.logged(event)}} >{this.props.loggedIn === false ? "Log In" : "Log Out"}</Link> 
             </div>
-        </div>
+        </div> */}
        
 
       </div>

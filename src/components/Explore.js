@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import ReactDOM from "react-dom";
 import RoutesContainer from './RoutesContainer'
 import NewRouteForm from './NewRouteForm'
-import { Grid, Search, Button, Modal } from 'semantic-ui-react'
+import { Grid, Divider, Sticky, earch, Button, Modal } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import ExploreFilterForm from './ExploreFilterForm'
 
@@ -93,7 +93,7 @@ class Explore extends React.Component {
         })
       }
 
-
+      contextRef = createRef()
 
 
   render() {
@@ -101,7 +101,7 @@ class Explore extends React.Component {
 
     return (
         <div className="page">
-            <div className="page-header">
+            {/* <div className="page-header">
                 <Grid>
                     <Grid.Column width={6}>
                         <h1>Explore Routes</h1>
@@ -119,13 +119,24 @@ class Explore extends React.Component {
                         
                     </Grid.Column>
                 </Grid> 
-            </div>
+            </div> */}
 
             <Grid>
                     <Grid.Column width={3}>
-                        <ExploreFilterForm handleRouteSearchFilter={this.handleRouteSearchFilter} handleResetFilters={this.handleResetFilters} /> 
+                    <h1>Explore Routes</h1>
+                    <Sticky context={this.contextRef}>
+                            <br />
+                            <div className="ui icon input">
+                            <input type="text" placeholder="Search..." name="searchBar" onChange={(event) => this.handleChange(event) } />
+                            <i className="search icon"></i>
+                            </div>
 
-    
+                        <Divider />
+                        <ExploreFilterForm handleRouteSearchFilter={this.handleRouteSearchFilter} handleResetFilters={this.handleResetFilters} /> 
+                        <Divider />
+                        <NewRouteForm onShowModal={this.showModal} onClose={this.hideModal} style={{float: "right" }} appendNewRoute={this.appendNewRoute} />
+                    </Sticky> 
+
                     </Grid.Column>
                     <Grid.Column width={12}>
                         <div className="routes-container"> 

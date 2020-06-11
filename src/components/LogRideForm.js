@@ -15,21 +15,16 @@ import { Icon, Button, Header, Image, Modal, Form, Dropdown } from 'semantic-ui-
 
 
 
-class NewRouteForm extends React.Component {
+class LogRideForm extends React.Component {
 
   constructor(){
     super();
     this.state = {
-      open: false,
-      name: '',
-      distance: 0,
-      surface: '',
-      short_description: '',
-      tips: '',
-      difficulty: '',
-      google_map: '',
-      image_url: ''
-
+        date: "",
+        duration: "",
+        distance: "",
+        calories: "",
+        notes: ""
     }
   }
 
@@ -77,8 +72,6 @@ class NewRouteForm extends React.Component {
 
     this.handleCancel()
 
-
-
     console.log("Bike obj:", bikeRouteObj)
   }
 
@@ -88,13 +81,13 @@ class NewRouteForm extends React.Component {
   render() {
     return (
       <div> 
-        <Button className="ui primary button" onClick={this.handleOpenModal}   >New Route</Button>
+        <Button className="ui primary button" onClick={this.handleOpenModal} style={{float: "right" }}>Log a Ride</Button>
         <Modal size="large" open={this.state.open} onClose={this.handleCancel}>
-        <Modal.Header>Submit a New Route</Modal.Header>
+        <Modal.Header>Log a Ride</Modal.Header>
         <Modal.Content image>
-          <Image wrapped size='medium' src='https://bentonvillear.com/ImageRepository/Document?documentID=2656' />
+          {/* <Image wrapped size='medium' src='https://bentonvillear.com/ImageRepository/Document?documentID=2656' /> */}
           <Modal.Description>
-            <Header>Tell us about your route.</Header>
+            <Header>Tell us about your ride.</Header>
 
   
   <Form>
@@ -103,6 +96,9 @@ class NewRouteForm extends React.Component {
     </Form.Field>
 
     <Form.Group widths='equal'>
+    <Form.Field>
+          <input type="text" placeholder="Date" name="date" value={this.state.date} onChange={this.handleChange} />
+    </Form.Field>
         <Form.Field>
             <input type="text" name="distance" placeholder="Distance"  onChange={this.handleChange} />
         </Form.Field>
@@ -113,31 +109,23 @@ class NewRouteForm extends React.Component {
           <option value="difficult">Difficult</option>
         </select>
         </Form.Field>
-        <Form.Field>
-        <select fluid id="surface" name="surface" placeholder="Paved" value={this.state.surface} onChange={this.handleChange}>
-          <option value="paved">Paved</option>
-          <option value="gravel">Gravel</option>
-          <option value="mixed">Mixed</option>
-        </select>
-        </Form.Field>
+
 
     </Form.Group>
 
       {/* description and tips  */}
-    <Form.Field>
-          <input type="text" placeholder="Short Description (<50 words)" name="short_description" value={this.state.short_description} onChange={this.handleChange} />
-    </Form.Field>
-    <Form.Field>
-          <input type="text" placeholder="Tips" name="tips" value={this.state.tips} onChange={this.handleChange}/>
-    </Form.Field>
 
-        {/* images  */}
-        <label>Images</label>
     <Form.Field>
-          <input type="text" placeholder="Google Map Image" name="google_map" value={this.state.google_map} onChange={this.handleChange}/>
+          <input type="text" placeholder="Duration (HH:MM)" name="duration" value={this.state.duration} onChange={this.handleChange}/>
     </Form.Field>
     <Form.Field>
-          <input type="text" placeholder="Scenerary Image" name="image_url" value={this.state.image_url} onChange={this.handleChange} />
+          <input type="text" placeholder="Distance" name="distance" value={this.state.distance} onChange={this.handleChange}/>
+    </Form.Field>
+    <Form.Field>
+          <input type="text" placeholder="Calories" name="calories" value={this.state.calories} onChange={this.handleChange} />
+    </Form.Field>
+    <Form.Field>
+          <input type="text" placeholder="notes" name="notes" value={this.state.notes} onChange={this.handleChange} />
     </Form.Field>
 
     <Modal.Actions >
@@ -155,7 +143,6 @@ class NewRouteForm extends React.Component {
         labelPosition='right'
         content='Save'
       >
-        {/* <Icon name='checkmark'  /> Save */}
       </Button>
     </Modal.Actions>
  
@@ -177,4 +164,4 @@ class NewRouteForm extends React.Component {
   }
 }
  
-export default NewRouteForm;
+export default LogRideForm;

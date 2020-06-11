@@ -1,6 +1,8 @@
-.App {
-  text-align: center;
-  width: 100%
+.app {
+  /* text-align: center; */
+  width: 100%;
+  /* margin-left: 50px;
+  margin-right: 50px; */
 }
 
 .App-logo {
@@ -49,7 +51,7 @@
 .navbar {
   width: 100%;
   margin-bottom: 10px;
-  margin-top: 25px;
+  margin-top: 50px;
 }
 .header-logo {
   padding-left: 20px;
@@ -62,14 +64,15 @@
 
 }
 
-.footer {
+/* .footer {
+  position: absolute;
+  bottom: 0;
   width: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  text-align: center;
+
+
   vertical-align: bottom;
-  background-color: rgb(13, 179, 198);
-}
+  background-color: #000000;
+} */
 
 /* .ui.card {
   margin: 10px;
@@ -94,9 +97,10 @@ img.card-image {
   margin-bottom: 20px;
 }
 
-/* .routes-container {
-  display: flex;
-} */
+.routes-container {
+  /* display: flex; */
+  margin-bottom: 50px;
+}
 
 .welcome-header{
   margin-left: -20px;
@@ -182,4 +186,65 @@ span.card-surface {
 p.welcome-paragraph {
  color: white; 
 
+}
+
+.page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  padding-bottom: 2.5rem;    /* Footer height */
+}
+
+.footer {
+  position: absolute;
+
+  bottom: 0;
+  width: 100%;
+  height: 4.5rem;   
+
+  background-color: #000000;         /* Footer height */
+}
+
+.footer-text {
+  color: white;
+  margin-left: 200px;
+  margin-top: 20px;
+  font-size: 1.3em; 
+  vertical-align: middle;
+}
+
+
+.route-details-header{
+  margin-left: -20px;
+  margin-top: -10px;
+  margin-right: -30px;
+  margin-bottom: 50px;
+  padding-top: 50px;
+  padding-bottom: 100px;
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("https://www.fitness-events.com/wp-content/uploads/2019/09/train.jpg");
+   
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: darken;
+}
+
+.page {
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 15px;
+}
+
+.my-routes-dashboard {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+
+.dashboard-header {
+  align-content: center;
+  text-align: center;
 }

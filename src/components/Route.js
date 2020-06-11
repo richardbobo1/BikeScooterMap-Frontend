@@ -88,15 +88,25 @@ export default class Route extends React.Component{
 
     render(){
       
+      let xColor = "green" 
+
+      if(this.props.route.difficulty === "Difficult"){
+        xColor = "#DC143C"
+      } else if (this.props.route.difficulty === "Moderate") {
+        xColor = "#87CEEB" 
+      } else {
+        xColor = "#66CDAA" 
+      }
+      
 
         return (
             
 
         
             <Card fluid> 
-             <div className="difficulty-div">
+             <div className="difficulty-div" style={{background: xColor }} >
                 <h4>{this.props.route.difficulty}</h4>
-              </div>
+              </div> 
              <img src={this.props.route.google_map} className="card-image" wrapped ui={false} />
 
         
@@ -111,9 +121,9 @@ export default class Route extends React.Component{
                     <span className="card-surface">{this.props.route.surface}</span> 
                 </span>
               </Card.Meta>
-              <Card.Description>
-              {/* {this.props.route.short_description} */}
-              </Card.Description>
+              {/* <Card.Description>
+           
+              </Card.Description> */}
             </Card.Content>
             <Card.Content extra>
             

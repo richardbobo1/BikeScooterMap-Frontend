@@ -11,7 +11,8 @@ class FavoritesContainer extends React.Component {
     {
         this.props.routes.map(favorite => 
                 <FavRoute route={favorite.route} favorite={favorite} key={favorite.id} favorites={this.props.favorites } completedRoutes={this.props.completedRoutes}
-                removeFavorite={this.props.removeFavorite}  addFavorite={this.props.addFavorite} />
+                removeFavorite={this.props.removeFavorite}  addFavorite={this.props.addFavorite} 
+                markCompleted={this.props.markCompleted} markIncomplete={this.props.markIncomplete} />
                 )
     }
 

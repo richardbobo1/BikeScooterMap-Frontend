@@ -53,7 +53,7 @@ class Home extends React.Component {
                   src="/static/images/wireframe/square-image.png"
                 /> */}
 
-                <Icon name='bicycle' centered size="large" />
+                <Icon name='map' centered size="large" />
                 <Header as="h1">Route Maps</Header>
                 <p>
                   Donec sed odio dui. Etiam porta sem malesuada magna mollis
@@ -88,8 +88,8 @@ class Home extends React.Component {
                   size="small"
                   src="/static/images/wireframe/square-image.png"
                 /> */}
-                <Icon name='bicycle' centered size="large" />
-                <Header as="h1">My Routes</Header>
+                <Icon name='chart line' centered size="large" />
+                <Header as="h1">My Dashboard</Header>
                 <p>
                     Keep track of the routes you love or have completed by marketing 
                     them as favorites or compled......
@@ -98,7 +98,7 @@ class Home extends React.Component {
                   euismod. 
                 </p>
 
-                <Link to="/favorites" exact className="item"><Button primary >View my routes &raquo;</Button></Link> 
+                <Link to="/dashboard" exact className="item"><Button primary >View my dashboard &raquo;</Button></Link> 
               </Grid.Column>
             </Grid>
           </Segment>
