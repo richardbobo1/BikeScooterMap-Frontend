@@ -107,7 +107,7 @@ export default class Route extends React.Component{
              <div className="difficulty-div" style={{background: xColor }} >
                 <h4>{this.props.route.difficulty}</h4>
               </div> 
-             <img src={this.props.route.google_map} className="card-image" wrapped ui={false} />
+             <img src={this.props.route.image_url} className="card-image" wrapped ui={false} />
 
         
             <Card.Content>

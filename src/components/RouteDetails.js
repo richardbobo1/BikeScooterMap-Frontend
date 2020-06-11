@@ -1,7 +1,8 @@
 import React from 'react'
 import 'semantic-ui-css/semantic.min.css'
 import RouteComments from './RouteComments'
-import {Icon, Button, Container, Header, Grid } from 'semantic-ui-react'
+import {Icon, Button, Container, Header, Grid, Segment, Divider } from 'semantic-ui-react'
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 
 export default class RouteDetails extends React.Component {
@@ -20,6 +21,9 @@ export default class RouteDetails extends React.Component {
                 <p className="welcome-paragraph">
                 {this.props.bikeRoute.short_description}
                 </p>
+                <a>
+                <Icon name='heart' onClick={this.onHeartClick} /> Favorite </a>  | <a>                <Icon name='check circle outline' onClick={this.onCheckMarkClick}  /> Completed
+                </a>
                
             </Container>
             </div>
@@ -27,50 +31,63 @@ export default class RouteDetails extends React.Component {
             <div className="page">
             <div className="page-header">
                 <Grid>
-                    <Grid.Column width={6}>
-                        <h1>About This Bike Route</h1>
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                
+                    <Grid.Column width={3}>
 
+                        <img src={this.props.bikeRoute.image_url} className="ui medium bordered image" />
+
+                        <Segment>
+                            <h2>About</h2>
+                        <p>Distance: {this.props.bikeRoute.length} miles</p>
+                        <p>Difficulty: {this.props.bikeRoute.difficulty}</p>
+                        <p>Surface: {this.props.bikeRoute.surface}</p>
+                        </Segment>
+
+                        <Button>View Source</Button>
+                        <br />
+                        <br />
+                        <Button primary >View Map</Button>
+                    </Grid.Column>
+                    <Grid.Column width={7}>
+                    <h1>About This Bike Route</h1>
+                    <a>
+                <Icon name='heart' onClick={this.onHeartClick} /> Favorite </a>  | <a>                <Icon name='check circle outline' onClick={this.onCheckMarkClick}  /> Completed
+                </a>
+                    <h3>{this.props.bikeRoute.name}</h3>
+                    {this.props.bikeRoute.description}
+                    <Divider />
+                    <h1>Tips</h1>
+                    {this.props.bikeRoute.tips}
                     </Grid.Column>
                     <Grid.Column width={6}>
-                    <p>something </p>
+                        <Divider />
+                       
+                        <div className="google">
+                          
+                        <img src="https://www.evelo.com/wp-content/uploads/2019/05/050119-google-hero.jpg" className="ui large bordered image" />
+                        </div>
+                        <Divider />
+                        <h1>COMMENTS</h1>
+
+
+                        <div className="reviews">
+                            <RouteComments />
+                         </div>
+
                     </Grid.Column>
                 </Grid> 
             </div>
 
 
 
-            <p>bike route details </p>
-            <h3>{this.props.bikeRoute.name}</h3>
-            <p>{this.props.bikeRoute.length} miles</p>
-            <p>{this.props.bikeRoute.difficulty}</p>
-            <p>{this.props.bikeRoute.surface}</p>
-            <p>{this.props.bikeRoute.short_description}</p>
-            <p>{this.props.bikeRoute.description}</p>
-
-            <p>{this.props.bikeRoute.tips}</p>
-            <img src={this.props.bikeRoute.google_map} className="ui image small" />
 
 
-            <a>
-                 
-                <Icon name='heart' onClick={this.onHeartClick} /> Favorite
-                <Icon name='heart outline' onClick={this.onHeartClick} />
-                </a>
-                <br />
-            <a>
-            <Icon name='check circle' onClick={this.onCheckMarkClick}  /> 
-                <Icon name='check circle outline' onClick={this.onCheckMarkClick}  /> Completed
-            </a>
-            <br /> 
-            <Button primary inverted>View Map</Button>
-            <br />
-            <br />
-                <div className="reviews">
-                    <RouteComments />
-                </div>
+           
+           
+
+
+
+        
+
 
                 </div>
 
@@ -79,3 +96,6 @@ export default class RouteDetails extends React.Component {
         )
     }
 }
+
+
+

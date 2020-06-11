@@ -1,7 +1,7 @@
 import React from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import MapFilterForm from './MapFilterForm';
-import { Grid, Search, Button, Modal } from 'semantic-ui-react'
+import { Grid, Segment, Header, Search, Button, Modal, Divider } from 'semantic-ui-react'
 
  
 class MapContainer extends React.Component {
@@ -89,6 +89,12 @@ class MapContainer extends React.Component {
     
                     </Grid.Column>
                     <Grid.Column width={12}>
+
+                        <Segment>
+                        {/* <Header as='h2' floated='right'>
+                            <h1>Favorites</h1>
+                        </Header>
+                            <Divider clearing /> */}
                         <div className="map">
                             <Map google={this.props.google} zoom={14}
                                 initialCenter={{
@@ -109,6 +115,8 @@ class MapContainer extends React.Component {
                             </InfoWindow>
                             </Map>
                         </div>
+                        </Segment>
+
                     </Grid.Column>
             </Grid> 
 

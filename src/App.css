@@ -132,10 +132,10 @@ img.card-image {
 } */
 
 .map {
-  height: 400px;  /* The height is 400 pixels */
-  margin-left: -20px;
-  margin-right: -40px;
-  
+  height: 400px;  
+  margin-left: 0px;
+  margin-right: 0px;
+  position: relative;
   width: 100%;  /* The width is the width of the web page */
   contain: strict;
  }

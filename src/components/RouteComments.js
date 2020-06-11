@@ -3,9 +3,9 @@ import { Button, Comment, Form, Header } from 'semantic-ui-react'
 
 const RouteComments = () => (
   <Comment.Group>
-    <Header as='h3' dividing>
+    {/* <Header as='h3' dividing>
       Comments
-    </Header>
+    </Header> */}
 
     <Comment>
       <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
