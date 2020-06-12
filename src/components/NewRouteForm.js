@@ -22,7 +22,7 @@ class NewRouteForm extends React.Component {
     this.state = {
       open: false,
       name: '',
-      distance: 0,
+      length: 0,
       surface: '',
       short_description: '',
       tips: '',
@@ -51,9 +51,14 @@ class NewRouteForm extends React.Component {
 
 
   onCreateBikeRoute = (e) =>{
+  
+    let distanceInt = parseInt(this.state.length)
+
+
+
     let bikeRouteObj = {
       name: this.state.name,
-      distance: this.state.distance,
+      length: parseInt(this.state.length),
       surface: this.state.surface,
       short_description: this.state.short_description,
       difficulty: this.state.difficulty,
@@ -61,6 +66,7 @@ class NewRouteForm extends React.Component {
       google_map: this.state.google_map,
       image_url: this.state.image_url
     }
+
 
     fetch("http://localhost:3000/routes", {
       method: 'POST',
@@ -89,7 +95,7 @@ class NewRouteForm extends React.Component {
     return (
       <div> 
         <Button className="ui primary button" onClick={this.handleOpenModal}   >New Route</Button>
-        <Modal size="large" open={this.state.open} onClose={this.handleCancel}>
+        <Modal size="medium" open={this.state.open} onClose={this.handleCancel}>
         <Modal.Header>Submit a New Route</Modal.Header>
         <Modal.Content image>
           <Image wrapped size='medium' src='https://bentonvillear.com/ImageRepository/Document?documentID=2656' />
@@ -104,7 +110,7 @@ class NewRouteForm extends React.Component {
 
     <Form.Group widths='equal'>
         <Form.Field>
-            <input type="text" name="distance" placeholder="Distance"  onChange={this.handleChange} />
+            <input type="number" name="length" placeholder="Distance" value={this.state.length} onChange={this.handleChange} />
         </Form.Field>
         <Form.Field>
         <select fluid id="difficulty" name="difficulty" placeholder="Easy" value={this.state.difficulty} onChange={this.handleChange}>

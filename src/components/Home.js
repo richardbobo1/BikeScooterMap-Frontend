@@ -34,9 +34,8 @@ class Home extends React.Component {
                 Ready to ride. 
                 </Header>
                 <p className="welcome-paragraph">
-                Cover is a one-page template for building simple and beautiful
-                home pages. Download, edit the text, and add your own fullscreen
-                background photo to make it your own.
+                Adventure is out there. Find the adventure in your life with our inspiration, resources, and experiences. 
+                A bicycle is simply the mechanism to get there.
                 </p>
                
                 <Link to="/explore" exact className="item"><Button color="teal" >Let's go.</Button></Link> 

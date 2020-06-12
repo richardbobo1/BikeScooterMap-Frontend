@@ -53,7 +53,8 @@ class Explore extends React.Component {
     
       appendNewRoute = (bikeRouteObj) => {
           this.setState({
-              routes: [bikeRouteObj, ...this.state.routes ]
+              routes: [bikeRouteObj, ...this.state.routes ],
+              displayedRoutes: [bikeRouteObj, ...this.state.routes ]
           })
       }
 
@@ -121,10 +122,10 @@ class Explore extends React.Component {
                 </Grid> 
             </div> */}
 
-            <Grid>
+            <Grid stackable>
                     <Grid.Column width={3}>
                     <h1>Explore Routes</h1>
-                    <Sticky context={this.contextRef}>
+               
                             <br />
                             <div className="ui icon input">
                             <input type="text" placeholder="Search..." name="searchBar" onChange={(event) => this.handleChange(event) } />
@@ -135,7 +136,7 @@ class Explore extends React.Component {
                         <ExploreFilterForm handleRouteSearchFilter={this.handleRouteSearchFilter} handleResetFilters={this.handleResetFilters} /> 
                         <Divider />
                         <NewRouteForm onShowModal={this.showModal} onClose={this.hideModal} style={{float: "right" }} appendNewRoute={this.appendNewRoute} />
-                    </Sticky> 
+                
 
                     </Grid.Column>
                     <Grid.Column width={12}>

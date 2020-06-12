@@ -1,10 +1,10 @@
 import React from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import MapFilterForm from './MapFilterForm';
-import { Grid, Segment, Header, Search, Button, Modal, Divider } from 'semantic-ui-react'
-
+import { Grid, Segment, Header, Search, Button, Modal, Divider } from 'semantic-ui-react';
+import MapContainer from './MapContainer';
  
-class MapContainer extends React.Component {
+class MapPage extends React.Component {
 
 
     constructor(){
@@ -43,24 +43,41 @@ class MapContainer extends React.Component {
         // })
 
         //fetch jumpikes
-        fetch("https://gbfs.uber.com/v1/dcb/free_bike_status.json", {mode:'cors'} )
-        .then(resp => resp.json())
-        .then(data => { 
+        // fetch("https://gbfs.uber.com/v1/dcb/free_bike_status.json", {mode:'cors'} )
+        // .then(resp => resp.json())
+        // .then(data => { 
     
-            console.log("jump bikes", data)
-            this.setState({ jumpbikes: data})
-        })
+        //     console.log("jump bikes", data)
+        //     this.setState({ jumpbikes: data})
+        // })
+
+
     }
 
-    // function initMap() {
-    //     // The location of Uluru
-    //     var uluru = {lat: -25.344, lng: 131.036};
-    //     // The map, centered at Uluru
-    //     var map = new google.maps.Map(
-    //         document.getElementById('map'), {zoom: 4, center: uluru});
-    //     // The marker, positioned at Uluru
-    //     var marker = new google.maps.Marker({position: uluru, map: map});
-    //   }
+
+
+    createBikeMarkers = () => {
+
+        // var gmarkers = Array();
+
+        //  for( i = 0; i < this.state.capbikes.length; i++ ) {
+        //         var position = new google.maps.LatLng(this.state.capbikes.lat, this.state.capbikes.lon);
+        //         bounds.extend(position);
+        //         marker = new google.maps.Marker({
+        //             position: position,
+        //             map: map,
+        //             title: markers[i].title 
+        //         });
+        // gmarkers.push(marker);
+        // }
+  
+        // // hide all the markers 
+        // for(i = 0 ; i< gmarkers.length; i++) 
+        // gmarkers[i].setVisible(false);
+
+    }
+
+
 
 
     mapThroughCapBikes = () => {
@@ -95,26 +112,14 @@ class MapContainer extends React.Component {
                             <h1>Favorites</h1>
                         </Header>
                             <Divider clearing /> */}
+
+
+
+
                         <div className="map">
-                            <Map google={this.props.google} zoom={14}
-                                initialCenter={{
-                                    lat: 38.9072,
-                                    lng: -77.0369
-                                }}>
-                
-                            <Marker 
-                                onClick={this.onMarkerClick}
-                                name={'Current location'}  />
-
-       
-
-                            <InfoWindow onClose={this.onInfoWindowClose}>
-                                {/* <div>
-                                <h1>{this.state.selectedPlace.name}</h1>
-                                </div> */}
-                            </InfoWindow>
-                            </Map>
+                        <MapContainer />
                         </div>
+
                         </Segment>
 
                     </Grid.Column>
@@ -128,8 +133,5 @@ class MapContainer extends React.Component {
   }
 }
  
-// export default Map;
+export default MapPage;
 
-export default GoogleApiWrapper({
-    // apiKey: (``)    AIzaSyCJxTaP4n4_VXh9ROu-Ry8Cg20cmXHFxvA12345
-  })(MapContainer)

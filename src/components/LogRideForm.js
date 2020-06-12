@@ -41,30 +41,44 @@ class LogRideForm extends React.Component {
     this.setState({ 
       open: true
    })
-}
+  }
+
+  componentDidMount(){
+    this.setState({
+      userId: this.props.userId 
+    })
+  }
 
 
 
-  onCreateBikeRoute = (e) =>{
-    let bikeRouteObj = {
-      name: this.state.name,
+  onCreateJournalEntry = (e) =>{
+    let journEntryObj = {
+      user_id: this.props.userId,
+      date: this.state.date,
+      duration: this.state.duration,
       distance: this.state.distance,
-      surface: this.state.surface,
-      short_description: this.state.short_description,
       difficulty: this.state.difficulty,
-      tips: this.state.tips,
-      google_map: this.state.google_map,
-      image_url: this.state.image_url
+      calories: this.state.calories,
+      notes: this.state.notes
     }
 
-    fetch("http://localhost:3000/routes", {
+    fetch("http://localhost:3000/journals", {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(bikeRouteObj)
+      body: JSON.stringify(journEntryObj)
       }).then(res => res.json())
       .then( data => {
         //user callback function to add new bike route to array and DOM
-        this.props.appendNewRoute(bikeRouteObj)
+        this.props.appendNewJournalEntry(data)
+        this.setState({
+          date: "",
+          duration: "",
+          distance: "",
+          difficulty: "",
+          calories: "",
+          notes: "" })
+
+
         //console.log to confirm 
         console.log("Created new bike route", data)
         
@@ -72,7 +86,7 @@ class LogRideForm extends React.Component {
 
     this.handleCancel()
 
-    console.log("Bike obj:", bikeRouteObj)
+    console.log("jouranl entry obj obj:", journEntryObj)
   }
 
 
@@ -82,7 +96,7 @@ class LogRideForm extends React.Component {
     return (
       <div> 
         <Button className="ui primary button" onClick={this.handleOpenModal} style={{float: "right" }}>Log a Ride</Button>
-        <Modal size="large" open={this.state.open} onClose={this.handleCancel}>
+        <Modal size="small" open={this.state.open} onClose={this.handleCancel}>
         <Modal.Header>Log a Ride</Modal.Header>
         <Modal.Content image>
           {/* <Image wrapped size='medium' src='https://bentonvillear.com/ImageRepository/Document?documentID=2656' /> */}
@@ -91,13 +105,9 @@ class LogRideForm extends React.Component {
 
   
   <Form>
-    <Form.Field>
-          <input type="text" placeholder="Route Name..." name="name" value={this.state.name} onChange={this.handleChange} />
-    </Form.Field>
-
     <Form.Group widths='equal'>
     <Form.Field>
-          <input type="text" placeholder="Date" name="date" value={this.state.date} onChange={this.handleChange} />
+          <input type="date" placeholder="Date" name="date" value={this.state.date} onChange={this.handleChange} />
     </Form.Field>
         <Form.Field>
             <input type="text" name="distance" placeholder="Distance"  onChange={this.handleChange} />
@@ -114,16 +124,14 @@ class LogRideForm extends React.Component {
     </Form.Group>
 
       {/* description and tips  */}
-
+      <Form.Group widths='equal'>
     <Form.Field>
-          <input type="text" placeholder="Duration (HH:MM)" name="duration" value={this.state.duration} onChange={this.handleChange}/>
-    </Form.Field>
-    <Form.Field>
-          <input type="text" placeholder="Distance" name="distance" value={this.state.distance} onChange={this.handleChange}/>
+          <input type="text" placeholder="Duration (in minutes)" name="duration" value={this.state.duration} onChange={this.handleChange}/>
     </Form.Field>
     <Form.Field>
           <input type="text" placeholder="Calories" name="calories" value={this.state.calories} onChange={this.handleChange} />
     </Form.Field>
+    </Form.Group>
     <Form.Field>
           <input type="text" placeholder="notes" name="notes" value={this.state.notes} onChange={this.handleChange} />
     </Form.Field>
@@ -138,7 +146,7 @@ class LogRideForm extends React.Component {
       </Button>
       <Button postive 
         color='green' 
-        onClick={this.onCreateBikeRoute}
+        onClick={this.onCreateJournalEntry}
         icon='checkmark'
         labelPosition='right'
         content='Save'

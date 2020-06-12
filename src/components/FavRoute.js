@@ -26,6 +26,8 @@ export default class FavRoute extends React.Component{
         userId: this.props.favorite.user_id 
       })
       
+      debugger 
+      
       // check if route is in the favorites array, if so, set favorite to true so it can render the heart on the card
       if (this.props.favorites.filter(x => x.route.id === this.props.route.id).length > 0){
         this.setState({

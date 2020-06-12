@@ -7,6 +7,7 @@ import LogRideForm from "./LogRideForm";
 import RideLogTable from './RideLogTable'
 
 
+
  
 class DashboardPage extends React.Component {
 
@@ -16,7 +17,8 @@ class DashboardPage extends React.Component {
             journalEntries: [],
             totalMiles: 0,
             totalRides: 0,
-            totalTime: 0 
+            totalTime: 0,
+            totalCalories: 0
           }
     }
 
@@ -29,6 +31,8 @@ class DashboardPage extends React.Component {
     hideModal = () => {
         this.setState({ show: false });
     };
+
+
 
     
     componentDidMount(){
@@ -102,16 +106,65 @@ class DashboardPage extends React.Component {
 
 
 
-        // NEW JOURNAL ENTRY 
+        // APPEND NEW JOURNAL ENTRY 
+    /////////////////////////////////////
+    
+    appendNewJournalEntry = (journalEntryObj) => {
+
+        let x = this.state.totalMiles += parseInt(journalEntryObj.distance)
+        let y = this.state.totalRides + 1
+        let z = this.state.totalTime + parseInt(journalEntryObj.duration)
+        let c = this.state.totalCalories + parseInt(journalEntryObj.calories)
+  
+
+        this.setState({
+            journalEntries: [journalEntryObj, ...this.state.journalEntries ],
+            totalMiles: x,
+            totalRides: y,
+            totalTime: z,
+            totalCalories: c
+
+        })
+
+        //then recalculate
+    }
+
+
+    // DELETE JOURNAL ENTRY 
     /////////////////////////////////////
 
 
+    deleteJournalEntry = (journalEntryObj) => {
+        let x = this.state.totalMiles -= parseInt(journalEntryObj.distance)
+        let y = this.state.totalRides -1
+        let z = this.state.totalTime - parseInt(journalEntryObj.duration)
+        let c = this.state.totalCalories - parseInt(journalEntryObj.calories)
 
+        //need to find journal entry in the array 
+        //and then remove it from that array 
+        let newArray = this.state.journalEntries.filter( entry => entry.id !== journalEntryObj.id )
 
+        this.setState({
+                //need to change this journal entry 
+            journalEntries: newArray,
+            totalMiles: x,
+            totalRides: y,
+            totalTime: z,
+            totalCalories: c
+
+        })
+    }
     
 
+    
+    editJournalEntry = () => {
+        console.log("clicking on edit journal entry")
+    }
 
 
+    viewJournalEntry = () => {
+        console.log("clicking on VIEW journal entry")
+    }
 
 
 
@@ -122,14 +175,14 @@ class DashboardPage extends React.Component {
 
     const extra = (
         <div>
-        <a>
+       
           <Icon name='bicycle' />
-          16 rides |    545 miles logged
-          </a>
+          {this.state.totalRides} rides |    {this.state.totalMiles} miles logged
+         
           <br />
         <a>
           <Icon name='map' />
-           6 favorites | 3 completed<br />
+           {this.props.favoriteRoutes.length} favorites | {this.props.completeRoutes.length} completed<br />
         </a>
         </div>
       )
@@ -139,13 +192,12 @@ class DashboardPage extends React.Component {
     return (
         <div className="page">
             <div className="page-header">
-                <Grid>
+                <Grid stackable>
                     <Grid.Column width={6}>
                         <h1>My Dashboard</h1>
                     </Grid.Column>
                     <Grid.Column width={4}>
                 
-
                     </Grid.Column>
                     <Grid.Column width={6}>
                     
@@ -155,7 +207,7 @@ class DashboardPage extends React.Component {
                 </Grid> 
             </div>
 
-            <Grid>
+            <Grid stackable >
                     <Grid.Column width={4}>
                        <div> 
                        <Card
@@ -173,7 +225,7 @@ class DashboardPage extends React.Component {
 
                         {/* right here I will put for square segements with dashboard type data  */}
                         <div className="dashboard-header">
-                            <Grid>
+                            <Grid stackbale >
                                 <Grid.Column width={4}>
                                     <Segment>
                                         <h3 style={{color: "gray"}}>TOTAL MILES</h3>
@@ -212,11 +264,11 @@ class DashboardPage extends React.Component {
                                 <h2>Riding History</h2>
                             </Grid.Column>
                             <Grid.Column  width={8}>
-                                <LogRideForm  />
+                                <LogRideForm  appendNewJournalEntry={this.appendNewJournalEntry} userId={this.props.userId} />
                             </Grid.Column>
                         </Grid>
                         </div>
-                            <RideLogTable journalEntries={this.state.journalEntries}  />
+                            <RideLogTable journalEntries={this.state.journalEntries} deleteJournalEntry={this.deleteJournalEntry} />
                         
                     </Grid.Column>
             </Grid> 

@@ -49,10 +49,10 @@ export default class MapMarkers extends React.Component {
 
                                 {
                                      var stations = []
-                                    this.props.capbikes.map(station => {
-                                        let myLatLng = {position: new google.maps.LatLng(station.lat, station.lng), type: 'info'}
-                                        return stations.push(myLatLng)
-                                    })
+                            this.props.capbikes.map(station => {
+                                let myLatLng = {position: new google.maps.LatLng(station.lat, station.lng), type: 'info'}
+                                return stations.push(myLatLng)
+                            })
 
                                 stations.map(station => {
                                     <Marker position={station.position} icon="info" map="map" />

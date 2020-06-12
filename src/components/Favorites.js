@@ -26,7 +26,7 @@ class Favorites extends React.Component {
     return (
         <div className="page">
 
-                <Grid>
+                <Grid stackable>
                     <Grid.Column width={3}>
                     <h1>My Routes</h1>
 

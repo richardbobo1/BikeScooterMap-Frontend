@@ -17,7 +17,8 @@ import Login from './components/Login';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import NavBar from './components/NavBar';
-import MapContainer from './components/Map';
+import MapContainer from './components/MapContainer';
+import MapPage from './components/MapPage';
 import RouteDetails from './components/RouteDetails'
 import ScrollToTop from './components/ScrollToTop'
 import DashboardPage from './components/DashboardPage'
@@ -210,8 +211,8 @@ class App extends Component {
               <Route exact path="/favorites"><Favorites favorites={this.state.favoriteRoutes } completedRoutes={this.state.completeRoutes} 
                                                     removeFavorite={this.removeFavorite}  addFavorite={this.addFavorite}
                                                     markCompleted={this.markCompleted} markIncomplete={this.markIncomplete} /></Route>   
-              <Route exact path="/map"><MapContainer /></Route>   
-              <Route exact path="/dashboard"><DashboardPage userId={this.state.userId} /></Route>   
+              <Route exact path="/map"><MapPage /></Route>   
+              <Route exact path="/dashboard"><DashboardPage userId={this.state.userId} favoriteRoutes={this.state.favoriteRoutes} completeRoutes={this.state.completeRoutes} /></Route>   
               <Route exact path="/login" ><Login currentUser={this.state.currentUser} updateCurrentUser={this.updateCurrentUser} changeLog={this.changeLog} loggedIn={this.state.loggedIn} /></Route>   
               <Route exact path="/bikeroutes/:id" render= {(routerProps) => { 
                   let id = routerProps.match.params.id
