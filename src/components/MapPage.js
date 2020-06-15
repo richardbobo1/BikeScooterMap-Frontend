@@ -24,26 +24,22 @@ class MapPage extends React.Component {
         fetch("https://gbfs.capitalbikeshare.com/gbfs/en/station_information.json")
         .then(resp => resp.json())
         .then(data => { 
-            console.log("capbike share:", data.data.stations) 
+    
             this.setState({ capbikes: data.data.stations})
         })
 
         //fetch hellbiz bikes
-        // fetch("https://gbfs.uber.com/v1/dcb/https://api.helbiz.com/admin/reporting/washington/gbfs/free_bike_status.json", 
-        //     {mode:'cors', 
-        //         headers: {
-        //         'Content-Type': 'application/json'
-        //       },
-        //     })
-        // .then(resp => resp.json())
-        // .then(data => { 
-    
-        //     console.log("hellbiz bikes", data) 
-        //     this.setState({ hellbizbikes : data})
-        // })
+        fetch("https://api.helbiz.com/admin/reporting/washington/gbfs/free_bike_status.json")
+        .then(resp => resp.json())
+        .then(data => { 
+            this.setState({ hellbizbikes : data.data.bikes.filter(bike => bike.is_reserved === 0 && bike.is_disabled === 0 ) })
+        })
 
         //fetch jumpikes
-        // fetch("https://gbfs.uber.com/v1/dcb/free_bike_status.json", {mode:'cors'} )
+        // fetch("https://gbfs.uber.com/v1/dcb/free_bike_status.json", {
+        //     mode:'no-cors'
+        
+        // } )
         // .then(resp => resp.json())
         // .then(data => { 
     
@@ -117,7 +113,7 @@ class MapPage extends React.Component {
 
 
                         <div className="map">
-                        <MapContainer />
+                        <MapContainer stations={this.state.capbikes} hellbizbikes={this.state.hellbizbikes} />
                         </div>
 
                         </Segment>

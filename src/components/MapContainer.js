@@ -1,13 +1,43 @@
 import React from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import {Map, InfoWindow, Marker, GoogleApiWrapper, OverlayView } from 'google-maps-react';
 import MapFilterForm from './MapFilterForm';
 import { Grid, Segment, Header, Search, Button, Modal, Divider } from 'semantic-ui-react'
+import MarkerWindowInfo from './MarkerWindowInfo'
+import CapBikeIcon from '../cbshareicon.png'
+import HelbizIcon from '../helbiz.png'
+
 
 
 
 class MapContainer extends React.Component {
 
+
+    constructor(){
+        super();
+        this.state = {
+            selectedStation: null,
+            visible: false 
+        }
+    }
+
+    onStationClick = (station) => {
+        console.log("station clicked", station)
+        let contentString = '<div> Station:'+ station.name +  '</div>'
+
+    }
+
+    setSelectedStation = () => {
+        this.setState({
+            selectedStation: 'station',
+            visible: true 
+        })
+    }
+
+
  render() {
+
+
+
 
     return (
             <div className="map">
@@ -17,17 +47,50 @@ class MapContainer extends React.Component {
                         lng: -77.0369
                         }}>
                     
-                    {/* <Marker 
-                        onClick={this.onMarkerClick}
-                    name={'Current location'}  />
 
-        
+                   { this.props.stations.map(station => (
 
-                    <InfoWindow onClose={this.onInfoWindowClose}>
-                        <div>
-                        <h1>Some info</h1>
-                        </div>
-                    </InfoWindow> */}
+                          
+                            <Marker position={{ lat: station.lat, lng: station.lon }} 
+                            
+                            onClick={() => this.setSelectedStation()} 
+                            icon={require('../cbshareicon.png')}
+                            >
+
+                            </Marker>
+
+                   )
+                                                      
+                   )
+
+                   }
+
+                        { this.props.hellbizbikes.map(bike => (      
+                        <Marker position={{ lat: bike.lat, lng: bike.lon }} 
+                        label="HL"
+                        onClick={() => this.setSelectedStation()} 
+                        icon={require('../helbiz.png')}
+                        >
+
+                        </Marker>
+
+                        )
+                                                
+                        )
+
+                        }
+
+
+
+
+
+                        {/* <InfoWindow
+                            marker={this.state.selectedStation}
+                            visible={this.state.visible}
+                                >
+                              <div>hello</div>
+                          </InfoWindow> */}
+
                 </Map>
                 </div>
             
@@ -37,5 +100,5 @@ class MapContainer extends React.Component {
 }
 
 export default GoogleApiWrapper({
-    // apiKey: 'AIzaSyDLasFT1pUU4PvGSgLSyyzBb09YnsUl2xI',
+    apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
   })(MapContainer)

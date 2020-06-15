@@ -114,16 +114,16 @@ class NewRouteForm extends React.Component {
         </Form.Field>
         <Form.Field>
         <select fluid id="difficulty" name="difficulty" placeholder="Easy" value={this.state.difficulty} onChange={this.handleChange}>
-          <option value="easy">Easy</option>
-          <option value="moderate">Moderate</option>
-          <option value="difficult">Difficult</option>
+          <option value="Easy">Easy</option>
+          <option value="Moderate">Moderate</option>
+          <option value="Difficult">Difficult</option>
         </select>
         </Form.Field>
         <Form.Field>
         <select fluid id="surface" name="surface" placeholder="Paved" value={this.state.surface} onChange={this.handleChange}>
-          <option value="paved">Paved</option>
-          <option value="gravel">Gravel</option>
-          <option value="mixed">Mixed</option>
+          <option value="Paved">Paved</option>
+          <option value="Gravel">Gravel</option>
+          <option value="Mixed">Mixed</option>
         </select>
         </Form.Field>
 

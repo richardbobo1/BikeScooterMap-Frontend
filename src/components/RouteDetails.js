@@ -92,11 +92,11 @@ export default class RouteDetails extends React.Component {
                     <Grid.Column width={6}>
                         <Divider />
                        
-                        <div className="google-map">
+                        {/* <div className="google-map">
                           <MapContainer />
-                        </div>
-               {/* <img src="https://www.evelo.com/wp-content/uploads/2019/05/050119-google-hero.jpg" className="ui large bordered image" />
-                        */}
+                        </div> */}
+               <img src="https://www.evelo.com/wp-content/uploads/2019/05/050119-google-hero.jpg" className="ui large bordered image" />
+                       
                         <Divider />
                         <h1>COMMENTS</h1>
 
