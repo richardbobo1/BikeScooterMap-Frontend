@@ -120,25 +120,25 @@ img.card-image {
 
 /* Set the size of the div element that contains the map */
 #map {
-  height: 300px;  /* The height is 400 pixels */
+  height: 100px;  /* The height is 400 pixels */
   width: 100%;  /* The width is the width of the web page */
  }
 
- /* .map-page {
+ .map-page {
   overflow: auto;
   width: 100%; 
   margin-left: -20px;
   margin-bottom: 10px;
 
-} */
+}
 
 .map {
   height: 400px;  
   margin-left: 0px;
   margin-right: 0px;
-  position: relative;
+  /* margin-bottom: 50px; */
   width: 100%;  /* The width is the width of the web page */
-  contain: strict;
+  contain: normal;
  }
 
  .google-map {
@@ -252,4 +252,33 @@ p.welcome-paragraph {
 .dashboard-header {
   align-content: center;
   text-align: center;
+}
+
+.star-rating {
+  align-content: right;
+}
+
+.comment-time {
+  align-content: right;
+}
+
+.comment {
+  width: 100%;
+}
+/* 
+.small-map {
+  height: 200px;
+  overflow: auto;
+  display: block;
+  padding-bottom: 20px;
+}
+
+.detail-map-area {
+  height: 200px;
+  overflow: auto;
+  display: block;
+} */
+
+.div.reviews {
+  margin-top: 20px;
 }

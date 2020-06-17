@@ -38,7 +38,7 @@ class Home extends React.Component {
                 A bicycle is simply the mechanism to get there.
                 </p>
                
-                <Link to="/explore" exact className="item"><Button color="teal" >Let's go.</Button></Link> 
+                <Link to="/explore" exact className="item"><Button color="primary" >Let's go.</Button></Link> 
             </Container>
             </div>
        

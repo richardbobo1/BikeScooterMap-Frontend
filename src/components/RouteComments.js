@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Comment, Form, Header, Rating } from 'semantic-ui-react'
+import { Button, Comment, Form, Header, Rating, Divider } from 'semantic-ui-react'
 
 
 class RouteComments extends React.Component {
@@ -142,9 +142,16 @@ render(){
         <Comment.Content>
           <Comment.Author as='a'>{comment.user.username}</Comment.Author>
           <Comment.Metadata>
-            <div><i>{this.timeSince(comment.created_at)} ago </i></div>
+            <div><i>{this.timeSince(comment.created_at)} ago </i> 
+            
+         
+             </div>
           </Comment.Metadata>
-          <Comment.Text>{comment.comments}</Comment.Text>
+          <span className="star-rating"> <Rating icon='star' defaultRating={comment.rating} maxRating={5} /></span>
+          <Comment.Text>
+
+
+            {comment.comments}</Comment.Text>
 
 
         {/* //hide or display delte button, so admins can delete all, and users can delete their own  */}
@@ -157,8 +164,9 @@ render(){
 
         </Comment.Content>
         
-      
+        <Divider /> 
       </Comment>
+     
 )
 
 }
@@ -168,7 +176,10 @@ render(){
     </Header>
 
     <Form reply onSubmit={(event) => this.onSubmitComment(event)} >
+      <div>Rating: &nbsp; &nbsp; &nbsp;
     <Rating icon='star' name="rating" initialRating={3} maxRating={5}  onRate={(event,data) => this.onClickStar(event,data )} />
+    </div>
+    <br />
       <Form.TextArea 
       name="review"
         value={this.state.review}

@@ -191,7 +191,6 @@ class DashboardPage extends React.Component {
         </div>
       )
 
-   
 
     return (
         <div className="page">
@@ -216,9 +215,9 @@ class DashboardPage extends React.Component {
                        <div> 
                        <Card
                             image='https://react.semantic-ui.com/images/avatar/large/elliot.jpg'
-                            header='Richard Bobo'
-                            meta='Washingtn, DC'
-                            description='Richard is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat.'
+                            header={this.props.currentUser.first_name + " " +this.props.currentUser.last_name}
+                            meta={this.props.currentUser.current_city}
+                            description={this.props.currentUser.about_me}
                             extra={extra}
                         />
                        </div>

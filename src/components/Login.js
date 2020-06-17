@@ -52,16 +52,18 @@ export default class Login extends React.Component {
           })
             .then(r => r.json())
             .then(userData => {
+              debugger
                     console.log("response from the server", userData)
                     if(userData.error_message){
                       alert("There are errors in the form, fix them")
                     }else{
                       localStorage.setItem("token", userData.jwt)
-                      localStorage.setItem("user", userData.user)   //added this to store current user 
-                      this.props.updateCurrentUser(userData.user)   
+                      localStorage.setItem("userId", userData.user_data.id) 
+                      localStorage.setItem("user", userData.user_data)   //added this to store current user 
+                      this.props.updateCurrentUser(userData.user_data)   
                       // this.props.login()
                       this.props.changeLog()
-
+                      window.location = "/"
                      
                     }
             })

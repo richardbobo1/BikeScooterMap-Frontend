@@ -128,9 +128,9 @@ export default class Route extends React.Component{
             </Card.Content>
             <Card.Content extra>
             
-              <a><Icon name={this.state.favorite ? 'red heart': 'red heart outline'} red onClick={(event) => this.onHeartClick(event)} id={this.props.route.id} className="heart" /></a>
+              <a><Icon size="large" name={this.state.favorite ? 'red heart': 'red heart outline'} red onClick={(event) => this.onHeartClick(event)} id={this.props.route.id} className="heart" /></a>
  
-              <a><Icon name={this.state.completed ? 'blue check circle': 'check circle outline'}  onClick={(event) => this.onCheckMarkClick(event)} alt="Mark Complete" className="checkmark" /></a>
+              <a><Icon size="large" name={this.state.completed ? 'blue check circle': 'check circle outline'}  onClick={(event) => this.onCheckMarkClick(event)} alt="Mark Complete" className="checkmark" /></a>
  
             </Card.Content>
 

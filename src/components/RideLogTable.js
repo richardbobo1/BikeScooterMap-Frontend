@@ -1,6 +1,8 @@
 import React from 'react'
 import { Table, Button, Icon  } from 'semantic-ui-react'
 import DeleteJournalLog from './modals/DeleteJournalLog'
+import ViewJournalLog from './modals/ViewJournalLog'
+import EditJournalLogForm from './modals/EditJournalLogForm'
 
 const RideLogTable = (props) => (
 
@@ -24,7 +26,9 @@ const RideLogTable = (props) => (
             <Table.Cell>{journal.distance} miles</Table.Cell>
             <Table.Cell>{journal.duration} mins</Table.Cell>
             <Table.Cell>{journal.calories} calories</Table.Cell>
-            <Table.Cell><Icon name="zoom in" /><Icon name="compose" /> <DeleteJournalLog journal={journal} deleteJournalEntry={props.deleteJournalEntry}  /> </Table.Cell>
+            <Table.Cell>
+              <ViewJournalLog journal={journal} /><EditJournalLogForm journal={journal} /><DeleteJournalLog journal={journal} deleteJournalEntry={props.deleteJournalEntry}  /> 
+            </Table.Cell>
           </Table.Row>
 
       ) 

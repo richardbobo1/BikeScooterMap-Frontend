@@ -120,6 +120,10 @@ class App extends Component {
       this.loadUserData()
     }
 
+
+
+
+
     changeLog = () => {
       this.setState({loggedIn: true,
       
@@ -218,7 +222,7 @@ class App extends Component {
  
               <Route exact="true"  path="/map"><MapPage /></Route>   
               <Route exact="true"  path="/dashboard" render={() => this.state.currentUser === null ? <Redirect to="/login" /> :
-                  <DashboardPage userId={this.state.userId} favoriteRoutes={this.state.favoriteRoutes} completeRoutes={this.state.completeRoutes} /> } 
+                  <DashboardPage userId={this.state.userId} currentUser={this.state.currentUser} favoriteRoutes={this.state.favoriteRoutes} completeRoutes={this.state.completeRoutes} /> } 
               />   
              
               <Route exact="true"  path="/login" render={() => 

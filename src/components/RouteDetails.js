@@ -4,6 +4,7 @@ import RouteComments from './RouteComments'
 import {Icon, Button, Container, Header, Grid, Segment, Divider } from 'semantic-ui-react'
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import MapContainer from './MapContainer'
+import RouteDetailMap from './RouteDetailMap'
 
 export default class RouteDetails extends React.Component {
 
@@ -50,7 +51,7 @@ export default class RouteDetails extends React.Component {
 
             <div className="page">
             <div className="page-header">
-                <Grid stackable >
+                <Grid  >
                     <Grid.Column width={3}>
 
                         <img src={this.props.bikeRoute.image_url} className="ui medium bordered image" />
@@ -91,9 +92,9 @@ export default class RouteDetails extends React.Component {
                 <Icon name='heart' onClick={this.onHeartClick} /> Favorite </a>  | <a>                <Icon name='check circle outline' onClick={this.onCheckMarkClick}  /> Completed
                 </a> */}
 
-                <a><Icon name={this.state.favorite ? 'blue heart': 'blue heart outline'} red onClick={(event) => this.onHeartClick(event)} id={this.props.bikeRoute.id} /> Favorite</a>{"    |    "}
+                <a><Icon size="large" name={this.state.favorite ? 'red heart': 'red heart outline'} red onClick={(event) => this.onHeartClick(event)} id={this.props.bikeRoute.id} /> Favorite</a>&nbsp; &nbsp;{" | "}&nbsp; &nbsp;
  
-                <a><Icon name={this.state.completed ? 'blue check circle': 'check circle outline'}  onClick={(event) => this.onCheckMarkClick(event)} id={this.props.bikeRoute.id} alt="Mark Complete"  />Mark Complete</a>
+                <a><Icon size="large" name={this.state.completed ? 'blue check circle': 'check circle outline'}  onClick={(event) => this.onCheckMarkClick(event)} id={this.props.bikeRoute.id} alt="Mark Complete"  />Mark Complete</a>
 
 
 
@@ -109,12 +110,15 @@ export default class RouteDetails extends React.Component {
                         {/* <div className="google-map">
                           <MapContainer />
                         </div> */}
-               <img src="https://www.evelo.com/wp-content/uploads/2019/05/050119-google-hero.jpg" className="ui large bordered image" />
-                       
+               {/* <img src="https://www.evelo.com/wp-content/uploads/2019/05/050119-google-hero.jpg" className="ui large bordered image" />
+                        */}
+                        <div className="detail-map-area"> 
+                       <RouteDetailMap />
+                       </div>
                         <Divider />
-                        <h1>COMMENTS</h1>
+                        <h1>REVIEWS</h1>
 
-
+                        <Divider />
                         <div className="reviews">
                             <RouteComments routeId={this.props.bikeRoute.id} userId={this.props.userId} currentUser={this.props.currentUser} />
                          </div>
