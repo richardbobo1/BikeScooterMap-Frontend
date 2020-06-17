@@ -4,9 +4,28 @@ import DeleteJournalLog from './modals/DeleteJournalLog'
 import ViewJournalLog from './modals/ViewJournalLog'
 import EditJournalLogForm from './modals/EditJournalLogForm'
 
-const RideLogTable = (props) => (
 
-  props.journalEntries.length === 0 ? "Log your first ride!" : 
+
+
+class RideLogTable extends React.Component {
+
+  formatDate = (date) =>{
+    var date = new Date(date);
+    return [
+       ("0" + date.getDate()).slice(-2),
+       ("0" + (date.getMonth()+1)).slice(-2),
+       date.getFullYear()
+    ].join('/');
+  }
+
+  
+  render(){
+    return(
+
+  
+
+
+  this.props.journalEntries.length === 0 ? "Log your first ride!" : 
   <Table compact>
     <Table.Header>
       <Table.Row>
@@ -20,14 +39,14 @@ const RideLogTable = (props) => (
 
     <Table.Body>
 
-      { props.journalEntries.map( journal => 
+      { this.props.journalEntries.map( journal => 
             <Table.Row>
-            <Table.Cell>{journal.date}</Table.Cell>
+            <Table.Cell>{this.formatDate(journal.date)}</Table.Cell>
             <Table.Cell>{journal.distance} miles</Table.Cell>
             <Table.Cell>{journal.duration} mins</Table.Cell>
             <Table.Cell>{journal.calories} calories</Table.Cell>
             <Table.Cell>
-              <ViewJournalLog journal={journal} /><EditJournalLogForm journal={journal} /><DeleteJournalLog journal={journal} deleteJournalEntry={props.deleteJournalEntry}  /> 
+              <ViewJournalLog journal={journal} /><EditJournalLogForm journal={journal} /><DeleteJournalLog journal={journal} deleteJournalEntry={this.props.deleteJournalEntry}  /> 
             </Table.Cell>
           </Table.Row>
 
@@ -39,6 +58,8 @@ const RideLogTable = (props) => (
     </Table.Body>
   </Table>
   
-)
+  )}
+  }
+
 
 export default RideLogTable

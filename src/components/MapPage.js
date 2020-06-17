@@ -11,6 +11,7 @@ class MapPage extends React.Component {
         super();
         this.state = {
             capbikes: [],
+            capbikestatus: [],
             hellbizbikes: [],
             jumpbikes: [],
             displayCB: true,
@@ -29,6 +30,14 @@ class MapPage extends React.Component {
         .then(data => { 
             this.setState({ capbikes: data.data.stations})
         })
+
+        //fetch cap bike stations STATUS, because the previous fetch doesn't include bikes available info 
+        fetch("http://localhost:3000/companies/capbikestatus")
+        .then(resp => resp.json())
+        .then(data => { 
+            this.setState({ capbikestatus: data.data.stations})
+        })
+
 
         //fetch hellbiz bikes
         fetch("http://localhost:3000/companies/helbizbikes")
@@ -159,7 +168,7 @@ class MapPage extends React.Component {
 
 
                         <div className="map">
-                        <MapContainer stations={this.state.capbikes} hellbizbikes={this.state.hellbizbikes} jumpbikes={this.state.jumpbikes} />
+                        <MapContainer stations={this.state.capbikes} capbikestatus={this.state.capbikestatus} hellbizbikes={this.state.hellbizbikes} jumpbikes={this.state.jumpbikes} />
                         </div>
 
                         </Segment>

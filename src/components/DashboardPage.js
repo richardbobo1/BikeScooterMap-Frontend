@@ -171,8 +171,16 @@ class DashboardPage extends React.Component {
     }
 
 
+    calculateHours = (minutes) => {
+        let hours = (minutes/60)
+
+        let min = minutes % 60
+        let total = `${Math.floor(hours)}h ${min}m `
+        return total 
+    }
 
 
+  
 
 
   render() {
@@ -244,7 +252,7 @@ class DashboardPage extends React.Component {
                                 <Grid.Column width={4}>
                                     <Segment>
                                         <h3 style={{color: "gray"}}>TIME</h3>
-                                        <h1>{this.state.totalTime} mins</h1>
+                                        <h1>{this.calculateHours(this.state.totalTime)}</h1>
                                     </Segment>
                                 </Grid.Column>
                                 <Grid.Column width={4}>

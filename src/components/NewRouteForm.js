@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Button, Header, Image, Modal, Form, Dropdown } from 'semantic-ui-react'
+import { Icon, Button, Header, Image, Modal, Form, Dropdown, TextArea } from 'semantic-ui-react'
 
 // const options = [
 //     { key: 'e', text: 'Easy', value: 'easy' },
@@ -68,14 +68,17 @@ class NewRouteForm extends React.Component {
     }
 
 
+
+
     fetch("http://localhost:3000/routes", {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(bikeRouteObj)
       }).then(res => res.json())
       .then( data => {
+
         //user callback function to add new bike route to array and DOM
-        this.props.appendNewRoute(bikeRouteObj)
+        this.props.appendNewRoute(data)
         //console.log to confirm 
         console.log("Created new bike route", data)
         
@@ -95,24 +98,28 @@ class NewRouteForm extends React.Component {
     return (
       <div> 
         <Button className="ui primary button" onClick={this.handleOpenModal}   >New Route</Button>
-        <Modal size="medium" open={this.state.open} onClose={this.handleCancel}>
+        <Modal size="small" open={this.state.open} onClose={this.handleCancel}>
         <Modal.Header>Submit a New Route</Modal.Header>
-        <Modal.Content image>
-          <Image wrapped size='medium' src='https://bentonvillear.com/ImageRepository/Document?documentID=2656' />
+        <Modal.Content >
+          {/* <Image wrapped size='medium' src='https://bentonvillear.com/ImageRepository/Document?documentID=2656' />
+           */}
           <Modal.Description>
             <Header>Tell us about your route.</Header>
-
+           
   
   <Form>
     <Form.Field>
-          <input type="text" placeholder="Route Name..." name="name" value={this.state.name} onChange={this.handleChange} />
+      <label>Cycling Trail Name (make one up!)</label>
+          <input type="text" placeholder="Enter a Descriptive Name..." name="name" value={this.state.name} onChange={this.handleChange} />
     </Form.Field>
 
     <Form.Group widths='equal'>
         <Form.Field>
-            <input type="number" name="length" placeholder="Distance" value={this.state.length} onChange={this.handleChange} />
+          <label>Distance</label>
+            <input type="number" name="length" placeholder={20} value={this.state.length} onChange={this.handleChange} />
         </Form.Field>
         <Form.Field>
+        <label>Difficulty</label>
         <select fluid id="difficulty" name="difficulty" placeholder="Easy" value={this.state.difficulty} onChange={this.handleChange}>
           <option value="Easy">Easy</option>
           <option value="Moderate">Moderate</option>
@@ -120,6 +127,7 @@ class NewRouteForm extends React.Component {
         </select>
         </Form.Field>
         <Form.Field>
+        <label>Surface</label>
         <select fluid id="surface" name="surface" placeholder="Paved" value={this.state.surface} onChange={this.handleChange}>
           <option value="Paved">Paved</option>
           <option value="Gravel">Gravel</option>
@@ -131,20 +139,26 @@ class NewRouteForm extends React.Component {
 
       {/* description and tips  */}
     <Form.Field>
-          <input type="text" placeholder="Short Description (<50 words)" name="short_description" value={this.state.short_description} onChange={this.handleChange} />
+          <label>Short Description</label>
+          <TextArea type="textarea" style={{ minHeight: "100px" }} placeholder="Short Description (<50 words)" name="short_description" value={this.state.short_description} onChange={this.handleChange} />
     </Form.Field>
     <Form.Field>
+          <label>Tips for Riding</label>
           <input type="text" placeholder="Tips" name="tips" value={this.state.tips} onChange={this.handleChange}/>
     </Form.Field>
 
-        {/* images  */}
-        <label>Images</label>
     <Form.Field>
+    <label>Google Map Image</label>
           <input type="text" placeholder="Google Map Image" name="google_map" value={this.state.google_map} onChange={this.handleChange}/>
     </Form.Field>
     <Form.Field>
+    <label>Ride Image</label>
           <input type="text" placeholder="Scenerary Image" name="image_url" value={this.state.image_url} onChange={this.handleChange} />
     </Form.Field>
+    </Form>
+
+    </Modal.Description>
+        </Modal.Content>
 
     <Modal.Actions >
       <Button basic negative 
@@ -166,10 +180,9 @@ class NewRouteForm extends React.Component {
     </Modal.Actions>
  
 
-      </Form>
+     
 
-          </Modal.Description>
-        </Modal.Content>
+
       </Modal>
 
 
