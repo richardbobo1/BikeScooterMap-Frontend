@@ -167,7 +167,11 @@ class Explore extends React.Component {
                     </Grid.Column>
                     <Grid.Column width={12}>
                         <div className="routes-container"> 
-                            <RoutesContainer favorites={this.props.favorites} routes={this.state.displayedRoutes} userId={this.props.userId} />
+                            <RoutesContainer favorites={this.props.favorites} completeRoutes={this.props.completeRoutes}
+                                routes={this.state.displayedRoutes} onHeartClick={this.props.onHeartClick} 
+                                 removeFavorite={this.props.removeFavorite} addFavorite={this.props.addFavorite}
+                                 markCompleted={this.props.markCompleted} markIncomplete={this.props.markIncomplete}
+                                loggedIn={this.props.loggedIn} userId={this.props.userId} />
                         </div>
                     </Grid.Column>
             </Grid> 

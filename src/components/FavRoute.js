@@ -51,8 +51,6 @@ export default class FavRoute extends React.Component{
    onHeartClick = (event) => {
         event.preventDefault()
 
-        console.log("clicked heart", this.props.favorite.id)
-
         //if heart is currently true 
         if(this.state.favorite){
           //then i want to Fetch delete from database
@@ -74,8 +72,8 @@ export default class FavRoute extends React.Component{
       } else {
 
           let newFavoriteObj = {
-            user_id: this.state.userId,
-            route_id: event.target.id,
+            user_id: this.props.userId,
+            route_id: this.props.favorite.id,
             favorite: true 
           }
 
@@ -86,7 +84,7 @@ export default class FavRoute extends React.Component{
             }).then(res => res.json())
             .then( data => {
                 console.log("created new favorite")  
-                let newArray = this.state.favorites.push(newFavoriteObj)
+                let newArray = this.state.favorites.push(data)
 
                  //and change state soheart changes
                 this.setState({
@@ -158,7 +156,7 @@ export default class FavRoute extends React.Component{
                    completeRoutes: newArray,
                    completed: true 
               })
-              debugger 
+         
 
              this.props.markCompleted(data)
       
@@ -209,9 +207,9 @@ export default class FavRoute extends React.Component{
             </Card.Content>
             <Card.Content extra>
             
-              <a><Icon name={this.state.favorite ? 'red heart': 'red heart outline'} red onClick={(event) => this.onHeartClick(event)} id={this.props.route.id} className="heart" /></a>
+              <a><Icon size="large" name={this.state.favorite ? 'red heart': 'red heart outline'} red onClick={(event) => this.onHeartClick(event)} id={this.props.route.id} className="heart" /></a>
  
-              <a><Icon name={this.state.completed ? 'blue check circle': 'check circle outline'}  onClick={(event) => this.onCheckMarkClick(event)} id={this.props.route.id} alt="Mark Complete" className="checkmark" /></a>
+              <a><Icon size="large" name={this.state.completed ? 'blue check circle': 'check circle outline'}  onClick={(event) => this.onCheckMarkClick(event)} id={this.props.route.id} alt="Mark Complete" className="checkmark" /></a>
 
             </Card.Content>
 

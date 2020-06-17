@@ -194,6 +194,7 @@ class App extends Component {
 
 
 
+
   render() {
     return (
       <div className="page-container">
@@ -209,12 +210,17 @@ class App extends Component {
               
               <Route exact="true" path="/" component={Home} />
               <Route exact="true"  path="/explore" render={() => {
-                  return (<Explore favorites={this.state.favoriteRoutes} userId={this.state.userId} />)
+                  return (<Explore favorites={this.state.favoriteRoutes} completeRoutes={this.state.completeRoutes}
+                              userId={this.state.userId} onHeartClick={this.onHeartClick} 
+                              removeFavorite={this.removeFavorite} addFavorite={this.addFavorite}
+                              markCompleted={this.markCompleted} markIncomplete={this.markIncomplete}
+                              loggedIn={this.state.loggedIn} />)
               }}/>
                 
                 {/* <Explore favorites={this.state.favoriteRoutes} userId={this.state.userId} /></Route>      */}
               <Route exact="true"  path="/favorites" render={() => this.state.currentUser === null ? <Redirect to="/login" /> :
                   <Favorites favorites={this.state.favoriteRoutes } completedRoutes={this.state.completeRoutes} 
+                  userId={this.state.userId}
                   removeFavorite={this.removeFavorite}  addFavorite={this.addFavorite}
                   markCompleted={this.markCompleted} markIncomplete={this.markIncomplete} />   
 
@@ -239,7 +245,11 @@ class App extends Component {
                    let bikeRoute = JSON.parse(localStorage.bikeRoutes).find(p => p.id === parseInt(id))
     
                   localStorage.bikeRoute = JSON.stringify(bikeRoute)
-                  return <RouteDetails bikeRoute={JSON.parse(localStorage.bikeRoute)} userId={this.state.userId} currentUser={this.props.currentUser} />
+                  return <RouteDetails bikeRoute={JSON.parse(localStorage.bikeRoute)} userId={this.state.userId} 
+                      favorites={this.state.favoriteRoutes} completeRoutes={this.state.completeRoutes}
+                      markCompleted={this.markCompleted} markIncomplete={this.markIncomplete}
+                      removeFavorite={this.removeFavorite} addFavorite={this.addFavorite}
+                      currentUser={this.props.currentUser} loggedIn={this.state.loggedIn} />
                   }  }/>
 
 

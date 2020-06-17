@@ -55,6 +55,7 @@ class Favorites extends React.Component {
          
             <Divider clearing />
                 <FavoritesContainer routes={this.props.favorites} favorites={this.props.favorites} 
+                  userId={this.props.userId}
                 markCompleted={this.props.markCompleted} markIncomplete={this.props.markIncomplete}
                 completedRoutes={this.props.completedRoutes}  removeFavorite={this.props.removeFavorite}  addFavorite={this.props.addFavorite} />
             </div>

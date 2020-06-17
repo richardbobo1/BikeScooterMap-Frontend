@@ -16,19 +16,202 @@ export default class RouteDetails extends React.Component {
         }
     }
 
-    onHeartClick = (event) => {
-        console.log("clicked heart")
-        this.setState({
-            favorite: !this.state.favorite 
-        })
+
+    componentDidMount(){
+        this.checkForFavorites() 
+        this.checkForCompletes()
     }
 
-    onCheckMarkClick = (event) => {
-        console.log("clicked checkmark")
-        this.setState({
-            completed: !this.state.completed
+
+    checkForFavorites = () => {
+        this.props.favorites.map( favorite => {
+          if (favorite.route_id === this.props.bikeRoute.id && favorite.user_id === this.props.userId ){
+                 this.setState({
+              favorite: true
+            })
+          } 
         })
+      }
+
+
+      checkForCompletes = () => {
+        this.props.completeRoutes.map( comp => {
+          if (comp.route_id === this.props.bikeRoute.id ){
+                 this.setState({
+                  completed: true
+                 })
+          } 
+        })
+      }
+  
+
+
+///verify if logged in, and if so, then check if completed or not so we can determine the correct next action 
+onCheckmarkClick = (event) => {
+    if(this.props.loggedIn === false ){
+      alert("You must be logged in to do that.")
+    } else {
+     //if logged in, then proceed to check if already on favorites
+     // and then eitehr create or delete the favorite 
+        if(this.state.completed){
+          this.markIncomplete(event)
+        } else { this.markComplete(event) }
+  
+          this.setState ({
+            completed: !this.state.complete
+          })
     }
+  }
+  /////
+
+//first option, mark that it is now compelted 
+markComplete = (event) => {
+
+    let newCompObj = {
+      user_id: this.props.userId,
+      route_id: this.props.bikeRoute.id,
+      completed: true 
+    }
+  
+    fetch('http://localhost:3000/complete_routes', {
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(newCompObj)
+      }).then(res => res.json())
+      .then( data => {
+      
+           //and change state socheckmark changes
+          this.setState({
+               completed: true 
+          })
+       
+         this.props.markCompleted(data)
+  
+      })
+  }
+  
+  
+  
+  
+  
+  
+  // second optino, mark it as incomplete. 
+  markIncomplete = (event) => {
+  
+    //find id of complete so I can use it to delete the record 
+    let complete = this.props.completeRoutes.filter(fave => fave.route_id === this.props.bikeRoute.id && fave.user_id === this.props.userId )
+    let completeId = complete[0].id 
+  
+    //then i want to Fetch delete from database
+    fetch(`http://localhost:3000/complete_routes/${completeId}`, {
+      method: "DELETE",
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(res => res.json() )
+    .then( res => {
+      
+        //use callback function to removie from favorites on App state 
+        this.props.markIncomplete(completeId)
+  
+      this.setState({
+          completed: false
+    })
+    })
+  
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////
+
+    onHeartClick = (event) => {
+        if(this.props.loggedIn === false ){
+          alert("You must be logged in to do that.")
+        } else {
+         alert("working!")
+         //if logged in, then proceed to check if already on favorites
+         // and then eitehr create or delete the favorite 
+            if(this.state.favorite){
+              this.deleteFavorite(event)
+            } else { this.createFavorite(event) }
+  
+              this.setState ({
+                favorite: !this.state.favorite
+              })
+  
+        }
+      }
+
+
+      createFavorite = (event) => {
+
+        //set up new favorite object
+        let faveObj = {
+          user_id: this.props.userId, 
+          route_id: parseInt(event.target.id),
+          completed: true  
+        }
+        
+        //do fetch call to persist favorite to database 
+        fetch('http://localhost:3000/favorite_routes', {
+          method: 'POST',
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(faveObj)
+          }).then(res => res.json())
+          .then( data => {
+              console.log("created new favorite")  
+               //add to favorites array, using callback function on App 
+              this.props.addFavorite(data)
+  
+               //and change state soheart changes
+              this.setState({
+                   favorite: true 
+             })
+          })
+  
+      }
+  
+  
+  
+  
+      deleteFavorite = (event) => {
+             //find the favorite ID
+        let fave = this.props.favorites.filter(fave => fave.route_id === this.props.bikeRoute.id && fave.user_id === this.props.userId )
+        
+        let faveId = fave[0].id 
+   
+          //then i want to Fetch delete from database
+          fetch(`http://localhost:3000/favorite_routes/${faveId}`, {
+            method: "DELETE",
+            headers: {'Content-Type': 'application/json'},
+        })
+        .then(res => res.json() )
+        .then( res => {
+            this.setState({
+                  favorite: false
+            })
+  
+            //use callback function to removie from favorites on App state 
+            this.props.removeFavorite(faveId)
+        })
+      }
+  
+
+
+
+
+
+
 
 
     render(){
@@ -71,7 +254,7 @@ export default class RouteDetails extends React.Component {
                         >View Source</Button>
                         <br />
                         <br />
-                        <Button
+                        {/* <Button
                         
                         target="_blank"
                         href={this.props.bikeRoute.source}
@@ -82,7 +265,7 @@ export default class RouteDetails extends React.Component {
                         red
                         target="_blank"
                         href={this.props.bikeRoute.source}
-                        >Delete ROute</Button>
+                        >Delete ROute</Button> */}
 
 
                     </Grid.Column>
@@ -94,15 +277,16 @@ export default class RouteDetails extends React.Component {
 
                 <a><Icon size="large" name={this.state.favorite ? 'red heart': 'red heart outline'} red onClick={(event) => this.onHeartClick(event)} id={this.props.bikeRoute.id} /> Favorite</a>&nbsp; &nbsp;{" | "}&nbsp; &nbsp;
  
-                <a><Icon size="large" name={this.state.completed ? 'blue check circle': 'check circle outline'}  onClick={(event) => this.onCheckMarkClick(event)} id={this.props.bikeRoute.id} alt="Mark Complete"  />Mark Complete</a>
+                <a><Icon size="large" name={this.state.completed ? 'blue check circle': 'check circle outline'}  onClick={(event) => this.onCheckmarkClick(event)} id={this.props.bikeRoute.id} alt="Mark Complete"  />Mark Complete</a>
 
 
-
+                    <Divider />
                     <h3>Key Details</h3>
                     {this.props.bikeRoute.description}
-                    <Divider />
+                    {/* <Divider />
                     <h1>Tips</h1>
                     {this.props.bikeRoute.tips}
+                     */}
                     </Grid.Column>
                     <Grid.Column width={6}>
                         <Divider />

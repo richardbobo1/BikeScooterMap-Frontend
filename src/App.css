@@ -133,12 +133,12 @@ img.card-image {
 }
 
 .map {
-  height: 400px;  
+  height: 500px;  
   margin-left: 0px;
   margin-right: 0px;
   /* margin-bottom: 50px; */
   width: 100%;  /* The width is the width of the web page */
-  contain: normal;
+  contain: strict;
  }
 
  .google-map {

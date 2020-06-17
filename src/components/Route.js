@@ -25,7 +25,7 @@ export default class Route extends React.Component{
         favoriteRoutes: this.props.favorites 
       })
       this.checkForFavorites() 
-
+      this.checkForCompletes()
         
     }
 
@@ -33,25 +33,47 @@ export default class Route extends React.Component{
       this.props.favorites.map( favorite => {
         if (favorite.route_id === this.props.route.id ){
                this.setState({
-            favorite: true,
-            completed: favorite.completed 
+            favorite: true
           })
         } 
       })
     }
 
-    onHeartClick = (event) => {
 
-      if(this.state.favorite){
-        this.deleteFavorite(event)
-      } else { this.createFavorite(event) }
+    checkForCompletes = () => {
+      
+      this.props.completeRoutes.map( comp => {
 
-        this.setState ({
-          favorite: !this.state.favorite
-        })
-     
-
+        if (comp.route_id === this.props.route.id ){
+               this.setState({
+                completed: true
+               })
+        } 
+      })
     }
+
+
+
+
+    onHeartClick = (event) => {
+      if(this.props.loggedIn === false ){
+        alert("You must be logged in to do that.")
+      } else {
+       //if logged in, then proceed to check if already on favorites
+       // and then eitehr create or delete the favorite 
+          if(this.state.favorite){
+            this.deleteFavorite(event)
+          } else { this.createFavorite(event) }
+
+            this.setState ({
+              favorite: !this.state.favorite
+            })
+
+      }
+    
+    }
+
+
 
     createFavorite = (event) => {
       console.log("Creating favorite", event.target.id  )
@@ -60,32 +82,148 @@ export default class Route extends React.Component{
       let faveObj = {
         user_id: this.props.userId, 
         route_id: parseInt(event.target.id),
-        completed: this.state.completed 
+        completed: true  
       }
 
-
-      //add to favorites array, using callback function on App 
-
-
       //do fetch call to persist favorite to database 
+      fetch('http://localhost:3000/favorite_routes', {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(faveObj)
+        }).then(res => res.json())
+        .then( data => {
+            console.log("created new favorite")  
+             //add to favorites array, using callback function on App 
+            this.props.addFavorite(data)
 
-      //
-
+             //and change state soheart changes
+            this.setState({
+                 favorite: true 
+           })
+        })
 
     }
+
+
+
 
     deleteFavorite = (event) => {
       console.log("deleteing favorite", event.id  )
-    }
-
-
-    onCheckMarkClick = () => {
-         this.setState ({
-          completed: !this.state.completed
-        })
-    }
-
+        //find the favorite ID
+      let fave = this.props.favorites.filter(fave => fave.route_id === this.props.route.id && fave.user_id === this.props.userId )
+      
+      let faveId = fave[0].id 
  
+        //then i want to Fetch delete from database
+        fetch(`http://localhost:3000/favorite_routes/${faveId}`, {
+          method: "DELETE",
+          headers: {'Content-Type': 'application/json'},
+      })
+      .then(res => res.json() )
+      .then( res => {
+          this.setState({
+                favorite: false
+          })
+
+          //use callback function to removie from favorites on App state 
+          this.props.removeFavorite(faveId)
+      })
+    }
+
+
+
+
+
+///////////////////////////
+
+
+///verify if logged in, and if so, then check if completed or not so we can determine the correct next action 
+onCheckmarkClick = (event) => {
+  if(this.props.loggedIn === false ){
+    alert("You must be logged in to do that.")
+  } else {
+   //if logged in, then proceed to check if already on favorites
+   // and then eitehr create or delete the favorite 
+      if(this.state.completed){
+        this.markIncomplete(event)
+      } else { this.markComplete(event) }
+
+        this.setState ({
+          completed: !this.state.complete
+        })
+  }
+}
+/////
+
+//first option, mark that it is now compelted 
+markComplete = (event) => {
+
+  let newCompObj = {
+    user_id: this.props.userId,
+    route_id: this.props.route.id,
+    completed: true 
+  }
+
+  fetch('http://localhost:3000/complete_routes', {
+    method: 'POST',
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(newCompObj)
+    }).then(res => res.json())
+    .then( data => {
+    
+        console.log("created new favorite", data )  
+         //and change state soheart changes
+        this.setState({
+             completed: true 
+        })
+     
+       this.props.markCompleted(data)
+
+    })
+}
+
+
+
+
+
+
+// second optino, mark it as incomplete. 
+markIncomplete = (event) => {
+
+  //find id of complete so I can use it to delete the record 
+  let complete = this.props.completeRoutes.filter(fave => fave.route_id === this.props.route.id && fave.user_id === this.props.userId )
+  let completeId = complete[0].id 
+
+  //then i want to Fetch delete from database
+  fetch(`http://localhost:3000/complete_routes/${completeId}`, {
+    method: "DELETE",
+    headers: {'Content-Type': 'application/json'}
+  })
+  .then(res => res.json() )
+  .then( res => {
+    
+      //use callback function to removie from favorites on App state 
+      this.props.markIncomplete(completeId)
+
+    this.setState({
+        completed: false
+  })
+  })
+
+}
+
+
+////////
+
+
+
+
+
+
+
+
+
+    //////////////////////////////////
 
     render(){
       
@@ -130,7 +268,7 @@ export default class Route extends React.Component{
             
               <a><Icon size="large" name={this.state.favorite ? 'red heart': 'red heart outline'} red onClick={(event) => this.onHeartClick(event)} id={this.props.route.id} className="heart" /></a>
  
-              <a><Icon size="large" name={this.state.completed ? 'blue check circle': 'check circle outline'}  onClick={(event) => this.onCheckMarkClick(event)} alt="Mark Complete" className="checkmark" /></a>
+              <a><Icon size="large" name={this.state.completed ? 'blue check circle': 'check circle outline'}  onClick={(event) => this.onCheckmarkClick(event)} alt="Mark Complete" className="checkmark" /></a>
  
             </Card.Content>
 
