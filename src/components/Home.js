@@ -52,7 +52,7 @@ class Home extends React.Component {
                   src="/static/images/wireframe/square-image.png"
                 /> */}
 
-                <Icon name='map' centered size="large" />
+                <Icon name='huge map' centered size="large" />
                 <Header as="h1">Route Maps</Header>
                 <p>
                   Donec sed odio dui. Etiam porta sem malesuada magna mollis
@@ -69,7 +69,7 @@ class Home extends React.Component {
                   size="small"
                   src="/static/images/wireframe/square-image.png"
                 /> */}
-                <Icon name='bicycle' centered size="large" />
+                <Icon name='huge bicycle' centered size="large" />
                 <Header as="h1">Bike Share</Header>
                 <p>
                   If you want to use Capital Bike Share, JUMP, or Hellbiz, use our map to find a bikeshare bike nearby in Washington, DC. 
@@ -87,7 +87,7 @@ class Home extends React.Component {
                   size="small"
                   src="/static/images/wireframe/square-image.png"
                 /> */}
-                <Icon name='chart line' centered size="large" />
+                <Icon name='huge chart line' centered size="large" />
                 <Header as="h1">My Dashboard</Header>
                 <p>
                     Keep track of the routes you love or have completed by marketing 

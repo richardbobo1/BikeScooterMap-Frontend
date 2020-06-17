@@ -138,7 +138,6 @@ markComplete = (event) => {
         if(this.props.loggedIn === false ){
           alert("You must be logged in to do that.")
         } else {
-         alert("working!")
          //if logged in, then proceed to check if already on favorites
          // and then eitehr create or delete the favorite 
             if(this.state.favorite){
@@ -282,6 +281,7 @@ markComplete = (event) => {
 
                     <Divider />
                     <h3>Key Details</h3>
+                    <br />
                     {this.props.bikeRoute.description}
                     {/* <Divider />
                     <h1>Tips</h1>

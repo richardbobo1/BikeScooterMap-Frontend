@@ -41,7 +41,7 @@ class NavBar extends React.Component {
         <Menu.Item as='a' exact header>
         <Link to="/">
         <Icon name='bicycle' />
-          DC Ridr
+        &nbsp; &nbsp; DC Ridr
           </Link>
         </Menu.Item>
         <Menu.Item as='a' name="home" exact><Link to="/">Home</Link></Menu.Item>
