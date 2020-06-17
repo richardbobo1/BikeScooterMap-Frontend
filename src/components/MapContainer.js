@@ -5,6 +5,7 @@ import { Grid, Segment, Header, Search, Button, Modal, Divider } from 'semantic-
 import MarkerWindowInfo from './MarkerWindowInfo'
 import CapBikeIcon from '../cbshareicon.png'
 import HelbizIcon from '../helbiz.png'
+import JumpLogo from '../assets/jump.png'
 
 
 
@@ -33,6 +34,19 @@ class MapContainer extends React.Component {
         })
     }
 
+    // displayCapBikes = (cap) => {
+    //    if (cap === true ){
+    //    let bikes =  this.props.stations.map(station => (
+
+    //         <Marker position={{ lat: station.lat, lng: station.lon }}                             
+    //             onClick={() => this.setSelectedStation()} 
+    //             icon={require('../cbshareicon.png')}
+    //             >
+    //         </Marker>)) 
+
+    //     return bikes 
+    //    }
+    // }
 
  render() {
 
@@ -47,23 +61,21 @@ class MapContainer extends React.Component {
                         lng: -77.0369
                         }}>
                     
+            
 
-                   { this.props.stations.map(station => (
+                   { 
+                   
+                    this.props.stations.map(station => (
 
-                          
-                            <Marker position={{ lat: station.lat, lng: station.lon }} 
-                            
-                            onClick={() => this.setSelectedStation()} 
-                            icon={require('../cbshareicon.png')}
-                            >
-
-                            </Marker>
-
-                   )
-                                                      
-                   )
-
+                            <Marker position={{ lat: station.lat, lng: station.lon }}                             
+                                onClick={() => this.setSelectedStation()} 
+                                icon={require('../cbshareicon.png')}
+                                >
+                                    <InfoWindow />
+                            </Marker>)) 
                    }
+
+                   
 
                         { this.props.hellbizbikes.map(bike => (      
                         <Marker position={{ lat: bike.lat, lng: bike.lon }} 
@@ -80,6 +92,17 @@ class MapContainer extends React.Component {
 
                         }
 
+
+{ 
+                   
+                   this.props.jumpbikes.map(bike => (
+
+                           <Marker position={{ lat: bike.lat, lng: bike.lon }}                             
+                               onClick={() => this.setSelectedStation()} 
+                               icon={require('../assets/jump.png')}
+                               >
+                           </Marker>)) 
+                  }
 
 
 

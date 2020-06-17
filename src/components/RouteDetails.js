@@ -70,6 +70,20 @@ export default class RouteDetails extends React.Component {
                         >View Source</Button>
                         <br />
                         <br />
+                        <Button
+                        
+                        target="_blank"
+                        href={this.props.bikeRoute.source}
+                        >Edit Route</Button>
+                                                <br />
+                        <br />
+                        <Button
+                        red
+                        target="_blank"
+                        href={this.props.bikeRoute.source}
+                        >Delete ROute</Button>
+
+
                     </Grid.Column>
                     <Grid.Column width={7}>
                     <h1>{this.props.bikeRoute.name}</h1>
@@ -102,7 +116,7 @@ export default class RouteDetails extends React.Component {
 
 
                         <div className="reviews">
-                            <RouteComments />
+                            <RouteComments routeId={this.props.bikeRoute.id} userId={this.props.userId} currentUser={this.props.currentUser} />
                          </div>
 
                     </Grid.Column>

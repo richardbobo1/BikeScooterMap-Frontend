@@ -58,11 +58,38 @@ class Explore extends React.Component {
           })
       }
 
-      handleRouteSearchFilter = (difficulty, surface ) =>{
+      handleRouteSearchFilter = (difficulty, surface, min, max ) =>{
           let newArray = this.state.routes 
-          const filteredArray = newArray.filter( bikeRoute => {
-            return bikeRoute.difficulty === difficulty && bikeRoute.surface === surface 
-          });
+          let filteredArray = []
+          
+          //if difficult or surface == ALL then just filter by max and min
+          if (difficulty === 'All' && surface === 'All'){
+             filteredArray = newArray.filter( bikeRoute => {
+                return  bikeRoute.length >= min && bikeRoute.length <= max 
+              });
+          } else if (difficulty === 'All' && surface !== 'All') {
+             filteredArray = newArray.filter( bikeRoute => {
+                return bikeRoute.surface === surface  && bikeRoute.length >= min && bikeRoute.length <= max 
+              });
+          } else if (difficulty !== 'All' && surface === 'All') {
+             filteredArray = newArray.filter( bikeRoute => {
+                return bikeRoute.difficulty === difficulty && bikeRoute.length >= min && bikeRoute.length <= max 
+              });
+           } else {
+            filteredArray = newArray.filter( bikeRoute => {
+                return bikeRoute.difficulty === difficulty && bikeRoute.surface === surface  && bikeRoute.length >= min && bikeRoute.length <= max 
+              });
+           }
+
+
+          //if difficulty === ALL but surface !== ALl then just filter out by surface, max, min
+          //if neither difficulty or surface == ALL then filter by all four 
+          
+        //   const filteredArray = newArray.filter( bikeRoute => {
+        //     return bikeRoute.difficulty === difficulty && bikeRoute.surface === surface  && bikeRoute.length >= min && bikeRoute.length <= max 
+        //   });
+
+
           this.setState({
               displayedRoutes: filteredArray
           })
@@ -78,10 +105,9 @@ class Explore extends React.Component {
       handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
         this.handleKeyWordSearch(e.target.value) 
-
-        console.log(e.target.value)
-
       };
+
+
 
       handleKeyWordSearch = (e) => {
         let newArray = this.state.routes 

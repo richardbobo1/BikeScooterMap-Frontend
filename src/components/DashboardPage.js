@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import NewRouteForm from './NewRouteForm'
 import { Grid, Search, Card, Icon, Divider, Segment, Button, Modal } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import LogRideForm from "./LogRideForm";
@@ -36,8 +35,13 @@ class DashboardPage extends React.Component {
 
     
     componentDidMount(){
-  
-        fetch(`http://localhost:3000/journals/${this.props.userId}`)
+
+     
+
+     if(this.props.userId !== ''){
+
+     
+        fetch(`http://localhost:3000/journals/${parseInt(this.props.userId)}`)
         .then(resp => resp.json())
         .then(data => { 
             this.setState({ 
@@ -48,7 +52,7 @@ class DashboardPage extends React.Component {
             this.calculateTime()
             this.calculateCalories()
         })
-
+    }
         
     }
     

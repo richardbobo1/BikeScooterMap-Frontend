@@ -1,7 +1,15 @@
 import React from 'react';
-import { Button, Form, Grid, Header, Image, Message, Segment, Icon } from 'semantic-ui-react'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route, 
+  Switch, 
+  NavLink, 
+  Redirect
+} from 'react-router-dom';
+import { Button, Form, Grid, Header, Icon, Image, Message, Segment } from 'semantic-ui-react'
 
- 
+
 export default class Login extends React.Component {
 
     constructor(){
@@ -9,12 +17,15 @@ export default class Login extends React.Component {
         this.state = {
             username: "",
             password: "",
-            image_url: "",
             email: "",
             signIn: true
           };
     }
 
+    componentDidMount(){
+      
+    }
+    
 
 
 
@@ -24,20 +35,17 @@ export default class Login extends React.Component {
 
 
       onSignUp = (e) => {
-        console.log("clickity clik")
-        e.preventDefault()
+         e.preventDefault()
 
-        fetch('http://localhost:3000/api/v1/users', {
+        fetch('http://localhost:3000/users', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
+              'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              user: {
+              "user": {
                 username: this.state.username,
                 password: this.state.password,
-                img_url: this.state.image_url,
                 email: this.state.email 
               }
             })
@@ -48,77 +56,57 @@ export default class Login extends React.Component {
                     if(userData.error_message){
                       alert("There are errors in the form, fix them")
                     }else{
-                      debugger
                       localStorage.setItem("token", userData.jwt)
                       localStorage.setItem("user", userData.user)   //added this to store current user 
                       this.props.updateCurrentUser(userData.user)   
+                      // this.props.login()
+                      this.props.changeLog()
+
+                     
                     }
             })
+         
     }
 
 
+    handleLoginSubmit = () => {
+
+      fetch("http://localhost:3000/login", {
+          method:"POST",
+          headers: {
+            "Content-Type" : "application/json"
+          },
+          body: JSON.stringify({
+            username: this.state.username,
+            password: this.state.password
+          })
+      })
+      .then((response) => response.json())
+      .then(data => {
+
+        
+
+          console.log("response", data)
+          if (data.error_message){
+              alert(data.error_message)
+          }else {
+              localStorage.setItem("token", data.token)
+              localStorage.setItem("userId", data.user_data.id) 
+ 
+
+              this.props.updateCurrentUser(data.user_data)   
+              // this.props.login()
+              this.props.changeLog()
+              window.location = "/"
 
 
-    handleLoginSubmit = (e) => {
-        e.preventDefault()
-        if(this.state.signIn){
-            fetch("http://localhost:3000/api/v1/login", {
-                method:"POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json'
-                  },
-                body: JSON.stringify({
-                    user: {
-                        username: this.state.username,
-                        password: this.state.password
-                    }
-                })
-            }).then(res => res.json())
-            .then(userData => {
-                console.log("response from the server", userData)
-                if(userData.error_message){
-                    alert(userData.error_message)
-                }else{
-                    localStorage.setItem("token", userData.jwt)
-                        localStorage.setItem("user", userData.user)   //added this to store current user 
-                        this.props.updateCurrentUser(userData.user)   
-                        this.props.changeLog()
-                    }
-            })
-        }
-    }
+
+          }
+      })
+  }
         
 
 
-    handleSignUp = (e) => {
-          fetch("http://localhost:3000/api/v1/users", {
-        method:"POST",
-        headers: {
-          "Content-Type" : "application/json",
-        },
-        body: JSON.stringify({
-          "user": {
-          username: this.state.username,
-          password: this.state.password,
-          img_url: this.state.image_url,
-          email: this.state.email 
-          }
-        })
-      }).then(res => res.json())
-      .then(userData => {
-        console.log("response from the server", userData)
-        if(userData.error_message){
-          alert("There are errors in the form, fix them")
-        }else{
-          debugger
-          localStorage.setItem("token", userData.jwt)
-          localStorage.setItem("user", userData.user)   //added this to store current user 
-          this.props.updateCurrentUser(userData.user)   
-          this.props.changeLog()
-        }
-      })
-        }
 
       
 
@@ -127,11 +115,11 @@ export default class Login extends React.Component {
       }
 
 
-    // render(){
-    //     return  <Button onClick={event => this.onPostFetch(event)} >Create user</Button>
-    //  }
+
 
     render() {
+
+
 
         if(this.state.signIn) {
 
@@ -140,7 +128,7 @@ export default class Login extends React.Component {
 
                  <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
                      <Grid.Column style={{ maxWidth: 450 }}>
-                     <Header as='h2' color='teal' textAlign='center'>
+                     <Header as='h2' color='blue' textAlign='center'>
                      <Icon name='bicycle' /> Log-in to your account
                      </Header>
 
@@ -158,7 +146,7 @@ export default class Login extends React.Component {
                             name="password"
                             value={this.state.password} onChange={this.handleChange}
                         />
-                            <Button color='teal' fluid size='large' type="submit">
+                            <Button color='blue' fluid size='large' type="submit">
                             Login
                             </Button>
                     </Segment> 
@@ -179,8 +167,8 @@ export default class Login extends React.Component {
 
                     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
                     <Grid.Column style={{ maxWidth: 450 }}>
-                    <Header as='h2' color='teal' textAlign='center'>
-                    <Icon name='bed' /> Create Your Account!
+                    <Header as='h2' color='blue' textAlign='center'>
+                    <Icon name='bicycle' /> Create Your Account!
                     </Header>
 
                     <Form className="ui form" onSubmit={this.onSignUp} size='large'>
@@ -200,10 +188,8 @@ export default class Login extends React.Component {
                             value={this.state.password} onChange={this.handleChange}
                         />
 
-                        
-                        <Form.Input fluid icon='user' iconPosition='left' name="image_url" placeholder='Enter your image...' value={this.state.image_url} onChange={this.handleChange} />
-                     
-                            <Button color='teal' fluid size='large' type="submit">
+
+                            <Button color='blue' fluid size='large' type="submit">
                             Sign Up
                             </Button>
                     </Segment> 

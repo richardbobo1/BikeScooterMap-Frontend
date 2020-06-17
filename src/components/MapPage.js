@@ -12,7 +12,10 @@ class MapPage extends React.Component {
         this.state = {
             capbikes: [],
             hellbizbikes: [],
-            jumpbikes: []
+            jumpbikes: [],
+            displayCB: true,
+            displayHB: true,
+            displayJB: true 
           }
     }
 
@@ -21,65 +24,106 @@ class MapPage extends React.Component {
       
 
         //fetch cap bike share
-        fetch("https://gbfs.capitalbikeshare.com/gbfs/en/station_information.json")
+        fetch("http://localhost:3000/companies/capbikes")
         .then(resp => resp.json())
         .then(data => { 
-    
             this.setState({ capbikes: data.data.stations})
         })
 
         //fetch hellbiz bikes
-        fetch("https://api.helbiz.com/admin/reporting/washington/gbfs/free_bike_status.json")
+        fetch("http://localhost:3000/companies/helbizbikes")
         .then(resp => resp.json())
         .then(data => { 
             this.setState({ hellbizbikes : data.data.bikes.filter(bike => bike.is_reserved === 0 && bike.is_disabled === 0 ) })
         })
 
         //fetch jumpikes
-        // fetch("https://gbfs.uber.com/v1/dcb/free_bike_status.json", {
-        //     mode:'no-cors'
+        fetch("http://localhost:3000/companies/jumpbikes")
+        .then(resp => resp.json())
+        .then(data => { 
+            this.setState({ jumpbikes: data.data.bikes})
+        })
+
+
+    }
+
+    onDisplayCapBikes = () => {
+        fetch("http://localhost:3000/companies/capbikes")
+        .then(resp => resp.json())
+        .then(data => { 
+            this.setState({ capbikes: data.data.stations})
+        })
+    }
+
+    onDisplayHelbizBikes = () => {
+        fetch("http://localhost:3000/companies/helbizbikes")
+        .then(resp => resp.json())
+        .then(data => { 
+            this.setState({ hellbizbikes : data.data.bikes.filter(bike => bike.is_reserved === 0 && bike.is_disabled === 0 ) })
+        })
+    }
+
+    onDisplayJumpBikes = () => {
+        fetch("http://localhost:3000/companies/jumpbikes")
+        .then(resp => resp.json())
+        .then(data => { 
+            this.setState({ jumpbikes: data.data.bikes})
+        })
+    }
+
+
+   handleRefreshBikes = (event) => {
+       event.preventDefault();
+
+       if (this.state.displayHB === true) { 
+        this.setState({hellbizbikes: []});   
+        console.log("refreshing hellbiz")
+        this.onDisplayHelbizBikes() };
+       if( this.state.displayCB === true) {
+        this.setState({capbikes: [] });   
+        console.log("refreshing capbike")
+        this.onDisplayCapBikes() };
+   }
+
+
+    changeFilter = (company) => {
+        console.log("filter changing", company)
+        if (company === "cap" && this.state.displayCB === true ) {
+            this.setState({
+                displayCB: !this.state.displayCB,
+                capbikes: []
+                })
+        } else if (company === "cap" && this.state.displayCB === false ) {
+            this.onDisplayCapBikes() 
+            this.setState({
+                displayCB: !this.state.displayCB
+                })
+        }
         
-        // } )
-        // .then(resp => resp.json())
-        // .then(data => { 
-    
-        //     console.log("jump bikes", data)
-        //     this.setState({ jumpbikes: data})
-        // })
-
-
-    }
-
-
-
-    createBikeMarkers = () => {
-
-        // var gmarkers = Array();
-
-        //  for( i = 0; i < this.state.capbikes.length; i++ ) {
-        //         var position = new google.maps.LatLng(this.state.capbikes.lat, this.state.capbikes.lon);
-        //         bounds.extend(position);
-        //         marker = new google.maps.Marker({
-        //             position: position,
-        //             map: map,
-        //             title: markers[i].title 
-        //         });
-        // gmarkers.push(marker);
-        // }
-  
-        // // hide all the markers 
-        // for(i = 0 ; i< gmarkers.length; i++) 
-        // gmarkers[i].setVisible(false);
+        else if (company === "jump" && this.state.displayJB === true ){
+            this.setState({
+                displayJB: !this.state.displayJB,
+                jumpbikes: []
+                })
+        } else if (company === "jump" && this.state.displayJB === false ) {
+            this.onDisplayJumpBikes()
+            this.setState({
+                displayJB: !this.state.displayJB
+            })
+        }
+        else if (company === "helbiz" && this.state.displayHB === true ){
+            this.setState({
+                displayHB: !this.state.displayHB,
+                hellbizbikes: []
+                })
+        } else if (company === "helbiz" && this.state.displayHB === false){
+            this.onDisplayHelbizBikes();
+            this.setState({
+                displayHB: !this.state.displayHB
+                })
+        }
 
     }
-
-
-
-
-    mapThroughCapBikes = () => {
-
-    }
-
 
 
 
@@ -97,7 +141,9 @@ class MapPage extends React.Component {
         <Grid>
                     <Grid.Column width={3}>
                         <div className="map-form">
-                            <MapFilterForm />
+                            <MapFilterForm displayCB={this.state.displayCB} displayJB={this.state.displayJB}
+                                displayHB={this.state.displayHB} changeFilter={this.changeFilter}   handleRefreshBikes={this.handleRefreshBikes}
+                                />
                         </div>
     
                     </Grid.Column>
@@ -113,7 +159,7 @@ class MapPage extends React.Component {
 
 
                         <div className="map">
-                        <MapContainer stations={this.state.capbikes} hellbizbikes={this.state.hellbizbikes} />
+                        <MapContainer stations={this.state.capbikes} hellbizbikes={this.state.hellbizbikes} jumpbikes={this.state.jumpbikes} />
                         </div>
 
                         </Segment>

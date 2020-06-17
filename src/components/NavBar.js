@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { Header, Icon, Menu, Container, Image } from 'semantic-ui-react'
 
 
@@ -15,16 +15,16 @@ class NavBar extends React.Component {
     }
 
 
+
   logged = (event) => {
-    debugger
     if(event.target.innerText === "Log In"){
       this.props.history.location.pathname = "/"
-      this.props.history.push("home")
+      this.props.history.push("login")
     }else{
       localStorage.clear()
-      this.props.updateCurrentUser(null)
+      this.props.updateCurrentUser()
       this.props.changeLog()
-      // this.props.history.location.pathname = "/"
+      this.props.history.location.pathname = "/"
 
       
     }
@@ -33,54 +33,50 @@ class NavBar extends React.Component {
 
 
   render() {
-    return (
-    <div className="navbar">
 
-
+      return (
+        <div className="navbar">
     <Menu fixed='top' inverted>
       <Container>
-        <Menu.Item as='a' href="/" exact header>
-      
+        <Menu.Item as='a' exact header>
+        <Link to="/">
         <Icon name='bicycle' />
           DC Ridr
-       
+          </Link>
         </Menu.Item>
-        <Menu.Item as='a' href="/" exact>Home</Menu.Item>
-        <Menu.Item as='a' href="/explore" exact>Explore</Menu.Item>
-        <Menu.Item as='a' href="/favorites" exact>My Trails</Menu.Item>
-        <Menu.Item as='a' href="/map" exact>Map</Menu.Item>
+        <Menu.Item as='a' name="home" exact><Link to="/">Home</Link></Menu.Item>
+        <Menu.Item as='a' exact><Link to="/explore">Explore</Link></Menu.Item>
+        {this.props.currentUser === null ? '' : <Menu.Item as='a' exact><Link to="/favorites">My Trails</Link></Menu.Item>
+
+        }
+        <Menu.Item as='a' exact><Link to="/map">Map</Link></Menu.Item>
         <div className="right menu">
-          <Menu.Item as='a' href="/dashboard" exact>Dashboard</Menu.Item>
-          <Menu.Item as='a' href="/login" exact>Login</Menu.Item>
+
+          {this.props.currentUser === null ? '' : <Menu.Item as='a'><Link to="/dashboard">Dashboard</Link></Menu.Item>
+          }
+         
+         {this.props.currentUser === null ? <Menu.Item as='a' key="login" name="login" exact><Link to="/login">Log In</Link></Menu.Item>  :  <Menu.Item key="logout" exact onClick={() => this.props.logout()} ><Link to="/login">Log Out</Link></Menu.Item>
+
+         }
+        
+        
+        {/* {this.props.currentUser === null ? null : 
+         <Menu.Item key="logout" exact onClick={() => this.props.logout()} ><Link to="/login">Log Out</Link></Menu.Item>
+      } */}
+        
+      
+        
         </div>
         </Container>
     </Menu>
-
-  
-  {/* <div className="header-logo">
-    <Header as='h2' color="blue" fixed className="header-logo">
-      <Icon name='bicycle' />
-      <Header.Content>DC Ridr</Header.Content>
-    </Header>
-    </div>
-         <div className="ui secondary pointing menu">
-
-            <Link to="/" exact className="item">Home</Link> 
-            <Link to="/explore" exact className="item">Explore Routes</Link> 
-            <Link to="/favorites" exact className="item">MyFavRoutes</Link> 
-            <Link to="/map" exact className="item">Map</Link> 
-        
-            <div className="right menu">
-            <Link to="/dashboard" exact className="item">Dashboard</Link> 
-              <Link to="/login" exact className="ui item" onClick={(event) =>  {this.logged(event)}} >{this.props.loggedIn === false ? "Log In" : "Log Out"}</Link> 
-            </div>
-        </div> */}
-       
-
       </div>
-    )
+
+      )
+    
+
   }
+
 
 }
  
-export default NavBar;
+export default withRouter(NavBar);
