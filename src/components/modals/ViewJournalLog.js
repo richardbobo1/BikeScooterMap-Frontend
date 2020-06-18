@@ -89,6 +89,29 @@ class ViewJournalLog extends React.Component {
                 </Grid.Column>
                 </Grid.Row>
 
+
+                {this.props.journal.replacedcommute === false ? null :
+                
+                <Grid.Row>
+                <Grid.Column width={2}>
+                Mode of Transport
+                </Grid.Column>
+                <Grid.Column width={6}>
+                {this.props.journal.transportmode} 
+                </Grid.Column>
+                
+                <Grid.Column width={2}>
+                Dollars Saved
+                </Grid.Column>
+                <Grid.Column width={6}>
+                {this.props.journal.dollarssaved}
+                </Grid.Column>
+                </Grid.Row>
+                    
+                }
+
+
+
                 <Grid.Row>
                     <Grid.Column width={2}>
                     Notes 

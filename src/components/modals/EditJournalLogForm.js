@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Button, Header, Image, Modal, Form, Dropdown } from 'semantic-ui-react'
+import { Icon, Button, TextArea, Divider, Checkbox, Header, Image, Modal, Form, Dropdown } from 'semantic-ui-react'
 
 
 
@@ -21,6 +21,11 @@ class EditJournalLogForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleCheckBox = (e) => {
+    this.setState({ replacedcommute: !this.state.replacedcommute})
+  }
+
+
   handleCancel = () => {
     //simply closes for edit reservation confirmation form
     this.setState({ open: false })
@@ -40,13 +45,16 @@ class EditJournalLogForm extends React.Component {
       duration: this.props.journal.duration,
       distance: this.props.journal.distance,
       calories: this.props.journal.calories,
-      notes: this.props.journal.notes 
+      notes: this.props.journal.notes,
+      replacedcommute: this.props.journal.replacedcommute,
+      transportmode: this.props.journal.transportmode,
+      dollarssaved: this.props.journal.dollarssaved
     })
   }
 
 
 
-  onCreateJournalEntry = (e) =>{
+  onSaveEditJournalEntry = (e) =>{
     let journEntryObj = {
       user_id: this.props.journal.user_id,
       date: this.state.date,
@@ -54,7 +62,10 @@ class EditJournalLogForm extends React.Component {
       distance: this.state.distance,
       difficulty: this.state.difficulty,
       calories: this.state.calories,
-      notes: this.state.notes
+      notes: this.state.notes,
+      replacedcommute: this.state.replacedcommute,
+      transportmode: this.state.transportmode,
+      dollarssaved: this.state.dollarssaved
     }
 
     console.log("creating edit", journEntryObj)
@@ -88,6 +99,8 @@ class EditJournalLogForm extends React.Component {
 //trigger={<Button className="ui primary button" onClick={this.handleOpenModal} style={{float: "right" }}>New Route</Button>} 
 
   render() {
+
+   
     return (
       <> 
         <Icon className="compose" onClick={this.handleOpenModal} />
@@ -132,10 +145,58 @@ class EditJournalLogForm extends React.Component {
           <input type="text" placeholder="Calories" name="calories" value={this.state.calories} onChange={this.handleChange} />
     </Form.Field>
     </Form.Group>
-    <Form.Field>
-         <label>Notes</label>
-          <input type="text" placeholder="notes" name="notes" value={this.state.notes} onChange={this.handleChange} />
+
+
+    <Divider />
+
+<Header>Environmental Impact</Header>
+<Form.Group widths='equal'> 
+  <Form.Field>
+    <label>Replaced Driving</label>
+    <Checkbox   name="replacedcommute"  checked={this.state.replacedcommute} value={this.state.replacedcommute} onChange={this.handleCheckBox } />
+  </Form.Field>
+
+  <Form.Field>
+    <label>Mode of Transport Replaced</label>
+    <select fluid name="transportmode" value={this.state.transportmode} onChange={this.handleChange}>
+      <option value="car">N/A</option>
+      <option value="car">Car</option>
+      <option value="bus">Bus</option>
+      <option value="motorcycle">Motorcycle</option>
+    </select>
     </Form.Field>
+
+    <Form.Field>
+    <label>$ US Dollars Saved</label>
+      <input type="number"  name="dollarssaved" value={this.state.dollarssaved} onChange={this.handleChange}/>
+</Form.Field>
+</Form.Group>
+
+<Divider />
+
+<Header>Notes</Header>
+
+
+
+
+
+
+
+
+
+    <Form.Field>
+    <TextArea type="textarea" placeholder="Any notes on how the ride went? How'd you feel? " name="notes" value={this.state.notes} onChange={this.handleChange} />
+         
+          {/* <input type="text" placeholder="notes" name="notes" value={this.state.notes} onChange={this.handleChange} />
+     */}
+    </Form.Field>
+
+
+
+    </Form>
+
+          </Modal.Description>
+        </Modal.Content>
 
     <Modal.Actions >
       <Button basic negative 
@@ -147,7 +208,7 @@ class EditJournalLogForm extends React.Component {
       </Button>
       <Button postive 
         color='green' 
-        onClick={this.onCreateJournalEntry}
+        onClick={this.onSaveEditJournalEntry}
         icon='checkmark'
         labelPosition='right'
         content='Save'
@@ -156,10 +217,7 @@ class EditJournalLogForm extends React.Component {
     </Modal.Actions>
  
 
-      </Form>
-
-          </Modal.Description>
-        </Modal.Content>
+  
       </Modal>
 
 

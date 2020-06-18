@@ -43,12 +43,13 @@ class RouteComments extends React.Component {
 
     //fetch post to create new comment
     let commentObj = {
-      user_id: this.props.userId, 
+      user_id: this.props.currentUser.id, 
       route_id: this.props.routeId,
       rating: this.state.rating, 
       comments: this.state.review
     }
 
+    debugger 
 
     fetch('http://localhost:3000/reviews', {
             method: 'POST',
@@ -57,6 +58,8 @@ class RouteComments extends React.Component {
           })
           .then(res => res.json())
           .then( data => { 
+       
+
               this.setState({
                    //append new comment to comments array
                 comments: [...this.state.comments, data],
@@ -137,7 +140,7 @@ render(){
 
 { this.state.comments.map(comment => 
         <Comment id={comment.id} >
-        <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
+        <Comment.Avatar src={comment.user.img_url} />
         
         <Comment.Content>
           <Comment.Author as='a'>{comment.user.username}</Comment.Author>
@@ -155,7 +158,7 @@ render(){
 
 
         {/* //hide or display delte button, so admins can delete all, and users can delete their own  */}
-        { comment.user_id === this.props.userId  ?
+        { comment.user_id === this.props.userId || this.props.currentUser !== null && this.props.currentUser.admin === true ?
                     <Comment.Actions>
                     <Comment.Action id={comment.id} onClick={event => this.onDeleteComment(event)} >Delete</Comment.Action>
                   </Comment.Actions> : null

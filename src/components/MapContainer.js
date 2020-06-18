@@ -1,8 +1,6 @@
 import React from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper, OverlayView } from 'google-maps-react';
-import MapFilterForm from './MapFilterForm';
 import { Grid, Segment, Header, Search, Button, Modal, Divider } from 'semantic-ui-react'
-import MarkerWindowInfo from './MarkerWindowInfo'
 import CapBikeIcon from '../cbshareicon.png'
 import HelbizIcon from '../helbiz.png'
 import JumpLogo from '../assets/jump.png'
@@ -165,7 +163,6 @@ class MapContainer extends React.Component {
 
                         { this.props.hellbizbikes.map(bike => (      
                         <Marker position={{ lat: bike.lat, lng: bike.lon }} 
-                        label="HL"
                         onClick={() => this.setSelectedStation()} 
                         onClick={this.onMarkerClick}
                         icon={require('../helbiz.png')}

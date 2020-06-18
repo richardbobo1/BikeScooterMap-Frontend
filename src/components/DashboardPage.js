@@ -4,7 +4,7 @@ import { Grid, Search, Card, Icon, Divider, Segment, Button, Modal } from 'seman
 import 'semantic-ui-css/semantic.min.css'
 import LogRideForm from "./LogRideForm";
 import RideLogTable from './RideLogTable'
-
+import NewTripForm from './modals/NewTripForm'
 
 
  
@@ -14,10 +14,13 @@ class DashboardPage extends React.Component {
         super();
         this.state = {
             journalEntries: [],
+            journalEntriesDisplayed: [],
             totalMiles: 0,
             totalRides: 0,
             totalTime: 0,
-            totalCalories: 0
+            totalCalories: 0,
+            totalDollars: 0,
+            trips: []
           }
     }
 
@@ -36,7 +39,11 @@ class DashboardPage extends React.Component {
     
     componentDidMount(){
 
-     
+        this.setState({
+            trips: this.props.currentUser.trips 
+        })
+
+
 
      if(this.props.userId !== ''){
 
@@ -51,9 +58,13 @@ class DashboardPage extends React.Component {
             this.calculateRides() 
             this.calculateTime()
             this.calculateCalories()
+            this.calculateDollarsSaved()
+            this.calculateCarbonEmission()
         })
     }
         
+
+    debugger 
     }
     
 
@@ -108,6 +119,42 @@ class DashboardPage extends React.Component {
         })
     }
 
+    calculateDollarsSaved= () => {
+        var x = 0 
+        let data = this.state.journalEntries
+        // this.state.journalEntries.map(journal =>  x += journal.distance)
+        for (var i=0; i < data.length; i++){
+            x += data[i].dollarssaved
+        }
+        this.setState({
+            totalDollars: x 
+        })
+    }
+
+    calculateCarbonEmission = () => {
+        let gramsCarbon = 404   //per mile, avg passenger vehicle, per EPA
+        var miles = 0 
+        let data = this.state.journalEntries
+        // this.state.journalEntries.map(journal =>  x += journal.distance)
+        for (var i=0; i < data.length; i++){
+            miles += data[i].distance
+        }
+
+        let totalGrams = miles*gramsCarbon
+        let totalPounds = Math.floor(totalGrams/453)  //apx 453 grams === 1 lb
+        this.setState({
+            totalCarbon: totalPounds 
+        })
+    }
+
+
+    ///APEND NEW TRIP
+    appendNewtrip = (tripObj) => {
+        this.setState({
+            trips: [tripObj, ...this.state.tripObj]
+        })
+    }
+    
 
 
         // APPEND NEW JOURNAL ENTRY 
@@ -119,17 +166,19 @@ class DashboardPage extends React.Component {
         let y = this.state.totalRides + 1
         let z = this.state.totalTime + parseInt(journalEntryObj.duration)
         let c = this.state.totalCalories + parseInt(journalEntryObj.calories)
-  
+        let d = this.state.totalDollars + parseInt(journalEntryObj.dollarssaved)
 
         this.setState({
             journalEntries: [journalEntryObj, ...this.state.journalEntries ],
             totalMiles: x,
             totalRides: y,
             totalTime: z,
-            totalCalories: c
+            totalCalories: c,
+            totalDollars: d
 
         })
 
+        this.calculateCarbonEmission()
         //then recalculate
     }
 
@@ -143,7 +192,15 @@ class DashboardPage extends React.Component {
         let y = this.state.totalRides -1
         let z = this.state.totalTime - parseInt(journalEntryObj.duration)
         let c = this.state.totalCalories - parseInt(journalEntryObj.calories)
+        let d = this.state.totalDollars -parseInt(journalEntryObj.dollarssaved)
 
+
+        fetch(`http://localhost:3000/journals/${journalEntryObj.id}`, {
+            method: "DELETE",
+            headers: {'Content-Type': 'application/json'},
+        })
+        .then(res => res.json() )
+        .then( res => {
         //need to find journal entry in the array 
         //and then remove it from that array 
         let newArray = this.state.journalEntries.filter( entry => entry.id !== journalEntryObj.id )
@@ -154,9 +211,17 @@ class DashboardPage extends React.Component {
             totalMiles: x,
             totalRides: y,
             totalTime: z,
-            totalCalories: c
+            totalCalories: c,
+            totalDollars: d 
 
         })
+
+
+
+        })
+
+
+
     }
     
 
@@ -184,6 +249,9 @@ class DashboardPage extends React.Component {
 
 
   render() {
+
+    
+
 
     const extra = (
         <div>
@@ -229,7 +297,9 @@ class DashboardPage extends React.Component {
                             extra={extra}
                         />
                        </div>
-
+                        {/* <div>
+                            <Button>Edit Profile</Button>
+                        </div> */}
     
                     </Grid.Column>
                     <Grid.Column width={11}>
@@ -243,7 +313,7 @@ class DashboardPage extends React.Component {
                                         <h1>{this.state.totalMiles}</h1>
                                     </Segment>
                                 </Grid.Column>
-                                <Grid.Column width={3}>
+                                <Grid.Column width={4}>
                                     <Segment>
                                         <h3 style={{color: "gray"}}>RIDES</h3>
                                         <h1>{this.state.totalRides}</h1>
@@ -266,6 +336,26 @@ class DashboardPage extends React.Component {
                         </div>
 
 
+                        <div className="dashboard-header">
+                            <Grid stackbale >
+                                <Grid.Column width={8}>
+                                    <Segment id="environment" >
+                                        <h3 style={{color: "black"}}>CO<sub>2</sub> Emissions Saved</h3>
+                                        <h1>{this.state.totalCarbon} lbs</h1>
+                                    </Segment>
+                                </Grid.Column>
+    
+                                <Grid.Column width={8}>
+                                    <Segment id="environment">
+                                        <h3 style={{color: "black"}}>$ Dollars Saved by Riding</h3>
+                                        <h1>${this.state.totalDollars}.00</h1>
+                                    </Segment>
+                                </Grid.Column>
+            
+
+                            </Grid>
+                        </div>
+
                         <Divider />
                        
                         <div>
@@ -275,6 +365,7 @@ class DashboardPage extends React.Component {
                                 <h2>Riding History</h2>
                             </Grid.Column>
                             <Grid.Column  width={8}>
+                                <NewTripForm appendNewtrip={this.appendNewtrip} />
                                 <LogRideForm  appendNewJournalEntry={this.appendNewJournalEntry} userId={this.props.userId} />
                             </Grid.Column>
                         </Grid>

@@ -75,13 +75,13 @@ class App extends Component {
 
       loadUserData = () => {
 
-      //   fetch(`http://localhost:3000/users/${parseInt(localStorage.userId)}`)
-      // .then(resp => resp.json())
-      // .then(data => { 
-      //     this.setState({ 
-      //       currentUser: data 
-      //     })
-      // })
+        fetch(`http://localhost:3000/users/${parseInt(localStorage.userId)}`)
+      .then(resp => resp.json())
+      .then(data => { 
+          this.setState({ 
+            currentUser: data 
+          })
+      })
      
 
 
@@ -125,10 +125,8 @@ class App extends Component {
 
 
     changeLog = () => {
-      this.setState({loggedIn: true,
-      
-      })
-     }
+      this.setState({loggedIn: true })
+    }
 
 
 
@@ -193,6 +191,21 @@ class App extends Component {
 
 
 
+   onBikeRouteEdit = (bikeRouteObj) => {
+ 
+    let newArray = [...this.state.bikeRoutes]
+    let route = newArray.find(route => route.id === bikeRouteObj.id)
+    let index = newArray.indexOf(route)
+    newArray[index] = bikeRouteObj
+
+    this.setState({
+        bikeRoutes: newArray 
+    })
+}
+
+
+
+
 
 
   render() {
@@ -246,10 +259,11 @@ class App extends Component {
     
                   localStorage.bikeRoute = JSON.stringify(bikeRoute)
                   return <RouteDetails bikeRoute={JSON.parse(localStorage.bikeRoute)} userId={this.state.userId} 
+                      onBikeRouteEdit={this.onBikeRouteEdit}
                       favorites={this.state.favoriteRoutes} completeRoutes={this.state.completeRoutes}
                       markCompleted={this.markCompleted} markIncomplete={this.markIncomplete}
                       removeFavorite={this.removeFavorite} addFavorite={this.addFavorite}
-                      currentUser={this.props.currentUser} loggedIn={this.state.loggedIn} />
+                      currentUser={this.state.currentUser} loggedIn={this.state.loggedIn} />
                   }  }/>
 
 

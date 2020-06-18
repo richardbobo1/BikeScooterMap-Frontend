@@ -5,6 +5,7 @@ import {Icon, Button, Container, Header, Grid, Segment, Divider } from 'semantic
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import MapContainer from './MapContainer'
 import RouteDetailMap from './RouteDetailMap'
+import EditRouteDetail from './modals/EditRouteDetail';
 
 export default class RouteDetails extends React.Component {
 
@@ -214,6 +215,8 @@ markComplete = (event) => {
 
 
     render(){
+    
+
         return (
             <div>
 
@@ -239,12 +242,44 @@ markComplete = (event) => {
                         <img src={this.props.bikeRoute.image_url} className="ui medium bordered image" />
 
                         <Segment>
-                            <h2>About</h2>
-                        <p><b>Distance:</b> {this.props.bikeRoute.length} miles</p>
-                        <p><b>Difficulty: </b> {this.props.bikeRoute.difficulty}</p>
-                        <p><b>Surface: </b> {this.props.bikeRoute.surface}</p>
+                            <h3>Key Details</h3>
+                            <Divider />
+                        {/* <p><b>Distance:</b> {this.props.bikeRoute.length} miles</p>
+                        <p><b>Difficulty:</b> {this.props.bikeRoute.difficulty}</p>
+                        <p><b>Surface: </b> {this.props.bikeRoute.surface}</p> */}
+
+                        <table className="route-key-details">
+                            <tr>
+                                <td>
+                                    <b>Distance:</b> 
+                                </td>
+                                <td>
+                                    {this.props.bikeRoute.length} miles<br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Difficulty:</b> 
+                                </td>
+                                <td>
+                                    {this.props.bikeRoute.difficulty}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Surface: </b> 
+                                </td>
+                                <td>
+                                    {this.props.bikeRoute.surface}
+                                </td>
+                            </tr>
+
+                        </table>
+
+
                         </Segment>
 
+                       
                         <Button
                         primary 
                         target="_blank"
@@ -253,6 +288,11 @@ markComplete = (event) => {
                         >View Source</Button>
                         <br />
                         <br />
+
+                        { this.props.currentUser !== null && this.props.currentUser.admin === true ? 
+                        <EditRouteDetail bikeRoute={this.props.bikeRoute} onBikeRouteEdit={this.props.onBikeRouteEdit} /> : null
+                    }
+
                         {/* <Button
                         
                         target="_blank"
@@ -280,9 +320,13 @@ markComplete = (event) => {
 
 
                     <Divider />
-                    <h3>Key Details</h3>
+                    <h3>About This Ride</h3>
                     <br />
                     {this.props.bikeRoute.description}
+
+
+
+
                     {/* <Divider />
                     <h1>Tips</h1>
                     {this.props.bikeRoute.tips}

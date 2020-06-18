@@ -1,41 +1,30 @@
 import React from 'react';
-import { Icon, Button, Header, Image, Modal, Form, Dropdown, TextArea } from 'semantic-ui-react'
-
-// const options = [
-//     { key: 'e', text: 'Easy', value: 'easy' },
-//     { key: 'm', text: 'Moderate', value: 'moderate' },
-//     { key: 'd', text: 'Difficult', value: 'difficult' },
-//   ]
-
-//   const surfaceOptions = [
-//     { key: 'p', text: 'Paved', value: 'paved' },
-//     { key: 'g', text: 'Gravel', value: 'gravel' },
-//     { key: 'm', text: 'Mixed', value: 'mixed' },
-//   ]
+import { Icon, Button, TextArea, Divider, Checkbox, Header, Image, Modal, Form, Dropdown } from 'semantic-ui-react'
 
 
 
-class NewRouteForm extends React.Component {
+
+class EditRouteDetail extends React.Component {
 
   constructor(){
     super();
     this.state = {
-      open: false,
-      name: '',
-      length: 0,
-      surface: '',
-      short_description: '',
-      tips: '',
-      difficulty: '',
-      google_map: '',
-      image_url: ''
-
+        name: "",
+        length: "",
+        surface: "",
+        difficulty: "",
+        description: "",
+        short_description: "",
+        tips: "",
+        google_map: "",
+        image_url: ""
     }
   }
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
 
   handleCancel = () => {
     //simply closes for edit reservation confirmation form
@@ -46,11 +35,27 @@ class NewRouteForm extends React.Component {
     this.setState({ 
       open: true
    })
-}
+  }
+
+  componentDidMount(){
+    this.setState({
+        name: this.props.bikeRoute.name,
+        length: parseInt(this.props.bikeRoute.length),
+        surface: this.props.bikeRoute.surface,
+        short_description: this.props.bikeRoute.short_description,
+        difficulty: this.props.bikeRoute.difficulty,
+        tips: this.props.bikeRoute.tips,
+        google_map: this.props.bikeRoute.google_map,
+        image_url: this.props.bikeRoute.image_url
+    })
+
+
+  }
 
 
 
-  onCreateBikeRoute = (e) =>{
+
+  onSaveEditBikeRoute = (e) =>{
   
     let distanceInt = parseInt(this.state.length)
 
@@ -65,43 +70,58 @@ class NewRouteForm extends React.Component {
       image_url: this.state.image_url
     }
 
-    fetch("http://localhost:3000/routes", {
-      method: 'POST',
+    //change to PATCH 
+
+    fetch(`http://localhost:3000/routes/`+this.props.bikeRoute.id, {
+      method: 'PATCH',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(bikeRouteObj)
       }).then(res => res.json())
       .then( data => {
 
-        //user callback function to add new bike route to array and DOM
-        this.props.appendNewRoute(data)
+        //user callback function to update bike route in array 
+        this.props.onBikeRouteEdit(data)
+       
         //console.log to confirm 
         console.log("Created new bike route", data)
         
     })
+
+
+
+
 
     this.handleCancel()
     console.log("Bike obj:", bikeRouteObj)
   }
 
 
-//trigger={<Button className="ui primary button" onClick={this.handleOpenModal} style={{float: "right" }}>New Route</Button>} 
+
+
+
+
+
 
   render() {
+
+   
     return (
-      <div> 
-        <Button className="ui primary button" onClick={this.handleOpenModal}   >New Route</Button>
+      <> 
+        {/* <Icon className="compose" onClick={this.handleOpenModal} /> */}
+        <Button onClick={this.handleOpenModal}>Edit Route</Button>
+
         <Modal size="small" open={this.state.open} onClose={this.handleCancel}>
-        <Modal.Header>Submit a New Route</Modal.Header>
+        <Modal.Header>Edit Route</Modal.Header>
         <Modal.Content >
           {/* <Image wrapped size='medium' src='https://bentonvillear.com/ImageRepository/Document?documentID=2656' />
            */}
           <Modal.Description>
-            <Header>Tell us about your route.</Header>
+            
            
   
   <Form>
     <Form.Field>
-      <label>Cycling Trail Name (make one up!)</label>
+      <label>Cycling Trail Name</label>
           <input type="text" placeholder="Enter a Descriptive Name..." name="name" value={this.state.name} onChange={this.handleChange} />
     </Form.Field>
 
@@ -162,7 +182,7 @@ class NewRouteForm extends React.Component {
       </Button>
       <Button postive 
         color='green' 
-        onClick={this.onCreateBikeRoute}
+        onClick={this.onSaveEditBikeRoute}
         icon='checkmark'
         labelPosition='right'
         content='Save'
@@ -174,8 +194,10 @@ class NewRouteForm extends React.Component {
       </Modal>
 
 
+        
 
-      </div>
+
+      </>
             
 
 
@@ -184,4 +206,4 @@ class NewRouteForm extends React.Component {
   }
 }
  
-export default NewRouteForm;
+export default EditRouteDetail;

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Icon, Button, Header, Image, Modal, Form, Dropdown } from 'semantic-ui-react'
+import { Icon, Form, Checkbox, Button, Header, Image, Modal,  Dropdown, TextArea, Divider } from 'semantic-ui-react'
+
 
 // const options = [
 //     { key: 'e', text: 'Easy', value: 'easy' },
@@ -24,13 +25,20 @@ class LogRideForm extends React.Component {
         duration: "",
         distance: "",
         calories: "",
-        notes: ""
+        notes: "",
+        replacedcommute: false,
+        transportmode: '',
+        dollarssaved: 0
     }
   }
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
+  handleCheckBox = (e) => {
+    this.setState({ replacedcommute: !this.state.replacedcommute})
+  }
 
   handleCancel = () => {
     //simply closes for edit reservation confirmation form
@@ -52,6 +60,7 @@ class LogRideForm extends React.Component {
 
 
   onCreateJournalEntry = (e) =>{
+
     let journEntryObj = {
       user_id: this.props.userId,
       date: this.state.date,
@@ -59,8 +68,12 @@ class LogRideForm extends React.Component {
       distance: this.state.distance,
       difficulty: this.state.difficulty,
       calories: this.state.calories,
-      notes: this.state.notes
+      notes: this.state.notes,
+      replacedcommute: this.state.replacedcommute,
+      transportmode: this.state.transportmode,
+      dollarssaved: this.state.dollarssaved
     }
+debugger 
 
     fetch("http://localhost:3000/journals", {
       method: 'POST',
@@ -76,7 +89,11 @@ class LogRideForm extends React.Component {
           distance: "",
           difficulty: "",
           calories: "",
-          notes: "" })
+          notes: "",
+          replacedcommute: false, 
+          transportmode: '',
+          dollarssaved: 0 
+        })
 
 
         //console.log to confirm 
@@ -90,29 +107,35 @@ class LogRideForm extends React.Component {
   }
 
 
+
 //trigger={<Button className="ui primary button" onClick={this.handleOpenModal} style={{float: "right" }}>New Route</Button>} 
 
   render() {
+
+
     return (
       <div> 
         <Button className="ui primary button" onClick={this.handleOpenModal} style={{float: "right" }}>Log a Ride</Button>
         <Modal size="small" open={this.state.open} onClose={this.handleCancel}>
-        <Modal.Header>Log a Ride</Modal.Header>
+        <Modal.Header>Tell us about your ride.</Modal.Header>
         <Modal.Content image>
           {/* <Image wrapped size='medium' src='https://bentonvillear.com/ImageRepository/Document?documentID=2656' /> */}
           <Modal.Description>
-            <Header>Tell us about your ride.</Header>
+            {/* <Header>Details</Header> */}
 
   
   <Form>
     <Form.Group widths='equal'>
     <Form.Field>
+      <label>Date</label>
           <input type="date" placeholder="Date" name="date" value={this.state.date} onChange={this.handleChange} />
     </Form.Field>
         <Form.Field>
+        <label>Distance (in miles)</label>
             <input type="text" name="distance" placeholder="Distance"  onChange={this.handleChange} />
         </Form.Field>
         <Form.Field>
+        <label>How'd the ride feel? </label>
         <select fluid id="difficulty" name="difficulty" placeholder="Easy" value={this.state.difficulty} onChange={this.handleChange}>
           <option value="easy">Easy</option>
           <option value="moderate">Moderate</option>
@@ -126,16 +149,54 @@ class LogRideForm extends React.Component {
       {/* description and tips  */}
       <Form.Group widths='equal'>
     <Form.Field>
+        <label>Duration (in minutes)</label>
           <input type="text" placeholder="Duration (in minutes)" name="duration" value={this.state.duration} onChange={this.handleChange}/>
     </Form.Field>
     <Form.Field>
+          <label>Calories</label>
           <input type="text" placeholder="Calories" name="calories" value={this.state.calories} onChange={this.handleChange} />
     </Form.Field>
+
     </Form.Group>
+
+      <Divider />
+
+    <Header>Environmental Impact</Header>
+    <Form.Group widths='equal'> 
+      <Form.Field>
+        <label>Replaced Driving</label>
+        <Checkbox   name="replacedcommute"  value={this.state.replacedcommute} onChange={this.handleCheckBox} />
+      </Form.Field>
+
+      <Form.Field>
+        <label>Mode of Transport Replaced</label>
+        <select fluid name="transportmode"  value={this.state.transportmode} onChange={this.handleChange}>
+          <option value="car">N/A</option>
+          <option value="car">Car</option>
+          <option value="bus">Bus</option>
+          <option value="motorcycle">Motorcycle</option>
+        </select>
+        </Form.Field>
+
+        <Form.Field>
+        <label>$ US Dollars Saved</label>
+          <input type="number"  placeholder="0" name="dollarssaved" value={this.state.dollarssaved} onChange={this.handleChange}/>
+    </Form.Field>
+    </Form.Group>
+    
+    <Divider />
+
+    <Header>Notes</Header>
     <Form.Field>
-          <input type="text" placeholder="notes" name="notes" value={this.state.notes} onChange={this.handleChange} />
+     
+          <TextArea type="textarea" placeholder="Any notes on how the ride went? How'd you feel? " name="notes" value={this.state.notes} onChange={this.handleChange} />
+          {/* <input type="textarea" placeholder="notes" name="notes" value={this.state.notes} onChange={this.handleChange} /> */}
     </Form.Field>
 
+    </Form>
+
+</Modal.Description>
+</Modal.Content>
     <Modal.Actions >
       <Button basic negative 
         color='black' 
@@ -155,10 +216,8 @@ class LogRideForm extends React.Component {
     </Modal.Actions>
  
 
-      </Form>
-
-          </Modal.Description>
-        </Modal.Content>
+   
+       
       </Modal>
 
 

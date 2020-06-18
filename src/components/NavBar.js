@@ -46,12 +46,12 @@ class NavBar extends React.Component {
         </Menu.Item>
         <Menu.Item as='a' name="home" exact><Link to="/">Home</Link></Menu.Item>
         <Menu.Item as='a' exact><Link to="/explore">Explore</Link></Menu.Item>
-        {this.props.currentUser === null ? '' : <Menu.Item as='a' exact><Link to="/favorites">My Trails</Link></Menu.Item>
-
-        }
         <Menu.Item as='a' exact><Link to="/map">Map</Link></Menu.Item>
         <div className="right menu">
 
+        {this.props.currentUser === null ? '' : <Menu.Item as='a' exact><Link to="/favorites">My Trails</Link></Menu.Item>
+
+        }
           {this.props.currentUser === null ? '' : <Menu.Item as='a'><Link to="/dashboard">Dashboard</Link></Menu.Item>
           }
          

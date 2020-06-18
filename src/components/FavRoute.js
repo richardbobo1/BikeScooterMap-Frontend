@@ -186,7 +186,7 @@ export default class FavRoute extends React.Component{
                 <h4>{this.props.route.difficulty}</h4>
               </div> 
           
-             <img src={this.props.route.google_map} className="card-image" wrapped ui={false} />
+             <img src={this.props.route.image_url} className="card-image" wrapped ui={false} />
 
         
             <Card.Content>
