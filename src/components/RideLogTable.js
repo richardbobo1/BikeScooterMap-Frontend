@@ -41,7 +41,7 @@ class RideLogTable extends React.Component {
 
       { this.props.journalEntries.map( journal => 
             <Table.Row>
-            <Table.Cell>{this.formatDate(journal.date)}</Table.Cell>
+            <Table.Cell>{journal.date}</Table.Cell>
             <Table.Cell>{journal.distance} miles</Table.Cell>
             <Table.Cell>{journal.duration} mins</Table.Cell>
             <Table.Cell>{journal.calories} calories</Table.Cell>

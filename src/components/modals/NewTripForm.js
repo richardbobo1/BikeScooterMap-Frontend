@@ -64,9 +64,9 @@ class NewTripForm extends React.Component {
 
         //reset state
         this.setState({
-            trip_name: "",
-            trip_start: "",
-            trip_end: "",
+            tripName: "",
+            startDate: "",
+            endDate: "",
             notes: ""
         })
         

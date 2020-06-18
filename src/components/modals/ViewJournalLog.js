@@ -53,18 +53,19 @@ class ViewJournalLog extends React.Component {
         <Header icon='archive' content={'Review Journal Entry: ' + this.props.journal.date} />
         <Modal.Content>
             <p>
-            <Grid >
+            <Grid celled >
                 <Grid.Row>
 
-                <Grid.Column width={2}>
-                Distance
+                <Grid.Column width={2} style={{background: "#3FDBCA"}} >
+                    <b>
+                Distance</b>
                 </Grid.Column>
                 <Grid.Column width={6}>
                 {this.props.journal.distance} miles
                 </Grid.Column>
 
-                <Grid.Column width={2}>
-                Duration
+                <Grid.Column width={2} style={{background: "#3FDBCA"}}>
+                <b>Duration</b>
                 </Grid.Column>
                 <Grid.Column width={6}>
                 {this.props.journal.duration}
@@ -73,16 +74,16 @@ class ViewJournalLog extends React.Component {
                 </Grid.Row>
 
                 <Grid.Row>
-                <Grid.Column width={2}>
-                Difficulty
+                <Grid.Column width={2} style={{background: "#3FDBCA"}}>
+                <b>Difficulty</b>
                 </Grid.Column>
                 <Grid.Column width={6}>
                 {this.props.journal.difficulty} 
                 </Grid.Column>
                 
 
-                <Grid.Column width={2}>
-                Calories
+                <Grid.Column width={2} style={{background: "#3FDBCA"}}>
+                <b>Calories</b>
                 </Grid.Column>
                 <Grid.Column width={6}>
                 {this.props.journal.calories}
@@ -93,15 +94,15 @@ class ViewJournalLog extends React.Component {
                 {this.props.journal.replacedcommute === false ? null :
                 
                 <Grid.Row>
-                <Grid.Column width={2}>
-                Mode of Transport
+                <Grid.Column width={2} style={{background: "#3FDBCA"}}>
+                <b> Mode of Transport</b>
                 </Grid.Column>
                 <Grid.Column width={6}>
                 {this.props.journal.transportmode} 
                 </Grid.Column>
                 
-                <Grid.Column width={2}>
-                Dollars Saved
+                <Grid.Column width={2} style={{background: "#3FDBCA"}}>
+                <b>Dollars Saved</b>
                 </Grid.Column>
                 <Grid.Column width={6}>
                 {this.props.journal.dollarssaved}
@@ -113,8 +114,8 @@ class ViewJournalLog extends React.Component {
 
 
                 <Grid.Row>
-                    <Grid.Column width={2}>
-                    Notes 
+                    <Grid.Column width={2} style={{background: "#3FDBCA"}}>
+                   <b> Notes </b>
                     </Grid.Column>
                     <Grid.Column width={14}>
                     {this.props.journal.notes}

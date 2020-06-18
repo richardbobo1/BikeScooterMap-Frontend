@@ -207,10 +207,11 @@ class DashboardPage extends React.Component {
         //need to find journal entry in the array 
         //and then remove it from that array 
         let newArray = this.state.journalEntries.filter( entry => entry.id !== journalEntryObj.id )
-
+        let filteredArray = this.state.journalEntriesDisplayed.filter( entry => entry.id !== journalEntryObj.id )
         this.setState({
                 //need to change this journal entry 
             journalEntries: newArray,
+            journalEntriesDisplayed: filteredArray,
             totalMiles: x,
             totalRides: y,
             totalTime: z,
@@ -365,7 +366,7 @@ class DashboardPage extends React.Component {
                             <Grid stackbale >
                                 <Grid.Column width={4}>
                                     <Segment>
-                                        <h3 style={{color: "gray"}}>TOTAL MILES</h3>
+                                        <h3 style={{color: "gray"}}>MILES</h3>
                                         <h1>{this.state.totalMiles}</h1>
                                     </Segment>
                                 </Grid.Column>

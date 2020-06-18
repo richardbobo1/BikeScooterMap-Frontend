@@ -139,9 +139,9 @@ class LogRideForm extends React.Component {
         <Form.Field>
         <label>How'd the ride feel? </label>
         <select fluid id="difficulty" name="difficulty" placeholder="Easy" value={this.state.difficulty} onChange={this.handleChange}>
-          <option value="easy">Easy</option>
-          <option value="moderate">Moderate</option>
-          <option value="difficult">Difficult</option>
+          <option value="Easy">Easy</option>
+          <option value="Moderate">Moderate</option>
+          <option value="Difficult">Difficult</option>
         </select>
         </Form.Field>
 

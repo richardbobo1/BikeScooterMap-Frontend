@@ -126,9 +126,9 @@ export default class Login extends React.Component {
         if(this.state.signIn) {
 
             return (
-                    <div> 
+                 
 
-                 <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+                 <Grid textAlign='center' style={{ height: '100vh', margin: "200px 0px 0px 0px" }}  >
                      <Grid.Column style={{ maxWidth: 450 }}>
                      <Header as='h2' color='blue' textAlign='center'>
                      <Icon name='bicycle' /> Log-in to your account
@@ -160,14 +160,13 @@ export default class Login extends React.Component {
 
                 </Grid.Column>
             </Grid> 
-            </div>
+         
         )}
 
         else { 
             return(
-                    <div>
-
-                    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+                  
+                    <Grid textAlign='center' style={{ height: '20vh', margin: "200px" }} >
                     <Grid.Column style={{ maxWidth: 450 }}>
                     <Header as='h2' color='blue' textAlign='center'>
                     <Icon name='bicycle' /> Create Your Account!
@@ -205,7 +204,7 @@ export default class Login extends React.Component {
             </Grid> 
 
 
-            </div>
+          
 
           )}
     }
