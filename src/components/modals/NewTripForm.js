@@ -52,12 +52,13 @@ class NewTripForm extends React.Component {
     }
 
 
-    fetch("http://localhost:3000/trip", {
+    fetch("http://localhost:3000/trips", {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(tripObj)
       }).then(res => res.json())
       .then( data => {
+       
         //user callback function to add new bike route to array and DOM
         this.props.appendNewtrip(data)
 
@@ -68,16 +69,11 @@ class NewTripForm extends React.Component {
             trip_end: "",
             notes: ""
         })
-
-
-        //console.log to confirm 
-        console.log("Created new bike route", data)
         
     })
 
     this.handleCancel()
 
-    console.log("trip info:", tripObj)
   }
 
 

@@ -22,6 +22,8 @@ componentDidMount(){
 
  render() {
 
+
+
     return (
             <div className="small-map" style={{height: "200px"}}>
                 <Map google={this.props.google} 
@@ -29,13 +31,13 @@ componentDidMount(){
                
                     style= {{height: "200px"}}
  
-                    zoom={14}
+                    zoom={10}
                     initialCenter={{
-                        lat: 38.9072,
-                        lng: -77.0369
+                        lat: this.props.bikeRoute.lat,
+                        lng: this.props.bikeRoute.lng 
                         }}>
                     
-                <Marker position={{ lat: 38.9072, lng: -77.0369 }}  >
+                <Marker position={{ lat: this.props.bikeRoute.lat, lng: this.props.bikeRoute.lng  }}  >
                 </Marker>
 
                 </Map>

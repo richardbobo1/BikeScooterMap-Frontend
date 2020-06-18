@@ -341,7 +341,7 @@ markComplete = (event) => {
                {/* <img src="https://www.evelo.com/wp-content/uploads/2019/05/050119-google-hero.jpg" className="ui large bordered image" />
                         */}
                         <div className="detail-map-area"> 
-                       <RouteDetailMap />
+                       <RouteDetailMap bikeRoute={this.props.bikeRoute} />
                        </div>
                         <Divider />
                         <h1>REVIEWS</h1>

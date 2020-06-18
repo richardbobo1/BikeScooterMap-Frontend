@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { Grid, Search, Card, Icon, Divider, Segment, Button, Modal } from 'semantic-ui-react'
+import { Grid, Search, Form, Card, Icon, Divider, Segment, Button, Modal } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import LogRideForm from "./LogRideForm";
 import RideLogTable from './RideLogTable'
@@ -20,7 +20,8 @@ class DashboardPage extends React.Component {
             totalTime: 0,
             totalCalories: 0,
             totalDollars: 0,
-            trips: []
+            trips: [],
+            tripId: ""
           }
     }
 
@@ -52,7 +53,8 @@ class DashboardPage extends React.Component {
         .then(resp => resp.json())
         .then(data => { 
             this.setState({ 
-                journalEntries: data
+                journalEntries: data,
+                journalEntriesDisplayed: data 
             })
             this.calculateMiles()
             this.calculateRides() 
@@ -64,7 +66,7 @@ class DashboardPage extends React.Component {
     }
         
 
-    debugger 
+
     }
     
 
@@ -151,7 +153,7 @@ class DashboardPage extends React.Component {
     ///APEND NEW TRIP
     appendNewtrip = (tripObj) => {
         this.setState({
-            trips: [tripObj, ...this.state.tripObj]
+            trips: [tripObj, ...this.state.trips]
         })
     }
     
@@ -170,6 +172,7 @@ class DashboardPage extends React.Component {
 
         this.setState({
             journalEntries: [journalEntryObj, ...this.state.journalEntries ],
+            journalEntriesDisplayed: [journalEntryObj, ...this.state.journalEntries ],
             totalMiles: x,
             totalRides: y,
             totalTime: z,
@@ -245,7 +248,42 @@ class DashboardPage extends React.Component {
     }
 
 
+    handleChange = (e) => {
+        console.log("changing....", e.target.value )
+    
+        this.setState({ [e.target.name]: e.target.value });
+
+        this.handleTripFilter(e)
+       
+      };
+
+
+    handleTripFilter = (event) => {
   
+      
+        let newArray = this.state.journalEntries
+        let filteredArray = []
+
+        if(event.target.value === "All"){
+    
+            let filteredArray = newArray
+            this.setState({
+                journalEntriesDisplayed: filteredArray
+            })
+        } else {
+           let filteredArray = newArray.filter( journal => {
+                return journal.trip_id !== null && journal.trip_id === parseInt(event.target.value)   
+        
+        })
+        this.setState({
+            journalEntriesDisplayed: filteredArray
+        })
+        }
+
+
+    }
+
+
 
 
   render() {
@@ -290,12 +328,30 @@ class DashboardPage extends React.Component {
                     <Grid.Column width={4}>
                        <div> 
                        <Card
-                            image='https://react.semantic-ui.com/images/avatar/large/elliot.jpg'
+                            image={this.props.currentUser.img_url}
                             header={this.props.currentUser.first_name + " " +this.props.currentUser.last_name}
                             meta={this.props.currentUser.current_city}
                             description={this.props.currentUser.about_me}
                             extra={extra}
                         />
+                       </div>
+                        <br />
+                        <br/>
+                       <div>
+                       {this.state.trips.length === 0 ? null : 
+                                <Form >
+                                <Form.Field>
+                                <h3>Trip Filter</h3>
+                                <select fluid  name="tripId" placeholder="All" value={this.state.tripId} onChange={this.handleChange}>
+                                    <option value="All">All</option>
+                                    {this.state.trips.map(trip => {
+                                        return <option value={trip.id}>{trip.trip_name}</option>
+                                    })}
+                                </select>
+                                </Form.Field>
+                                </Form>
+                                
+                                }
                        </div>
                         {/* <div>
                             <Button>Edit Profile</Button>
@@ -365,12 +421,13 @@ class DashboardPage extends React.Component {
                                 <h2>Riding History</h2>
                             </Grid.Column>
                             <Grid.Column  width={8}>
-                                <NewTripForm appendNewtrip={this.appendNewtrip} />
-                                <LogRideForm  appendNewJournalEntry={this.appendNewJournalEntry} userId={this.props.userId} />
+    
+                                <NewTripForm appendNewtrip={this.appendNewtrip} userId={this.props.userId} />
+                                <LogRideForm  appendNewJournalEntry={this.appendNewJournalEntry} trips={this.state.trips} currentUser={this.props.currentUser} userId={this.props.userId} />
                             </Grid.Column>
                         </Grid>
                         </div>
-                            <RideLogTable journalEntries={this.state.journalEntries} deleteJournalEntry={this.deleteJournalEntry} />
+                            <RideLogTable journalEntries={this.state.journalEntriesDisplayed} deleteJournalEntry={this.deleteJournalEntry} />
                         
                     </Grid.Column>
             </Grid> 

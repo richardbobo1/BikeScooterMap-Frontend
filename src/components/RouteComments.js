@@ -48,8 +48,7 @@ class RouteComments extends React.Component {
       rating: this.state.rating, 
       comments: this.state.review
     }
-
-    debugger 
+ 
 
     fetch('http://localhost:3000/reviews', {
             method: 'POST',

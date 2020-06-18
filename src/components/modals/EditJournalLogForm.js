@@ -68,26 +68,31 @@ class EditJournalLogForm extends React.Component {
       dollarssaved: this.state.dollarssaved
     }
 
-    console.log("creating edit", journEntryObj)
+    // console.log("creating edit", journEntryObj)
     // fetch("http://localhost:3000/journals", {
-    //   method: 'POST',
+    //   method: 'PATCH',
     //   headers: {"Content-Type": "application/json"},
     //   body: JSON.stringify(journEntryObj)
     //   }).then(res => res.json())
     //   .then( data => {
     //     //user callback function to add new bike route to array and DOM
-    //     this.props.appendNewJournalEntry(data)
+    //     this.props.onJournalEntryEdit(data)
     //     this.setState({
     //       date: "",
     //       duration: "",
     //       distance: "",
     //       difficulty: "",
     //       calories: "",
-    //       notes: "" })
+    //       notes: "",
+    //       replacedcommute: "",
+    //       transportmode: "",
+    //       dollarssaved: "" 
+        
+    //     })
 
 
-    //     //console.log to confirm 
-    //     console.log("Created new bike route", data)
+        //console.log to confirm 
+        // console.log("Created new bike route", data)
         
     // })
 

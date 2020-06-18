@@ -28,7 +28,8 @@ class LogRideForm extends React.Component {
         notes: "",
         replacedcommute: false,
         transportmode: '',
-        dollarssaved: 0
+        dollarssaved: 0,
+        tripId: ""
     }
   }
 
@@ -64,16 +65,16 @@ class LogRideForm extends React.Component {
     let journEntryObj = {
       user_id: this.props.userId,
       date: this.state.date,
-      duration: this.state.duration,
-      distance: this.state.distance,
+      duration: parseInt(this.state.duration),
+      distance: parseInt(this.state.distance),
       difficulty: this.state.difficulty,
-      calories: this.state.calories,
+      calories: parseInt(this.state.calories),
       notes: this.state.notes,
       replacedcommute: this.state.replacedcommute,
       transportmode: this.state.transportmode,
-      dollarssaved: this.state.dollarssaved
+      dollarssaved: this.state.dollarssaved,
+      trip_id: parseInt(this.state.tripId)
     }
-debugger 
 
     fetch("http://localhost:3000/journals", {
       method: 'POST',
@@ -92,7 +93,8 @@ debugger
           notes: "",
           replacedcommute: false, 
           transportmode: '',
-          dollarssaved: 0 
+          dollarssaved: 0,
+          tripId: ""
         })
 
 
@@ -156,6 +158,24 @@ debugger
           <label>Calories</label>
           <input type="text" placeholder="Calories" name="calories" value={this.state.calories} onChange={this.handleChange} />
     </Form.Field>
+
+
+    {this.props.trips.length === 0 ? null : 
+                             
+                                <Form.Field>
+                                <label>Trip</label>
+                                <select fluid id="trip" name="tripId" value={this.state.tripId} onChange={this.handleChange}>
+                                    <option value="">N/A</option>
+                                    {this.props.trips.map(trip => {
+                                        return <option value={trip.id}>{trip.trip_name}</option>
+                                    })}
+                                </select>
+                                </Form.Field>
+                        
+                                
+                                }
+
+
 
     </Form.Group>
 
