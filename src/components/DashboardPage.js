@@ -26,7 +26,7 @@ class DashboardPage extends React.Component {
     }
 
 
-    //modal will be the new route form 
+    //modal will be the new cycling log form 
     showModal = () => {
         this.setState({ show: true });
     };
@@ -133,11 +133,12 @@ class DashboardPage extends React.Component {
         })
     }
 
+    //if rider cycles in place of driving/commuting by public transit, we calculate how much CO2 is saved
+
     calculateCarbonEmission = () => {
         let gramsCarbon = 404   //per mile, avg passenger vehicle, per EPA
         var miles = 0 
         let data = this.state.journalEntries
-        // this.state.journalEntries.map(journal =>  x += journal.distance)
         for (var i=0; i < data.length; i++){
             miles += data[i].distance
         }
@@ -150,7 +151,7 @@ class DashboardPage extends React.Component {
     }
 
 
-    ///APEND NEW TRIP
+    ///APEND NEW TRIP to the array and table of trips listed. 
     appendNewtrip = (tripObj) => {
         this.setState({
             trips: [tripObj, ...this.state.trips]
@@ -160,6 +161,7 @@ class DashboardPage extends React.Component {
 
 
         // APPEND NEW JOURNAL ENTRY 
+        // Updates calculations on the dashboard 
     /////////////////////////////////////
     
     appendNewJournalEntry = (journalEntryObj) => {
@@ -249,24 +251,20 @@ class DashboardPage extends React.Component {
     }
 
 
+    //handles changes as user fills out form
     handleChange = (e) => {
-        console.log("changing....", e.target.value )
-    
         this.setState({ [e.target.name]: e.target.value });
-
         this.handleTripFilter(e)
-       
       };
 
 
+      //handles filters for seeing table of ride logs, filtering down to certain trips 
+      // rather than all rides 
     handleTripFilter = (event) => {
-  
-      
         let newArray = this.state.journalEntries
         let filteredArray = []
 
         if(event.target.value === "All"){
-    
             let filteredArray = newArray
             this.setState({
                 journalEntriesDisplayed: filteredArray
@@ -288,9 +286,6 @@ class DashboardPage extends React.Component {
 
 
   render() {
-
-    
-
 
     const extra = (
         <div>
