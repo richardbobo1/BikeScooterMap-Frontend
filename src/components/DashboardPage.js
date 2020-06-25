@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import { Grid, Search, Form, Card, Icon, Divider, Segment, Button, Modal } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import LogRideForm from "./LogRideForm";

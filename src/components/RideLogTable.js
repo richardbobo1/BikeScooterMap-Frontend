@@ -5,8 +5,6 @@ import ViewJournalLog from './modals/ViewJournalLog'
 import EditJournalLogForm from './modals/EditJournalLogForm'
 
 
-
-
 class RideLogTable extends React.Component {
 
   formatDate = (date) =>{
@@ -39,7 +37,9 @@ class RideLogTable extends React.Component {
 
     <Table.Body>
 
-      { this.props.journalEntries.map( journal => 
+      { 
+      //using an array of journal entries, map through and create a row for each entry 
+      this.props.journalEntries.map( journal => 
             <Table.Row>
             <Table.Cell>{journal.date}</Table.Cell>
             <Table.Cell>{journal.distance} miles</Table.Cell>
@@ -51,7 +51,6 @@ class RideLogTable extends React.Component {
           </Table.Row>
 
       ) 
-      //using an array of journal entries, map through and create a row for each entry 
 
       }
       

@@ -1,19 +1,5 @@
 import React from 'react';
-import { Icon, Form, Checkbox, Button, Header, Image, Modal,  Dropdown, TextArea, Divider } from 'semantic-ui-react'
-
-
-// const options = [
-//     { key: 'e', text: 'Easy', value: 'easy' },
-//     { key: 'm', text: 'Moderate', value: 'moderate' },
-//     { key: 'd', text: 'Difficult', value: 'difficult' },
-//   ]
-
-//   const surfaceOptions = [
-//     { key: 'p', text: 'Paved', value: 'paved' },
-//     { key: 'g', text: 'Gravel', value: 'gravel' },
-//     { key: 'm', text: 'Mixed', value: 'mixed' },
-//   ]
-
+import { Form, Checkbox, Button, Header, Modal,  TextArea, Divider } from 'semantic-ui-react'
 
 
 class LogRideForm extends React.Component {
@@ -42,7 +28,6 @@ class LogRideForm extends React.Component {
   }
 
   handleCancel = () => {
-    //simply closes for edit reservation confirmation form
     this.setState({ open: false })
   }
 
@@ -102,7 +87,7 @@ class LogRideForm extends React.Component {
         console.log("Created new bike route", data)
         
     })
-
+    //closes the modal 
     this.handleCancel()
 
     console.log("jouranl entry obj obj:", journEntryObj)
@@ -110,7 +95,6 @@ class LogRideForm extends React.Component {
 
 
 
-//trigger={<Button className="ui primary button" onClick={this.handleOpenModal} style={{float: "right" }}>New Route</Button>} 
 
   render() {
 

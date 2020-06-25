@@ -1,12 +1,4 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route, 
-  Switch, 
-  NavLink, 
-  Redirect
-} from 'react-router-dom';
 import { Button, Form, Grid, Header, Icon, Image, Message, Segment } from 'semantic-ui-react'
 
 
@@ -21,11 +13,6 @@ export default class Login extends React.Component {
             signIn: true
           };
     }
-
-    componentDidMount(){
-      
-    }
-    
 
 
 
@@ -72,7 +59,6 @@ export default class Login extends React.Component {
 
 
     handleLoginSubmit = () => {
-
       fetch("http://localhost:3000/login", {
           method:"POST",
           headers: {
@@ -86,22 +72,15 @@ export default class Login extends React.Component {
       .then((response) => response.json())
       .then(data => {
 
-        
-
-          console.log("response", data)
           if (data.error_message){
               alert(data.error_message)
           }else {
               localStorage.setItem("token", data.token)
               localStorage.setItem("userId", data.user_data.id) 
- 
-
               this.props.updateCurrentUser(data.user_data)   
               // this.props.login()
               this.props.changeLog()
               window.location = "/"
-
-
 
           }
       })
@@ -122,7 +101,8 @@ export default class Login extends React.Component {
     render() {
 
 
-
+        // conditional checks if user prefers sign in or sign up form and displays accordingly. 
+        
         if(this.state.signIn) {
 
             return (

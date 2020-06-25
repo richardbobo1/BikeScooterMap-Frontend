@@ -2,8 +2,6 @@ import React from 'react'
 import 'semantic-ui-css/semantic.min.css'
 import RouteComments from './RouteComments'
 import {Icon, Button, Container, Header, Grid, Segment, Divider } from 'semantic-ui-react'
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import MapContainer from './MapContainer'
 import RouteDetailMap from './RouteDetailMap'
 import EditRouteDetail from './modals/EditRouteDetail';
 

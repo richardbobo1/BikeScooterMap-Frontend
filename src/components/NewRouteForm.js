@@ -1,18 +1,6 @@
 import React from 'react';
 import { Icon, Button, Header, Image, Modal, Form, Dropdown, TextArea } from 'semantic-ui-react'
 
-// const options = [
-//     { key: 'e', text: 'Easy', value: 'easy' },
-//     { key: 'm', text: 'Moderate', value: 'moderate' },
-//     { key: 'd', text: 'Difficult', value: 'difficult' },
-//   ]
-
-//   const surfaceOptions = [
-//     { key: 'p', text: 'Paved', value: 'paved' },
-//     { key: 'g', text: 'Gravel', value: 'gravel' },
-//     { key: 'm', text: 'Mixed', value: 'mixed' },
-//   ]
-
 
 
 class NewRouteForm extends React.Component {
