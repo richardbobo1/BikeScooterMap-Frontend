@@ -59,7 +59,7 @@ class MapFilterForm extends React.Component {
         <Form.Field>
           <Checkbox
             toggle 
-            label='JUMP Bikes*'
+            label='JUMP Bikes'
             name='checkboxRadioGroup'
             value='jump'
             defaultChecked = {this.props.displayJB} 
@@ -68,7 +68,24 @@ class MapFilterForm extends React.Component {
         
           />
         </Form.Field>
+
+
+        <Form.Field>
+          <Checkbox
+            toggle 
+            label='SKIP Scooters'
+            name='checkboxRadioGroup'
+            value='skip'
+            defaultChecked = {this.props.displaySKIP} 
+            // checked={this.state.value === 'that'}
+            onChange={(event) => this.props.changeFilter("skip")}
+        
+          />
+        </Form.Field>
        
+
+
+
       </Form>
    
       <br />

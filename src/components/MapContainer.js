@@ -201,6 +201,28 @@ class MapContainer extends React.Component {
                   }
 
 
+                { 
+                   
+                   this.props.skipscooters.map(bike => (
+
+                           <Marker position={{ lat: bike.lat, lng: bike.lon }}        
+                                id={bike.bike_id}                     
+                               onClick={() => this.setSelectedStation()} 
+                               icon={require('../assets/SKIPscooter.png')}
+                               onClick={this.onMarkerClick}
+                               markerProps={bike}
+                               name="skip"
+                                appleUrl="https://apps.apple.com/us/app/skip-scooters/id1296115307"
+                                androidUrl="https://play.google.com/store/apps/details?id=com.waybots&hl=en_US"
+                               url="https://rideskip.com/"
+                               >
+
+                           </Marker>)) 
+                  }
+
+
+
+
                             <InfoWindow
                                 marker={this.state.activeMarker}
                                 visible={this.state.showingInfoWindow}>

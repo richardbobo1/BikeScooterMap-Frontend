@@ -16,7 +16,9 @@ class MapPage extends React.Component {
             jumpbikes: [],
             displayCB: true,
             displayHB: true,
-            displayJB: true 
+            displayJB: true, 
+            displaySKIP: true,
+            skipscooters: []
           }
     }
 
@@ -54,6 +56,15 @@ class MapPage extends React.Component {
         })
 
 
+
+        //fetch skip scooters 
+        fetch("http://localhost:3000/companies/skipscooters")
+        .then(resp => resp.json())
+        .then(data => { 
+            this.setState({ skipscooters: data.bikes.filter(bike => bike.is_reserved === 0 && bike.is_disabled === 0 ) })
+        })
+
+
     }
 
     onDisplayCapBikes = () => {
@@ -80,6 +91,16 @@ class MapPage extends React.Component {
         })
     }
 
+    onDisplaySKIPscooters = () => {
+        fetch("http://localhost:3000/companies/skipscooters")
+        .then(resp => resp.json())
+        .then(data => { 
+            this.setState({ skipscooters: data.bikes.filter(bike => bike.is_reserved === 0 && bike.is_disabled === 0 ) })
+        })
+    }
+
+
+
 
    handleRefreshBikes = (event) => {
        event.preventDefault();
@@ -92,6 +113,8 @@ class MapPage extends React.Component {
         this.setState({capbikes: [] });   
         console.log("refreshing capbike")
         this.onDisplayCapBikes() };
+
+
    }
 
 
@@ -131,6 +154,17 @@ class MapPage extends React.Component {
                 displayHB: !this.state.displayHB
                 })
         }
+        else if (company === "skip" && this.state.displaySKIP === true ){
+            this.setState({
+                displaySKIP: !this.state.displaySKIP,
+                skipscooters: []
+                })
+        } else if (company === "skip" && this.state.displaySKIP === false){
+            this.onDisplaySKIPscooters();
+            this.setState({
+                displaySKIP: !this.state.displaySKIP
+                })
+        }
 
     }
 
@@ -151,6 +185,7 @@ class MapPage extends React.Component {
                     <Grid.Column width={3}>
                         <div className="map-form">
                             <MapFilterForm displayCB={this.state.displayCB} displayJB={this.state.displayJB}
+                                displaySKIP={this.state.displaySKIP}
                                 displayHB={this.state.displayHB} changeFilter={this.changeFilter}   handleRefreshBikes={this.handleRefreshBikes}
                                 />
                         </div>
@@ -168,7 +203,8 @@ class MapPage extends React.Component {
 
 
                         <div className="map">
-                        <MapContainer stations={this.state.capbikes} capbikestatus={this.state.capbikestatus} hellbizbikes={this.state.hellbizbikes} jumpbikes={this.state.jumpbikes} />
+                        <MapContainer stations={this.state.capbikes} capbikestatus={this.state.capbikestatus} hellbizbikes={this.state.hellbizbikes} 
+                                jumpbikes={this.state.jumpbikes} skipscooters={this.state.skipscooters} />
                         </div>
 
                         </Segment>
