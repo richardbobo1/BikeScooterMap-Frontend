@@ -221,6 +221,28 @@ class MapContainer extends React.Component {
                   }
 
 
+{ 
+                   
+                   this.props.spinscooters.map(bike => (
+
+                           <Marker position={{ lat: bike.lat, lng: bike.lon }}        
+                                id={bike.bike_id}                     
+                               onClick={() => this.setSelectedStation()} 
+                               icon={require('../assets/spin-scooter.png')}
+                               onClick={this.onMarkerClick}
+                               markerProps={bike}
+                               name="spin"
+                                appleUrl="https://apps.apple.com/us/app/spin-electric-scooters/id1241808993"
+                                androidUrl="https://play.google.com/store/apps/details?id=pm.spin&hl=en_US"
+                               url="https://www.spin.app/"
+                               >
+
+                           </Marker>)) 
+                  }
+
+
+
+
 
 
                             <InfoWindow

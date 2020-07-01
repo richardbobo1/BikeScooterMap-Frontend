@@ -84,7 +84,18 @@ class MapFilterForm extends React.Component {
         </Form.Field>
        
 
-
+        <Form.Field>
+          <Checkbox
+            toggle 
+            label='SPIN Scooters'
+            name='checkboxRadioGroup'
+            value='spin'
+            defaultChecked = {this.props.displaySPIN} 
+            // checked={this.state.value === 'that'}
+            onChange={(event) => this.props.changeFilter("spin")}
+        
+          />
+        </Form.Field>
 
       </Form>
    
