@@ -221,7 +221,7 @@ class MapContainer extends React.Component {
                   }
 
 
-{ 
+                { 
                    
                    this.props.spinscooters.map(bike => (
 
@@ -241,7 +241,24 @@ class MapContainer extends React.Component {
                   }
 
 
+                { 
+                   
+                   this.props.razorscooters.map(bike => (
 
+                           <Marker position={{ lat: bike.lat, lng: bike.lon }}        
+                                id={bike.bike_id}                     
+                               onClick={() => this.setSelectedStation()} 
+                               icon={require('../assets/razor-scooter.png')}
+                               onClick={this.onMarkerClick}
+                               markerProps={bike}
+                               name="spin"
+                                appleUrl="https://apps.apple.com/us/app/razor-scooter-share/id1414149130"
+                                androidUrl="https://play.google.com/store/apps/details?id=com.razor.razor&hl=en_US"
+                               url="https://www.razor.com/share/"
+                               >
+
+                           </Marker>)) 
+                  }
 
 
 

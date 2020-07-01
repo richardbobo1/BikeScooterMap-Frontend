@@ -19,6 +19,7 @@ class MapPage extends React.Component {
             displayJB: true, 
             displaySKIP: true,
             displaySPIN: true,
+            displayRAZOR: true,
             skipscooters: [],
             spinscooters: [],
             razorscooters: [],
@@ -146,7 +147,7 @@ class MapPage extends React.Component {
         fetch("http://localhost:3000/companies/razorscooters")
         .then(resp => resp.json())
         .then(data => { 
-            this.setState({ razorscooters: data.bikes.filter(bike => bike.is_reserved === 0 && bike.is_disabled === 0 ) })
+            this.setState({ razorscooters: data.data.bikes.filter(bike => bike.is_reserved === 0 && bike.is_disabled === 0 ) })
         })
     }
     //lyft
@@ -154,7 +155,7 @@ class MapPage extends React.Component {
         fetch("http://localhost:3000/companies/lyftscooters")
         .then(resp => resp.json())
         .then(data => { 
-            this.setState({ lyftscooters: data.bikes.filter(bike => bike.is_reserved === 0 && bike.is_disabled === 0 ) })
+            this.setState({ lyftscooters: data.data.bikes.filter(bike => bike.is_reserved === 0 && bike.is_disabled === 0 ) })
         })
     }
     //bird
@@ -162,7 +163,7 @@ class MapPage extends React.Component {
         fetch("http://localhost:3000/companies/birdscooters")
         .then(resp => resp.json())
         .then(data => { 
-            this.setState({ birdscooters: data.bikes.filter(bike => bike.is_reserved === false && bike.is_disabled === false ) })
+            this.setState({ birdscooters: data.data.bikes.filter(bike => bike.is_reserved === false && bike.is_disabled === false ) })
         })
     }
 
@@ -242,6 +243,17 @@ class MapPage extends React.Component {
                 displaySPIN: !this.state.displaySPIN
                 })
         }
+        else if (company === "razor" && this.state.displayRAZOR === true ){
+            this.setState({
+                displayRAZOR: !this.state.displayRAZOR,
+                razorscooters: []
+                })
+        } else if (company === "razor" && this.state.displayRAZOR === false){
+            this.onDisplayRAZORscooters();
+            this.setState({
+                displayRAZOR: !this.state.displayRAZOR
+                })
+        }
 
     }
 
@@ -264,7 +276,9 @@ class MapPage extends React.Component {
                             <MapFilterForm displayCB={this.state.displayCB} displayJB={this.state.displayJB}
                                 displaySKIP={this.state.displaySKIP}
                                 displaySPIN={this.state.displaySPIN}
-                                displayHB={this.state.displayHB} changeFilter={this.changeFilter}   
+                                displayHB={this.state.displayHB} 
+                                displayRAZOR={this.state.displayRAZOR}
+                                changeFilter={this.changeFilter}   
                                 handleRefreshBikes={this.handleRefreshBikes}
                                 />
                         </div>
@@ -284,6 +298,7 @@ class MapPage extends React.Component {
                         <div className="map">
                         <MapContainer stations={this.state.capbikes} capbikestatus={this.state.capbikestatus} hellbizbikes={this.state.hellbizbikes} 
                                 jumpbikes={this.state.jumpbikes} skipscooters={this.state.skipscooters}
+                                razorscooters={this.state.razorscooters}
                                 spinscooters={this.state.spinscooters} />
                         </div>
 
