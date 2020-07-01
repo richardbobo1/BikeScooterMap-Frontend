@@ -251,7 +251,7 @@ class MapContainer extends React.Component {
                                icon={require('../assets/razor-scooter.png')}
                                onClick={this.onMarkerClick}
                                markerProps={bike}
-                               name="spin"
+                               name="razor"
                                 appleUrl="https://apps.apple.com/us/app/razor-scooter-share/id1414149130"
                                 androidUrl="https://play.google.com/store/apps/details?id=com.razor.razor&hl=en_US"
                                url="https://www.razor.com/share/"

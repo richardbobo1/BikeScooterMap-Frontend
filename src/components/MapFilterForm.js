@@ -33,7 +33,7 @@ class MapFilterForm extends React.Component {
         <Form.Field>
           <Checkbox
             toggle 
-            label='CapBike Share'
+            label='Cap BikeShare'
             name='checkboxRadioGroup'
             value='cap'
             defaultChecked = {this.props.displayCB}
@@ -46,7 +46,7 @@ class MapFilterForm extends React.Component {
         <Form.Field>
           <Checkbox
             toggle 
-            label='Helbiz Bikes'
+            label='Helbiz'
             name='checkboxRadioGroup'
             value='helbiz'
             defaultChecked = {this.props.displayHB}
@@ -59,7 +59,7 @@ class MapFilterForm extends React.Component {
         <Form.Field>
           <Checkbox
             toggle 
-            label='JUMP Bikes'
+            label='JUMP'
             name='checkboxRadioGroup'
             value='jump'
             defaultChecked = {this.props.displayJB} 
@@ -77,7 +77,7 @@ class MapFilterForm extends React.Component {
         <Form.Field>
           <Checkbox
             toggle 
-            label='SKIP Scooters'
+            label='SKIP'
             name='checkboxRadioGroup'
             value='skip'
             defaultChecked = {this.props.displaySKIP} 
@@ -91,7 +91,7 @@ class MapFilterForm extends React.Component {
         <Form.Field>
           <Checkbox
             toggle 
-            label='SPIN Scooters'
+            label='SPIN'
             name='checkboxRadioGroup'
             value='spin'
             defaultChecked = {this.props.displaySPIN} 
@@ -104,7 +104,7 @@ class MapFilterForm extends React.Component {
         <Form.Field>
           <Checkbox
             toggle 
-            label='RAZOR Scooters'
+            label='RAZOR'
             name='checkboxRadioGroup'
             value='razor'
             defaultChecked = {this.props.displayRAZOR} 
@@ -116,7 +116,7 @@ class MapFilterForm extends React.Component {
         <Form.Field>
           <Checkbox
             toggle 
-            label='LYFT Scooters'
+            label='LYFT'
             name='checkboxRadioGroup'
             value='lyft'
             defaultChecked = {this.props.displayLYFT} 
