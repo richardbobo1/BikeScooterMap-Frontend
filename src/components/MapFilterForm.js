@@ -28,7 +28,7 @@ class MapFilterForm extends React.Component {
   
         <Form>
         <Form.Field>
-          Companies:
+          Bikes:
         </Form.Field>
         <Form.Field>
           <Checkbox
@@ -71,6 +71,10 @@ class MapFilterForm extends React.Component {
 
 
         <Form.Field>
+          Scooters:
+        </Form.Field>
+
+        <Form.Field>
           <Checkbox
             toggle 
             label='SKIP Scooters'
@@ -104,11 +108,23 @@ class MapFilterForm extends React.Component {
             name='checkboxRadioGroup'
             value='razor'
             defaultChecked = {this.props.displayRAZOR} 
-            // checked={this.state.value === 'that'}
             onChange={(event) => this.props.changeFilter("razor")}
         
           />
         </Form.Field>
+
+        <Form.Field>
+          <Checkbox
+            toggle 
+            label='LYFT Scooters'
+            name='checkboxRadioGroup'
+            value='lyft'
+            defaultChecked = {this.props.displayLYFT} 
+            onChange={(event) => this.props.changeFilter("lyft")}
+        
+          />
+        </Form.Field>
+
 
 
 

@@ -20,6 +20,7 @@ class MapPage extends React.Component {
             displaySKIP: true,
             displaySPIN: true,
             displayRAZOR: true,
+            displayLYFT: true,
             skipscooters: [],
             spinscooters: [],
             razorscooters: [],
@@ -254,6 +255,17 @@ class MapPage extends React.Component {
                 displayRAZOR: !this.state.displayRAZOR
                 })
         }
+        else if (company === "lyft" && this.state.displayLYFT === true ){
+            this.setState({
+                displayLYFT: !this.state.displayLYFT,
+                lyftscooters: []
+                })
+        } else if (company === "lyft" && this.state.displayLYFT === false){
+            this.onDisplayLYFTscooters();
+            this.setState({
+                displayLYFT: !this.state.displayLYFT
+                })
+        }
 
     }
 
@@ -278,6 +290,7 @@ class MapPage extends React.Component {
                                 displaySPIN={this.state.displaySPIN}
                                 displayHB={this.state.displayHB} 
                                 displayRAZOR={this.state.displayRAZOR}
+                                displayLYFT={this.state.displayLYFT}
                                 changeFilter={this.changeFilter}   
                                 handleRefreshBikes={this.handleRefreshBikes}
                                 />
@@ -299,6 +312,7 @@ class MapPage extends React.Component {
                         <MapContainer stations={this.state.capbikes} capbikestatus={this.state.capbikestatus} hellbizbikes={this.state.hellbizbikes} 
                                 jumpbikes={this.state.jumpbikes} skipscooters={this.state.skipscooters}
                                 razorscooters={this.state.razorscooters}
+                                lyftscooters={this.state.lyftscooters}
                                 spinscooters={this.state.spinscooters} />
                         </div>
 
