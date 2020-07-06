@@ -131,6 +131,7 @@ class MapContainer extends React.Component {
 
 
 
+
     return (
             <div className="map">
                 <Map google={this.props.google} zoom={14}
@@ -181,7 +182,7 @@ class MapContainer extends React.Component {
                         }
 
 
-{ 
+{/* { 
                    
                    this.props.jumpbikes.map(bike => (
 
@@ -198,7 +199,7 @@ class MapContainer extends React.Component {
                                >
 
                            </Marker>)) 
-                  }
+                  } */}
 
 
                 { 
@@ -282,7 +283,7 @@ class MapContainer extends React.Component {
                   }
 
 
-{ 
+                { 
                    
                    this.props.birdscooters.map(bike => (
 
@@ -296,6 +297,26 @@ class MapContainer extends React.Component {
                                 appleUrl="https://apps.apple.com/us/app/bird-be-free-enjoy-the-ride/id1260842311"
                                 androidUrl="https://play.google.com/store/apps/details?id=co.bird.android&hl=en_US"
                                url="https://www.bird.co/"
+                               >
+
+                           </Marker>)) 
+                  }
+
+
+{ 
+                   
+                   this.props.limescooters.map(bike =>  (
+                           
+                           <Marker position={{ lat: bike.lat, lng: bike.lon }}        
+                                id={bike.bike_id}                     
+                               onClick={() => this.setSelectedStation()} 
+                               icon={require('../assets/lime-logo.png')}
+                               onClick={this.onMarkerClick}
+                               markerProps={bike}
+                               name="lime"
+                                appleUrl="https://apps.apple.com/us/app/lime-your-ride-anytime/id1199780189"
+                                androidUrl="https://play.google.com/store/apps/details?id=com.limebike&hl=en_US"
+                               url="https://www.li.me"
                                >
 
                            </Marker>)) 

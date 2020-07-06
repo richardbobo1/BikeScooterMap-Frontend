@@ -55,8 +55,9 @@ class MapFilterForm extends React.Component {
        
           />
         </Form.Field>
-
-        <Form.Field>
+{/* 
+        JUMP BIKES TEMPORARILY UNAVAILABLE */}
+        {/* <Form.Field>
           <Checkbox
             toggle 
             label='JUMP'
@@ -67,12 +68,27 @@ class MapFilterForm extends React.Component {
             onChange={(event) => this.props.changeFilter("jump")}
         
           />
-        </Form.Field>
+        </Form.Field> */}
 
 
         <Form.Field>
           Scooters:
         </Form.Field>
+
+
+        <Form.Field>
+          <Checkbox
+            toggle 
+            label='LIME'
+            name='checkboxRadioGroup'
+            value='lime'
+            defaultChecked = {this.props.displayLIME} 
+            onChange={(event) => this.props.changeFilter("lime")}
+        
+          />
+        </Form.Field>
+
+
 
         <Form.Field>
           <Checkbox

@@ -22,11 +22,13 @@ class MapPage extends React.Component {
             displayRAZOR: true,
             displayLYFT: true,
             displayBIRD: true,
+            displayLIME: true,
             skipscooters: [],
             spinscooters: [],
             razorscooters: [],
             lyftscooters: [],
-            birdscooters: []
+            birdscooters: [],
+            limescooters: []
           }
     }
 
@@ -57,11 +59,11 @@ class MapPage extends React.Component {
         })
 
         //fetch jumpikes
-        fetch("http://localhost:3000/companies/jumpbikes")
-        .then(resp => resp.json())
-        .then(data => { 
-            this.setState({ jumpbikes: data.data.bikes})
-        })
+        // fetch("http://localhost:3000/companies/jumpbikes")
+        // .then(resp => resp.json())
+        // .then(data => { 
+        //     this.setState({ jumpbikes: data.data.bikes})
+        // })
 
 
 
@@ -100,6 +102,13 @@ class MapPage extends React.Component {
              this.setState({ birdscooters: data.data.bikes.filter(bike => bike.is_reserved === false && bike.is_disabled === false ) })
          })
 
+        // LIME scooters
+        fetch("http://localhost:3000/companies/limescooters")
+        .then(resp => resp.json())
+        .then(data => { 
+            this.setState({ limescooters: data.data.bikes.filter(bike => bike.is_reserved === 0 && bike.is_disabled === 0 ) })
+        })
+
 
 
     }
@@ -120,13 +129,13 @@ class MapPage extends React.Component {
         })
     }
 
-    onDisplayJumpBikes = () => {
-        fetch("http://localhost:3000/companies/jumpbikes")
-        .then(resp => resp.json())
-        .then(data => { 
-            this.setState({ jumpbikes: data.data.bikes})
-        })
-    }
+    // onDisplayJumpBikes = () => {
+    //     fetch("http://localhost:3000/companies/jumpbikes")
+    //     .then(resp => resp.json())
+    //     .then(data => { 
+    //         this.setState({ jumpbikes: data.data.bikes})
+    //     })
+    // }
 
     onDisplaySKIPscooters = () => {
         fetch("http://localhost:3000/companies/skipscooters")
@@ -168,6 +177,17 @@ class MapPage extends React.Component {
             this.setState({ birdscooters: data.data.bikes.filter(bike => bike.is_reserved === false && bike.is_disabled === false ) })
         })
     }
+
+    //lime
+    onDisplayLIMEscooters = () => {
+        fetch("http://localhost:3000/companies/limescooters")
+        .then(resp => resp.json())
+        .then(data => { 
+          
+            this.setState({ limescooters: data.data.bikes.filter(bike => bike.is_reserved === 0 && bike.is_disabled === 0 ) })
+        })
+    }
+
 
 
 
@@ -278,6 +298,17 @@ class MapPage extends React.Component {
                 displayBIRD: !this.state.displayBIRD
                 })
         }
+        else if (company === "lime" && this.state.displayLIME === true ){
+            this.setState({
+                displayLIME: !this.state.displayLIME,
+                limescooters: []
+                })
+        } else if (company === "lime" && this.state.displayLIME === false){
+            this.onDisplayLIMEscooters();
+            this.setState({
+                displayLIME: !this.state.displayLIME
+                })
+        }
 
     }
 
@@ -304,6 +335,7 @@ class MapPage extends React.Component {
                                 displayRAZOR={this.state.displayRAZOR}
                                 displayLYFT={this.state.displayLYFT}
                                 displayBIRD={this.state.displayBIRD}
+                                displayLIME={this.state.displayLIME}
                                 changeFilter={this.changeFilter}   
                                 handleRefreshBikes={this.handleRefreshBikes}
                                 />
@@ -323,11 +355,15 @@ class MapPage extends React.Component {
 
                         <div className="map">
                         <MapContainer stations={this.state.capbikes} capbikestatus={this.state.capbikestatus} hellbizbikes={this.state.hellbizbikes} 
-                                jumpbikes={this.state.jumpbikes} skipscooters={this.state.skipscooters}
+                               skipscooters={this.state.skipscooters}
                                 razorscooters={this.state.razorscooters}
                                 lyftscooters={this.state.lyftscooters}
                                 birdscooters={this.state.birdscooters}
-                                spinscooters={this.state.spinscooters} />
+                                limescooters={this.state.limescooters}
+                                spinscooters={this.state.spinscooters} 
+                                // jumpbikes={this.state.jumpbikes} 
+                                
+                                />
                         </div>
 
                         </Segment>
