@@ -125,6 +125,17 @@ class MapFilterForm extends React.Component {
           />
         </Form.Field>
 
+        <Form.Field>
+          <Checkbox
+            toggle 
+            label='BIRD'
+            name='checkboxRadioGroup'
+            value='bird'
+            defaultChecked = {this.props.displayBIRD} 
+            onChange={(event) => this.props.changeFilter("bird")}
+        
+          />
+        </Form.Field>
 
 
 

@@ -262,7 +262,7 @@ class MapContainer extends React.Component {
 
 
 
-{ 
+                { 
                    
                    this.props.lyftscooters.map(bike => (
 
@@ -281,6 +281,25 @@ class MapContainer extends React.Component {
                            </Marker>)) 
                   }
 
+
+{ 
+                   
+                   this.props.birdscooters.map(bike => (
+
+                           <Marker position={{ lat: bike.lat, lng: bike.lon }}        
+                                id={bike.bike_id}                     
+                               onClick={() => this.setSelectedStation()} 
+                               icon={require('../assets/bird-scooter.png')}
+                               onClick={this.onMarkerClick}
+                               markerProps={bike}
+                               name="bird"
+                                appleUrl="https://apps.apple.com/us/app/bird-be-free-enjoy-the-ride/id1260842311"
+                                androidUrl="https://play.google.com/store/apps/details?id=co.bird.android&hl=en_US"
+                               url="https://www.bird.co/"
+                               >
+
+                           </Marker>)) 
+                  }
 
 
                             <InfoWindow
