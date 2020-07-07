@@ -6,7 +6,7 @@ class Footer extends React.Component {
     return (
       <footer id="footer">
         <div className="footer">
-        <div className="footer-text"> <Icon name="bicycle" />DC Ridr © 2020</div>
+        <div className="footer-text"> <Icon name="map marker alternate" />DC BikeScooter Map © 2020</div>
         </div>
         </footer>
         )
