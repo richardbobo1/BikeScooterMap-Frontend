@@ -1,68 +1,55 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+![DC BikeScooter Map](/src/assets/preview-screenshot.png)
 
-In the project directory, you can run:
+*DC BikeScooter Map is an application built using Ruby on Rails for the backend and JavaScript for the frontend.*
 
-### `yarn start`
+DC BikeScooter Map was built to provide a centralized map for locating shared bike and scooters in DC. 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Summary 
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+DC BikeScooter Map is an app where uses can locate bike or scooters nearby. Once they find a bike or scooter that they want to reserve, the user can click the logo marker and follow the link to the appropriate app in order to complete their reservation. The users can toggle the menu of companies should they have preference of seeing the companies they prefer. Users who want to check docks vs. bike availability for Capital Bikeshare stations can click the station market and see review availability. 
 
-### `yarn test`
+The number one benefit of using this app is the ability to aggregate all bike share data onto one app rather than switching between apps to find the closest available bike or scooter. 
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* A user has the ability to:
+     * Create, update, and delete a user account
+     * Toggle which bike and scooters that would like to see on the map
+     * View company and station details by clicking on a map marker
+     * Refresh the map for latest available bikes/scooters and their location 
+     
 
-### `yarn build`
+## Demo Login Account
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+If you do not wish to sign up and create your own account to use DC BikeScooter Map, but would like to demo
+the application, you may use the following login information:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+> **Username:** jenny
+> **Password:** password
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Backend Access
 
-### `yarn eject`
+This application should be used along with the backend repo which can be found here: 
+* https://github.com/richardbobo1/BikeScooterMap-Backend
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## APIs Used:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* Google Maps JavaScript API
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+* Capital Bikeshare
 
-## Learn More
+* Lime Scooters
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* JUMP Bikes & Scooters
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Instructions
+* Clone down the Backend Repo and follow the backend Readme instructions first!
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+* Run npm install
 
-### Analyzing the Bundle Size
+* Run npm start
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+* Allow React to run on port 3001 (the backend repo should be running on port:3000).
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+* Open http://localhost:3001

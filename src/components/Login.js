@@ -111,7 +111,7 @@ export default class Login extends React.Component {
                  <Grid textAlign='center' style={{ height: '100vh', margin: "200px 0px 0px 0px" }}  >
                      <Grid.Column style={{ maxWidth: 450 }}>
                      <Header as='h2' color='blue' textAlign='center'>
-                     <Icon name='bicycle' /> Log-in to your account
+                     <Icon name='map marker alternate' /> Log-in to your account
                      </Header>
 
                      <Form className="ui form" onSubmit={this.handleLoginSubmit} size='large'>
@@ -149,7 +149,7 @@ export default class Login extends React.Component {
                     <Grid textAlign='center' style={{ height: '20vh', margin: "200px" }} >
                     <Grid.Column style={{ maxWidth: 450 }}>
                     <Header as='h2' color='blue' textAlign='center'>
-                    <Icon name='bicycle' /> Create Your Account!
+                    <Icon name='map marker alternate' size="small" /> Create Your Account!
                     </Header>
 
                     <Form className="ui form" onSubmit={this.onSignUp} size='large'>
